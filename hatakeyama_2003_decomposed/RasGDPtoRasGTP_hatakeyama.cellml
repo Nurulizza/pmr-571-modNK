@@ -1,0 +1,124 @@
+<?xml version='1.0'?>
+<model name="RasGDPtoRasGTP_hatakeyama" xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#">
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="um">
+        <unit prefix="micro" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nm"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nm"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <component name="RasGDPtoRasGTP">
+        <variable name="time" public_interface="in" units="second"/>
+        <!-- Parameters-->
+        <variable name="kf11" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k11" public_interface="in" units="nm"/>
+        <variable name="V12" public_interface="in" units="flux"/>
+        <variable name="k12" public_interface="in" units="nm"/>
+        <!-- Variables-->
+        <variable name="ShGS" public_interface="in" units="nm"/>
+        <variable name="RasGTP" public_interface="in" units="nm"/>
+        <variable name="RasGDP" public_interface="in" units="nm"/>
+        <!-- Equations-->
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>RasGDP</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <apply>
+                                <minus/>
+                                <ci>kf11</ci>
+                            </apply>
+                            <ci>ShGS</ci>
+                            <ci>RasGDP</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <ci>k11</ci>
+                            <ci>RasGDP</ci>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>V12</ci>
+                            <ci>RasGTP</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <ci>k12</ci>
+                            <ci>RasGTP</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>RasGTP</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>kf11</ci>
+                            <ci>ShGS</ci>
+                            <ci>RasGDP</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <ci>k11</ci>
+                            <ci>RasGDP</ci>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>V12</ci>
+                            <ci>RasGTP</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <ci>k12</ci>
+                            <ci>RasGTP</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

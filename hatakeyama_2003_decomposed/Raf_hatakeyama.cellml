@@ -1,0 +1,136 @@
+<?xml version='1.0'?>
+<model name="Raf_hatakeyama" xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#">
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="um">
+        <unit prefix="micro" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nm"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nm"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <component name="RAF">
+        <variable name="time" public_interface="in" units="s"/>
+        <!-- Parameters-->
+        <variable name="kf13" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k13" public_interface="in" units="nm"/>
+        <variable name="kf14" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k14" public_interface="in" units="nm"/>
+        <!-- Variables-->
+        <variable name="RasGTP" public_interface="in" units="nm"/>
+        <variable name="Akt_PIPP" public_interface="in" units="nm"/>
+        <variable name="RAFstar" public_interface="in" units="nm"/>
+        <variable name="E" public_interface="in" units="nm"/>
+        <variable name="RAF" public_interface="in" units="nm"/>
+        <variable name="RAFstar" public_interface="in" units="nm"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>RAF</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>kf14</ci>
+                            <apply>
+                                <plus/>
+                                <ci>Akt_PIPP</ci>
+                                <ci>E</ci>
+                            </apply>
+                            <ci>RAFstar</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <ci>k14</ci>
+                            <ci>RAFstar</ci>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>kf13</ci>
+                            <ci>RasGTP</ci>
+                            <ci>RAF</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <ci>k13</ci>
+                            <ci>RAF</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>RAFstar</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <apply>
+                                <minus/>
+                                <ci>kf14</ci>
+                            </apply>
+                            <apply>
+                                <plus/>
+                                <ci>Akt_PIPP</ci>
+                                <ci>E</ci>
+                            </apply>
+                            <ci>RAFstar</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <ci>k14</ci>
+                            <ci>RAFstar</ci>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>kf13</ci>
+                            <ci>RasGTP</ci>
+                            <ci>RAF</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <ci>k13</ci>
+                            <ci>RAF</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

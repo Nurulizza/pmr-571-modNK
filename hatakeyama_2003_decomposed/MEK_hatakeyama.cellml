@@ -1,0 +1,735 @@
+<?xml version='1.0'?>
+<model name="MEK_hatakeyama" xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#">
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="um">
+        <unit prefix="micro" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nm"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nm"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <component name="RAF">
+        <variable name="time" public_interface="in" units="s"/>
+        <!-- Parameters-->
+        <variable name="kf13" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k13" public_interface="in" units="nm"/>
+        <variable name="kf14" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k14" public_interface="in" units="nm"/>
+        <!-- Variables-->
+        <variable name="RasGTP" public_interface="in" units="nm"/>
+        <variable name="Akt_PIPP" public_interface="in" units="nm"/>
+        <variable name="RAF_star" public_interface="in" units="nm"/>
+        <variable name="E" public_interface="in" units="nm"/>
+        <variable name="RAF" public_interface="in" units="nm"/>
+        <variable name="RAF_star" private_interface="out" public_interface="in" units="nm"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>RAF</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>kf14</ci>
+                            <apply>
+                                <plus/>
+                                <ci>Akt_PIPP</ci>
+                                <ci>E</ci>
+                            </apply>
+                            <ci>RAF_star</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <ci>k14</ci>
+                            <ci>RAF_star</ci>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>kf13</ci>
+                            <ci>RasGTP</ci>
+                            <ci>RAF</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <ci>k13</ci>
+                            <ci>RAF</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>RAF_star</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <apply>
+                                <minus/>
+                                <ci>kf14</ci>
+                            </apply>
+                            <apply>
+                                <plus/>
+                                <ci>Akt_PIPP</ci>
+                                <ci>E</ci>
+                            </apply>
+                            <ci>RAF_star</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <ci>k14</ci>
+                            <ci>RAF_star</ci>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>kf13</ci>
+                            <ci>RasGTP</ci>
+                            <ci>RAF</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <ci>k13</ci>
+                            <ci>RAF</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="MEK">
+        <variable name="time" public_interface="in" units="s"/>
+        <!-- Parameters-->
+        <variable name="kf15" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k15" public_interface="in" units="nm"/>
+        <variable name="kf16" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k16" public_interface="in" units="nm"/>
+        <variable name="kf17" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k17" public_interface="in" units="nm"/>
+        <variable name="kf18" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k18" public_interface="in" units="nm"/>
+        <variable name="k31" public_interface="in" units="nm"/>
+        <variable name="k33" public_interface="in" units="nm"/>
+        <!-- Variables-->
+        <variable name="RAF_star" private_interface="in" public_interface="in" units="nm"/>
+        <variable name="MEKPP" private_interface="out" public_interface="in" units="nm"/>
+        <variable name="PP2A" public_interface="in" units="nm"/>
+        <variable name="MEKP" private_interface="out" public_interface="in" units="nm"/>
+        <variable name="MEK" public_interface="in" units="nm"/>
+        <variable name="Akt_PIP" public_interface="in" units="nm"/>
+        <variable name="Akt_PIPP" public_interface="in" units="nm"/>
+        <variable initial_value="1" name="one" units="dimensionless"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>MEK</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <apply>
+                                <minus/>
+                                <ci>kf15</ci>
+                            </apply>
+                            <ci>RAF_star</ci>
+                            <ci>MEK</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <apply>
+                                <times/>
+                                <ci>k15</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>one</ci>
+                                    <apply>
+                                        <divide/>
+                                        <ci>MEKP</ci>
+                                        <ci>k17</ci>
+                                    </apply>
+                                </apply>
+                            </apply>
+                            <ci>MEK</ci>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>kf16</ci>
+                            <ci>PP2A</ci>
+                            <ci>MEKP</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <apply>
+                                <times/>
+                                <ci>k16</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>one</ci>
+                                    <apply>
+                                        <divide/>
+                                        <ci>MEKPP</ci>
+                                        <ci>k18</ci>
+                                    </apply>
+                                    <apply>
+                                        <divide/>
+                                        <ci>Akt_PIP</ci>
+                                        <ci>k31</ci>
+                                    </apply>
+                                    <apply>
+                                        <divide/>
+                                        <ci>Akt_PIPP</ci>
+                                        <ci>k33</ci>
+                                    </apply>
+                                </apply>
+                            </apply>
+                            <ci>MEKP</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>MEKP</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <minus/>
+                            <apply>
+                                <divide/>
+                                <apply>
+                                    <times/>
+                                    <ci>kf15</ci>
+                                    <ci>RAF_star</ci>
+                                    <ci>MEK</ci>
+                                </apply>
+                                <apply>
+                                    <plus/>
+                                    <apply>
+                                        <times/>
+                                        <ci>k15</ci>
+                                        <apply>
+                                            <plus/>
+                                            <ci>one</ci>
+                                            <apply>
+                                                <divide/>
+                                                <ci>MEKP</ci>
+                                                <ci>k17</ci>
+                                            </apply>
+                                        </apply>
+                                    </apply>
+                                    <ci>MEK</ci>
+                                </apply>
+                            </apply>
+                            <apply>
+                                <divide/>
+                                <apply>
+                                    <times/>
+                                    <ci>kf16</ci>
+                                    <ci>PP2A</ci>
+                                    <ci>MEKP</ci>
+                                </apply>
+                                <apply>
+                                    <plus/>
+                                    <apply>
+                                        <times/>
+                                        <ci>k16</ci>
+                                        <apply>
+                                            <plus/>
+                                            <ci>one</ci>
+                                            <apply>
+                                                <divide/>
+                                                <ci>MEKPP</ci>
+                                                <ci>k18</ci>
+                                            </apply>
+                                            <apply>
+                                                <divide/>
+                                                <ci>Akt_PIP</ci>
+                                                <ci>k31</ci>
+                                            </apply>
+                                            <apply>
+                                                <divide/>
+                                                <ci>Akt_PIPP</ci>
+                                                <ci>k33</ci>
+                                            </apply>
+                                        </apply>
+                                    </apply>
+                                    <ci>MEKP</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <divide/>
+                            <apply>
+                                <times/>
+                                <ci>kf17</ci>
+                                <ci>RAF_star</ci>
+                                <ci>MEKP</ci>
+                            </apply>
+                            <apply>
+                                <plus/>
+                                <apply>
+                                    <times/>
+                                    <ci>k17</ci>
+                                    <apply>
+                                        <plus/>
+                                        <ci>one</ci>
+                                        <apply>
+                                            <divide/>
+                                            <ci>MEK</ci>
+                                            <ci>k15</ci>
+                                        </apply>
+                                    </apply>
+                                </apply>
+                                <ci>MEKP</ci>
+                            </apply>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>kf18</ci>
+                            <ci>PP2A</ci>
+                            <ci>MEKPP</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <apply>
+                                <times/>
+                                <ci>k18</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>one</ci>
+                                    <apply>
+                                        <divide/>
+                                        <ci>MEKP</ci>
+                                        <ci>k16</ci>
+                                    </apply>
+                                    <apply>
+                                        <divide/>
+                                        <ci>Akt_PIP</ci>
+                                        <ci>k31</ci>
+                                    </apply>
+                                    <apply>
+                                        <divide/>
+                                        <ci>Akt_PIPP</ci>
+                                        <ci>k33</ci>
+                                    </apply>
+                                </apply>
+                            </apply>
+                            <ci>MEKPP</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>MEKPP</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>kf17</ci>
+                            <ci>RAF_star</ci>
+                            <ci>MEKP</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <apply>
+                                <times/>
+                                <ci>k17</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>one</ci>
+                                    <apply>
+                                        <divide/>
+                                        <ci>MEK</ci>
+                                        <ci>k15</ci>
+                                    </apply>
+                                </apply>
+                            </apply>
+                            <ci>MEKP</ci>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>kf18</ci>
+                            <ci>PP2A</ci>
+                            <ci>MEKPP</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <apply>
+                                <times/>
+                                <ci>k18</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>one</ci>
+                                    <apply>
+                                        <divide/>
+                                        <ci>MEKP</ci>
+                                        <ci>k16</ci>
+                                    </apply>
+                                    <apply>
+                                        <divide/>
+                                        <ci>Akt_PIP</ci>
+                                        <ci>k31</ci>
+                                    </apply>
+                                    <apply>
+                                        <divide/>
+                                        <ci>Akt_PIPP</ci>
+                                        <ci>k33</ci>
+                                    </apply>
+                                </apply>
+                            </apply>
+                            <ci>MEKPP</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="ERK">
+        <variable name="time" public_interface="in" units="s"/>
+        <!-- Parameters-->
+        <variable name="kf19" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k19" public_interface="in" units="nm"/>
+        <variable name="kf20" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k20" public_interface="in" units="nm"/>
+        <variable name="kf21" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k21" public_interface="in" units="nm"/>
+        <variable name="kf22" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k22" public_interface="in" units="nm"/>
+        <!-- Variables-->
+        <variable name="MEKPP" public_interface="in" units="nm"/>
+        <variable name="MKP3" public_interface="in" units="nm"/>
+        <variable name="ERK" public_interface="in" units="nm"/>
+        <variable name="ERKP" public_interface="in" units="nm"/>
+        <variable name="ERKPP" public_interface="in" units="nm"/>
+        <!--Constants-->
+        <variable initial_value="1" name="one" units="dimensionless"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>ERK</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <apply>
+                                <minus/>
+                                <ci>kf19</ci>
+                            </apply>
+                            <ci>MEKPP</ci>
+                            <ci>ERK</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <apply>
+                                <times/>
+                                <ci>k19</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>one</ci>
+                                    <apply>
+                                        <divide/>
+                                        <ci>ERKP</ci>
+                                        <ci>k21</ci>
+                                    </apply>
+                                </apply>
+                            </apply>
+                            <ci>ERK</ci>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>kf20</ci>
+                            <ci>MKP3</ci>
+                            <ci>ERKP</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <apply>
+                                <times/>
+                                <ci>k20</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>one</ci>
+                                    <apply>
+                                        <divide/>
+                                        <ci>ERKPP</ci>
+                                        <ci>k22</ci>
+                                    </apply>
+                                </apply>
+                            </apply>
+                            <ci>ERKP</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>ERKPP</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>kf21</ci>
+                            <ci>MEKPP</ci>
+                            <ci>ERKP</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <apply>
+                                <times/>
+                                <ci>k21</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>one</ci>
+                                    <apply>
+                                        <divide/>
+                                        <ci>ERK</ci>
+                                        <ci>k19</ci>
+                                    </apply>
+                                </apply>
+                            </apply>
+                            <ci>ERKP</ci>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>kf22</ci>
+                            <ci>MKP3</ci>
+                            <ci>ERKPP</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <apply>
+                                <times/>
+                                <ci>k22</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>one</ci>
+                                    <apply>
+                                        <divide/>
+                                        <ci>ERKP</ci>
+                                        <ci>k20</ci>
+                                    </apply>
+                                </apply>
+                            </apply>
+                            <ci>ERKPP</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>ERKP</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <minus/>
+                            <apply>
+                                <divide/>
+                                <apply>
+                                    <times/>
+                                    <ci>kf19</ci>
+                                    <ci>MEKPP</ci>
+                                    <ci>ERK</ci>
+                                </apply>
+                                <apply>
+                                    <plus/>
+                                    <apply>
+                                        <times/>
+                                        <ci>k19</ci>
+                                        <apply>
+                                            <plus/>
+                                            <ci>one</ci>
+                                            <apply>
+                                                <divide/>
+                                                <ci>ERKP</ci>
+                                                <ci>k21</ci>
+                                            </apply>
+                                        </apply>
+                                    </apply>
+                                    <ci>ERK</ci>
+                                </apply>
+                            </apply>
+                            <apply>
+                                <divide/>
+                                <apply>
+                                    <times/>
+                                    <ci>kf20</ci>
+                                    <ci>MKP3</ci>
+                                    <ci>ERKP</ci>
+                                </apply>
+                                <apply>
+                                    <plus/>
+                                    <apply>
+                                        <times/>
+                                        <ci>k20</ci>
+                                        <apply>
+                                            <plus/>
+                                            <ci>one</ci>
+                                            <apply>
+                                                <divide/>
+                                                <ci>ERKPP</ci>
+                                                <ci>k22</ci>
+                                            </apply>
+                                        </apply>
+                                    </apply>
+                                    <ci>ERKP</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <divide/>
+                            <apply>
+                                <times/>
+                                <ci>kf21</ci>
+                                <ci>MEKPP</ci>
+                                <ci>ERKP</ci>
+                            </apply>
+                            <apply>
+                                <plus/>
+                                <apply>
+                                    <times/>
+                                    <ci>k21</ci>
+                                    <apply>
+                                        <plus/>
+                                        <ci>one</ci>
+                                        <apply>
+                                            <divide/>
+                                            <ci>ERK</ci>
+                                            <ci>k19</ci>
+                                        </apply>
+                                    </apply>
+                                </apply>
+                                <ci>ERKP</ci>
+                            </apply>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>kf22</ci>
+                            <ci>MKP3</ci>
+                            <ci>ERKPP</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <apply>
+                                <times/>
+                                <ci>k22</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>one</ci>
+                                    <apply>
+                                        <divide/>
+                                        <ci>ERKP</ci>
+                                        <ci>k20</ci>
+                                    </apply>
+                                </apply>
+                            </apply>
+                            <ci>ERKPP</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>
