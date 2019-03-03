@@ -33,7 +33,6 @@
         <!-- Variables-->
         <variable name="RasGTP" public_interface="in" units="nm"/>
         <variable name="Akt_PIPP" public_interface="in" units="nm"/>
-        <variable name="RAFstar" public_interface="in" units="nm"/>
         <variable name="E" public_interface="in" units="nm"/>
         <variable name="RAF" public_interface="in" units="nm"/>
         <variable name="RAFstar" public_interface="in" units="nm"/>

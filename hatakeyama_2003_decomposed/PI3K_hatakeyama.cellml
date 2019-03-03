@@ -58,22 +58,22 @@
         <variable name="k26" public_interface="in" units="nm"/>
         <!-- Variables-->
         <variable name="R" public_interface="in" units="nm"/>
-        <variable name="Shc" public_interface="in" units="nm"/>
-        <variable name="PI3K" public_interface="in" units="nm"/>
         <variable name="HRG" public_interface="in" units="nm"/>
         <variable name="R_HRG" public_interface="in" units="nm"/>
         <variable name="R_HRG2" public_interface="in" units="nm"/>
-        <variable name="Internalisation" public_interface="in" units="nm"/>
         <variable name="RP" public_interface="in" units="nm"/>
+        <variable name="Internalisation" public_interface="in" units="nm"/>
         <variable name="R_Shc" public_interface="in" units="nm"/>
+        <variable name="Shc" public_interface="in" units="nm"/>
         <variable name="R_ShP" public_interface="in" units="nm"/>
+        <variable name="GS" public_interface="in" units="nm"/>
         <variable name="ShP" public_interface="in" units="nm"/>
         <variable name="R_ShGS" public_interface="in" units="nm"/>
         <variable name="ShGS" public_interface="in" units="nm"/>
-        <variable name="GS" public_interface="in" units="nm"/>
         <variable name="R_PI3K" public_interface="in" units="nm"/>
+        <variable name="PI3K" public_interface="in" units="nm"/>
         <variable name="R_PI3Kstar" public_interface="in" units="nm"/>
-        <variable initial_value="0" name="PI3Kstar" private_interface="out" public_interface="in" units="nm"/>
+        <variable name="PI3Kstar" public_interface="in" units="nm"/>
         <variable initial_value="2" name="two" units="dimensionless"/>
         <!-- Equations-->
         <math xmlns="http://www.w3.org/1998/Math/MathML">

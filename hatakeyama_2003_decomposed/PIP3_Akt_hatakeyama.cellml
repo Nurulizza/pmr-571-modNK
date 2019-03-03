@@ -48,9 +48,9 @@
         <variable name="Akt" public_interface="in" units="nm"/>
         <variable name="Akt_PIP3" public_interface="in" units="nm"/>
         <variable name="Akt_PIP" public_interface="in" units="nm"/>
-        <variable name="PP2A" public_interface="in" units="nm"/>
-        <variable name="PI3Kstar" private_interface="in" public_interface="in" units="nm"/>
         <variable name="Akt_PIPP" public_interface="in" units="nm"/>
+        <variable name="PP2A" public_interface="in" units="nm"/>
+        <variable name="PI3Kstar" public_interface="in" units="nm"/>
         <variable name="MEKP" public_interface="in" units="nm"/>
         <variable name="MEKPP" public_interface="in" units="nm"/>
         <!-- Constants-->
