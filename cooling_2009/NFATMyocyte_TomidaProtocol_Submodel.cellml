@@ -1,0 +1,316 @@
+<?xml version='1.0'?>
+<model cmeta:id="NFATMyocyte_TomidaProtocol" name="NFATMyocyte_TomidaProtocol" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="calcium_TomidaProtocol.cellml">
+        <component component_ref="calcium" name="calcium"/>
+    </import>
+    <import xlink:href="calcineurin_TomidaProtocol.cellml">
+        <component component_ref="calcineurin" name="calcineurin"/>
+    </import>
+    <import xlink:href="NFATCycling_TomidaProtocol.cellml">
+        <component component_ref="NFAT_Cycling" name="NFAT_Cycling"/>
+    </import>
+    <!--
+        *******************************************************
+        ***         U   N   I   T   S                       ***
+        *******************************************************
+        -->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--
+     *********************************************************
+     ***       C   O   M   P   O   N   E   N   T   S       ***
+     *********************************************************
+     -->
+    <component name="environment">
+        <variable name="time" public_interface="out" units="s"/>
+    </component>
+    <component name="parameters">
+        <variable initial_value="7.68934e-6" name="NFATcyc_k_f1" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.019256" name="NFATcyc_k_r1" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.00144192" name="NFATcyc_k_f2" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.000361944" name="NFATcyc_k_f3" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="4.70813e-5" name="NFATcyc_k_r3" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.000444695" name="NFATcyc_k_f4" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="50" name="Ccn" public_interface="out" units="dimensionless"/>
+        <variable initial_value="6000" name="M" public_interface="out" units="nM"/>
+        <variable initial_value="1000" name="Ntot" public_interface="out" units="nM"/>
+        <variable initial_value="535" name="K_mN" public_interface="out" units="nM"/>
+        <variable initial_value="2.92" name="n" public_interface="out" units="dimensionless"/>
+        <variable initial_value="1760" name="K_dN" public_interface="out" units="nM"/>
+        <variable initial_value="1800" name="stimEnd" public_interface="out" units="s"/>
+    </component>
+    <component name="variables">
+        <variable initial_value="0.0004806012" name="NFATN_c" public_interface="out" units="nM"/>
+        <variable initial_value="0.10902441" name="NFATN_n" public_interface="out" units="nM"/>
+        <variable initial_value="0.9957805651" name="NFATp_c" public_interface="out" units="nM"/>
+        <variable initial_value="0.077917275" name="NFATp_n" public_interface="out" units="nM"/>
+        <variable name="Ca" public_interface="out" units="nM"/>
+    </component>
+    <component name="NFATcyc_interface">
+        <variable name="nuclearNFATpercent" public_interface="out" units="dimensionless"/>
+        <variable name="nuclearNFAT" public_interface="out" units="nM"/>
+        <variable name="NFATN_c_percent" public_interface="out" units="dimensionless"/>
+        <variable name="NFATN_n" public_interface="in" units="nM"/>
+        <variable name="NFATp_n" public_interface="in" units="nM"/>
+        <variable name="NFATN_c" public_interface="in" units="nM"/>
+        <variable name="NFATp_c" public_interface="in" units="nM"/>
+        <variable name="Ccn" public_interface="in" units="dimensionless"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>nuclearNFAT</ci>
+                <apply>
+                    <plus/>
+                    <ci>NFATN_n</ci>
+                    <ci>NFATp_n</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>nuclearNFATpercent</ci>
+                <apply>
+                    <times/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <plus/>
+                            <ci>NFATN_n</ci>
+                            <ci>NFATp_n</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <ci>NFATN_n</ci>
+                            <ci>NFATp_n</ci>
+                            <apply>
+                                <times/>
+                                <ci>Ccn</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>NFATN_c</ci>
+                                    <ci>NFATp_c</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                    <cn cellml:units="dimensionless">100</cn>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>NFATN_c_percent</ci>
+                <apply>
+                    <times/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>NFATN_c</ci>
+                            <ci>Ccn</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <ci>NFATN_n</ci>
+                            <ci>NFATp_n</ci>
+                            <apply>
+                                <times/>
+                                <ci>Ccn</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>NFATN_c</ci>
+                                    <ci>NFATp_c</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                    <cn cellml:units="dimensionless">100</cn>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <!--def group as encapsulation for
+    comp environment incl
+        comp variables incl
+            comp calcium;
+            comp calcineurin;
+            comp NFAT_Cycling;
+            comp NFAT_Cycling_interface;
+        endcomp;
+    endcomp;
+enddef;-->
+    <connection>
+        <map_components component_1="environment" component_2="calcium"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="environment" component_2="calcineurin"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="environment" component_2="NFAT_Cycling"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="parameters" component_2="NFAT_Cycling"/>
+        <map_variables variable_1="Ccn" variable_2="Ccn"/>
+        <map_variables variable_1="NFATcyc_k_f1" variable_2="k_f1"/>
+        <map_variables variable_1="NFATcyc_k_r1" variable_2="k_r1"/>
+        <map_variables variable_1="NFATcyc_k_f2" variable_2="k_f2"/>
+        <map_variables variable_1="NFATcyc_k_f3" variable_2="k_f3"/>
+        <map_variables variable_1="NFATcyc_k_r3" variable_2="k_r3"/>
+        <map_variables variable_1="NFATcyc_k_f4" variable_2="k_f4"/>
+        <map_variables variable_1="Ntot" variable_2="Ntot"/>
+    </connection>
+    <connection>
+        <map_components component_1="parameters" component_2="calcium"/>
+        <map_variables variable_1="stimEnd" variable_2="stimEnd"/>
+    </connection>
+    <connection>
+        <map_components component_1="parameters" component_2="calcineurin"/>
+        <map_variables variable_1="M" variable_2="M"/>
+        <map_variables variable_1="Ntot" variable_2="Ntot"/>
+        <map_variables variable_1="K_mN" variable_2="K_mN"/>
+        <map_variables variable_1="n" variable_2="n"/>
+        <map_variables variable_1="K_dN" variable_2="K_dN"/>
+    </connection>
+    <connection>
+        <map_components component_1="parameters" component_2="NFATcyc_interface"/>
+        <map_variables variable_1="Ccn" variable_2="Ccn"/>
+    </connection>
+    <connection>
+        <map_components component_1="variables" component_2="NFAT_Cycling"/>
+        <map_variables variable_1="NFATN_c" variable_2="NFATN_c"/>
+        <map_variables variable_1="NFATN_n" variable_2="NFATN_n"/>
+        <map_variables variable_1="NFATp_c" variable_2="NFATp_c"/>
+        <map_variables variable_1="NFATp_n" variable_2="NFATp_n"/>
+    </connection>
+    <connection>
+        <map_components component_1="variables" component_2="calcium"/>
+        <map_variables variable_1="Ca" variable_2="Ca"/>
+    </connection>
+    <connection>
+        <map_components component_1="variables" component_2="calcineurin"/>
+        <map_variables variable_1="Ca" variable_2="Ca"/>
+    </connection>
+    <connection>
+        <map_components component_1="calcineurin" component_2="NFAT_Cycling"/>
+        <map_variables variable_1="act_N" variable_2="act_N"/>
+    </connection>
+    <connection>
+        <map_components component_1="variables" component_2="NFATcyc_interface"/>
+        <map_variables variable_1="NFATN_c" variable_2="NFATN_c"/>
+        <map_variables variable_1="NFATN_n" variable_2="NFATN_n"/>
+        <map_variables variable_1="NFATp_c" variable_2="NFATp_c"/>
+        <map_variables variable_1="NFATp_n" variable_2="NFATp_n"/>
+    </connection>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">
+            <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Cooling</vCard:Family>
+                    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Michael</vCard:Given>
+                </vCard:N>
+                <vCard:ORG xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <vCard:Orgname xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Auckland Bioengineering Institute</vCard:Orgname>
+                    <vCard:Orgunit xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">University of Auckland</vCard:Orgunit>
+                </vCard:ORG>
+                <vCard:EMAIL xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">m.cooling@auckland.ac.nz</rdf:value>
+                    <rdf:type xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://imc.org/vCard/3.0#internet"/>
+                </vCard:EMAIL>
+            </dc:creator>
+            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Sensitivity of NFAT Cycling to Cytosolic Calcium Concentration: Implications for Hypertrophic Signals in Cardiac Myocytes (Tomida-derived calcium protocol)</dc:title>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#NFATMyocyte_TomidaProtocol">
+            <bqs:reference xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <bqs:JournalArticle xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">
+                        <rdf:Seq xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                            <rdf:li xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:parseType="Resource">
+                                <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                                    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Cooling</vCard:Family>
+                                    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Mike</vCard:Given>
+                                </vCard:N>
+                                <vCard:EMAIL xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                                    <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">m.cooling@auckland.ac.nz</rdf:value>
+                                    <rdf:type xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://imc.org/vCard/3.0#internet"/>
+                                </vCard:EMAIL>
+                                <vCard:ORG xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                                    <vCard:Orgname xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Auckland Bioengineering Institute</vCard:Orgname>
+                                    <vCard:Orgunit xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">University of Auckland</vCard:Orgunit>
+                                </vCard:ORG>
+                            </rdf:li>
+                            <rdf:li xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:parseType="Resource">
+                                <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                                    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Hunter</vCard:Family>
+                                    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Peter</vCard:Given>
+                                </vCard:N>
+                                <vCard:EMAIL xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                                    <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">p.hunter@auckland.ac.nz</rdf:value>
+                                    <rdf:type xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://imc.org/vCard/3.0#internet"/>
+                                </vCard:EMAIL>
+                                <vCard:ORG xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                                    <vCard:Orgname xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Auckland Bioengineering Institute</vCard:Orgname>
+                                    <vCard:Orgunit xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">University of Auckland</vCard:Orgunit>
+                                </vCard:ORG>
+                            </rdf:li>
+                            <rdf:li xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:parseType="Resource">
+                                <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                                    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Crampin</vCard:Family>
+                                    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Edmund</vCard:Given>
+                                </vCard:N>
+                                <vCard:EMAIL xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                                    <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">e.crampin@auckland.ac.nz</rdf:value>
+                                    <rdf:type xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://imc.org/vCard/3.0#internet"/>
+                                </vCard:EMAIL>
+                                <vCard:ORG xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                                    <vCard:Orgname xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Auckland Bioengineering Institute</vCard:Orgname>
+                                    <vCard:Orgunit xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">University of Auckland</vCard:Orgunit>
+                                </vCard:ORG>
+                            </rdf:li>
+                        </rdf:Seq>
+                    </dc:creator>
+                    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Sensitivity of NFAT Cycling to Cytosolic Calcium Concentration: Implications for Hypertrophic Signals in Cardiac Myocytes</dc:title>
+                    <bqs:volume xmlns:bqs="http://www.cellml.org/bqs/1.0#">96</bqs:volume>
+                    <bqs:first_page xmlns:bqs="http://www.cellml.org/bqs/1.0#">2095</bqs:first_page>
+                    <bqs:last_page xmlns:bqs="http://www.cellml.org/bqs/1.0#">2104</bqs:last_page>
+                    <bqs:Journal xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Biophysical Journal</dc:title>
+                    </bqs:Journal>
+                    <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                        <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">2009-03-18 00:00</dcterms:W3CDTF>
+                    </dcterms:issued>
+                </bqs:JournalArticle>
+            </bqs:reference>
+            <bqs:reference xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <bqs:subject_type xmlns:bqs="http://www.cellml.org/bqs/1.0#">keyword</bqs:subject_type>
+                    <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                        <rdf:Bag xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                            <rdf:li xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">Signal Transduction</rdf:li>
+                            <rdf:li xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">Calcium Dynamics</rdf:li>
+                            <rdf:li xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">Gene Regulation</rdf:li>
+                            <rdf:li xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">Excitation-Transcription Coupling</rdf:li>
+                            <rdf:li xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">NFAT</rdf:li>
+                        </rdf:Bag>
+                    </rdf:value>
+                </dc:subject>
+            </bqs:reference>
+        </rdf:Description>
+    </rdf:RDF>
+</model>

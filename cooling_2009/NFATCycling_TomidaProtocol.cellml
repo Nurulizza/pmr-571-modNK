@@ -1,0 +1,202 @@
+<?xml version='1.0'?>
+<model cmeta:id="NFATCycling" name="NFATCycling" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="liter"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--
+*********************************************************
+***       C   O   M   P   O   N   E   N   T   S       ***
+*********************************************************
+-->
+    <component name="NFAT_Cycling">
+        <variable name="time" public_interface="in" units="s"/>
+        <variable name="NFATN_c" public_interface="in" units="nM"/>
+        <variable name="NFATN_n" public_interface="in" units="nM"/>
+        <variable name="NFATp_c" public_interface="in" units="nM"/>
+        <variable name="NFATp_n" public_interface="in" units="nM"/>
+        <variable name="Ccn" public_interface="in" units="dimensionless"/>
+        <variable name="Ntot" public_interface="in" units="nM"/>
+        <variable name="act_N" public_interface="in" units="dimensionless"/>
+        <variable name="k_f1" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r1" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f2" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f3" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_r3" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_f4" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="J1" units="flux"/>
+        <variable name="J2" units="flux"/>
+        <variable name="J3" units="flux"/>
+        <variable name="J4" units="flux"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J1</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f1</ci>
+                        <ci>NFATp_c</ci>
+                        <ci>Ntot</ci>
+                        <ci>act_N</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r1</ci>
+                        <ci>NFATN_c</ci>
+                        <apply>
+                            <minus/>
+                            <cn cellml:units="dimensionless">1</cn>
+                            <ci>act_N</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J2</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f2</ci>
+                    <ci>NFATN_c</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J3</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f3</ci>
+                        <ci>NFATN_n</ci>
+                        <apply>
+                            <minus/>
+                            <cn cellml:units="dimensionless">1</cn>
+                            <ci>act_N</ci>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r3</ci>
+                        <ci>NFATp_n</ci>
+                        <ci>Ntot</ci>
+                        <ci>act_N</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J4</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f4</ci>
+                    <ci>NFATp_n</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>NFATp_c</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <divide/>
+                        <ci>J4</ci>
+                        <ci>Ccn</ci>
+                    </apply>
+                    <ci>J1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>NFATN_c</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J1</ci>
+                    <ci>J2</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>NFATN_n</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>J2</ci>
+                        <ci>Ccn</ci>
+                    </apply>
+                    <ci>J3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>NFATp_n</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J3</ci>
+                    <ci>J4</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#NFATCycling">
+            <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Cooling</vCard:Family>
+                    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Michael</vCard:Given>
+                </vCard:N>
+                <vCard:EMAIL xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">m.cooling@auckland.ac.nz</rdf:value>
+                    <rdf:type xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://imc.org/vCard/3.0#internet"/>
+                </vCard:EMAIL>
+            </dc:creator>
+            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Cooling's NFAT Cycling module for the Tomida-derived protocol</dc:title>
+        </rdf:Description>
+    </rdf:RDF>
+</model>

@@ -8,16 +8,16 @@
     <units name="s">
         <unit units="second"/>
     </units>
-    <units name="um">
-        <unit prefix="micro" units="mole"/>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
         <unit exponent="-1" units="litre"/>
     </units>
     <units name="flux">
-        <unit units="nm"/>
+        <unit units="nM"/>
         <unit exponent="-1" units="s"/>
     </units>
     <units name="second_order_rate_constant">
-        <unit exponent="-1" units="nm"/>
+        <unit exponent="-1" units="nM"/>
         <unit exponent="-1" units="s"/>
     </units>
     <units name="first_order_rate_constant">
@@ -27,15 +27,15 @@
         <variable name="time" public_interface="in" units="s"/>
         <!-- Parameters-->
         <variable name="kf13" public_interface="in" units="first_order_rate_constant"/>
-        <variable name="k13" public_interface="in" units="nm"/>
+        <variable name="k13" public_interface="in" units="nM"/>
         <variable name="kf14" public_interface="in" units="first_order_rate_constant"/>
-        <variable name="k14" public_interface="in" units="nm"/>
+        <variable name="k14" public_interface="in" units="nM"/>
         <!-- Variables-->
-        <variable name="RasGTP" public_interface="in" units="nm"/>
-        <variable name="Akt_PIPP" public_interface="in" units="nm"/>
-        <variable name="E" public_interface="in" units="nm"/>
-        <variable name="RAF" public_interface="in" units="nm"/>
-        <variable name="RAFstar" public_interface="in" units="nm"/>
+        <variable name="RasGTP" public_interface="in" units="nM"/>
+        <variable name="Akt_PIPP" public_interface="in" units="nM"/>
+        <variable name="E" public_interface="in" units="nM"/>
+        <variable name="RAF" public_interface="in" units="nM"/>
+        <variable name="RAFstar" public_interface="in" units="nM"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
                 <eq/>

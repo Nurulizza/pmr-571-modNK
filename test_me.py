@@ -14,7 +14,6 @@ def simulate_cellml(filename, start_time, end_time, time_interval):
     initial_data = simulation.data()
     constants = initial_data.constants()
     results = simulation.results()
-
     # Simulation time points must match experiment data points
     initial_data.setStartingPoint(start_time)
     initial_data.setEndingPoint(end_time)
@@ -29,11 +28,21 @@ def simulate_cellml(filename, start_time, end_time, time_interval):
         raise
     return simulation.results()
     
-def check_all_same(model,data,expt_state_uri,times):
+def check_all_same_state(model,data,expt_state_uri,times):
     output = False
     count_true = 0
     for i in range(0,data.shape[1]):
         if np.isclose(model.states()[expt_state_uri[i]].values()[times],data[:,i]).all:
+            count_true = count_true + 1
+    if(count_true == data.shape[1]):
+        output = True
+    return  output
+    
+def check_all_same_algebraic(model,data,expt_algebraic_uri,times):
+    output = False
+    count_true = 0
+    for i in range(0,data.shape[1]):
+        if np.isclose(model.algebraic()[expt_algebraic_uri[i]].values()[times],data[:,i]).all:
             count_true = count_true + 1
     if(count_true == data.shape[1]):
         output = True
@@ -63,14 +72,34 @@ def test_hatakeyama_2003():
     myresults = simulate_cellml(simulation_cellml, start_time, end_time, time_interval)
     times = expt_time.astype(int)  
 
-    are_same = check_all_same(myresults,expt_points, expt_state_uri,times)
+    are_same = check_all_same_state(myresults,expt_points, expt_state_uri,times)
+    return are_same
+    
+def test_cooling_2009_tomida():
+    # The state variable in the model that the data represents
+    expt_algebraic_uri = ['NFATcyc_interface/nuclearNFATpercent','NFATcyc_interface/NFATN_c_percent']
+    simulation_cellml = 'cooling_2009/NFATMyocyte_TomidaProtocol_Submodel.cellml'
+    start_time = 0.0
+    end_time = 1800.0
+    time_interval = 1.0
+    # Experimental data
+    expt_data = np.loadtxt('test_data/cooling_2009_test_data.csv', delimiter=',')
+    expt_time = expt_data[...,0]
+    expt_points = expt_data[...,1:]
+    myresults = simulate_cellml(simulation_cellml, start_time, end_time, time_interval)
+    times = expt_time.astype(int)  
+    are_same = check_all_same_algebraic(myresults,expt_points, expt_algebraic_uri,times)
     return are_same
     
 ################################################################  
 countpasses = 0
 counttotal = 0  
+##TEST 1 - Hatakeyama (2003) 
 test1 = test_hatakeyama_2003()
 [countpasses,counttotal] = report_test_result("Hatakeyama 2003",test1, countpasses,counttotal)
+## TEST 2 - Cooling (2009) Tomida protocol
+test2 = test_cooling_2009_tomida()
+[countpasses,counttotal] = report_test_result("Cooling 2009 Tomida protocol",test2, countpasses,counttotal)
 
 print("-------------------------------")
 print("        TESTS COMPLETED        ")

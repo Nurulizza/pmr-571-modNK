@@ -8,16 +8,16 @@
     <units name="s">
         <unit units="second"/>
     </units>
-    <units name="um">
-        <unit prefix="micro" units="mole"/>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
         <unit exponent="-1" units="litre"/>
     </units>
     <units name="flux">
-        <unit units="nm"/>
+        <unit units="nM"/>
         <unit exponent="-1" units="s"/>
     </units>
     <units name="second_order_rate_constant">
-        <unit exponent="-1" units="nm"/>
+        <unit exponent="-1" units="nM"/>
         <unit exponent="-1" units="s"/>
     </units>
     <units name="first_order_rate_constant">
@@ -35,7 +35,7 @@
         <variable name="kf34" public_interface="in" units="first_order_rate_constant"/>
         <variable name="kb34" public_interface="in" units="first_order_rate_constant"/>
         <variable name="V4" public_interface="in" units="flux"/>
-        <variable name="k4" public_interface="in" units="nm"/>
+        <variable name="k4" public_interface="in" units="nM"/>
         <variable name="kf5" public_interface="in" units="second_order_rate_constant"/>
         <variable name="kb5" public_interface="in" units="first_order_rate_constant"/>
         <variable name="kf6" public_interface="in" units="first_order_rate_constant"/>
@@ -47,7 +47,7 @@
         <variable name="kf9" public_interface="in" units="first_order_rate_constant"/>
         <variable name="kb9" public_interface="in" units="second_order_rate_constant"/>
         <variable name="V10" public_interface="in" units="flux"/>
-        <variable name="k10" public_interface="in" units="nm"/>
+        <variable name="k10" public_interface="in" units="nM"/>
         <variable name="kf23" public_interface="in" units="second_order_rate_constant"/>
         <variable name="kb23" public_interface="in" units="first_order_rate_constant"/>
         <variable name="kf24" public_interface="in" units="first_order_rate_constant"/>
@@ -55,25 +55,25 @@
         <variable name="kf25" public_interface="in" units="first_order_rate_constant"/>
         <variable name="kb25" public_interface="in" units="second_order_rate_constant"/>
         <variable name="V26" public_interface="in" units="flux"/>
-        <variable name="k26" public_interface="in" units="nm"/>
+        <variable name="k26" public_interface="in" units="nM"/>
         <!-- Variables-->
-        <variable name="R" public_interface="in" units="nm"/>
-        <variable name="HRG" public_interface="in" units="nm"/>
-        <variable name="R_HRG" public_interface="in" units="nm"/>
-        <variable name="R_HRG2" public_interface="in" units="nm"/>
-        <variable name="RP" public_interface="in" units="nm"/>
-        <variable name="Internalisation" public_interface="in" units="nm"/>
-        <variable name="R_Shc" public_interface="in" units="nm"/>
-        <variable name="Shc" public_interface="in" units="nm"/>
-        <variable name="R_ShP" public_interface="in" units="nm"/>
-        <variable name="GS" public_interface="in" units="nm"/>
-        <variable name="ShP" public_interface="in" units="nm"/>
-        <variable name="R_ShGS" public_interface="in" units="nm"/>
-        <variable name="ShGS" public_interface="in" units="nm"/>
-        <variable name="R_PI3K" public_interface="in" units="nm"/>
-        <variable name="PI3K" public_interface="in" units="nm"/>
-        <variable name="R_PI3Kstar" public_interface="in" units="nm"/>
-        <variable name="PI3Kstar" public_interface="in" units="nm"/>
+        <variable name="R" public_interface="in" units="nM"/>
+        <variable name="HRG" public_interface="in" units="nM"/>
+        <variable name="R_HRG" public_interface="in" units="nM"/>
+        <variable name="R_HRG2" public_interface="in" units="nM"/>
+        <variable name="RP" public_interface="in" units="nM"/>
+        <variable name="Internalisation" public_interface="in" units="nM"/>
+        <variable name="R_Shc" public_interface="in" units="nM"/>
+        <variable name="Shc" public_interface="in" units="nM"/>
+        <variable name="R_ShP" public_interface="in" units="nM"/>
+        <variable name="GS" public_interface="in" units="nM"/>
+        <variable name="ShP" public_interface="in" units="nM"/>
+        <variable name="R_ShGS" public_interface="in" units="nM"/>
+        <variable name="ShGS" public_interface="in" units="nM"/>
+        <variable name="R_PI3K" public_interface="in" units="nM"/>
+        <variable name="PI3K" public_interface="in" units="nM"/>
+        <variable name="R_PI3Kstar" public_interface="in" units="nM"/>
+        <variable name="PI3Kstar" public_interface="in" units="nM"/>
         <variable initial_value="2" name="two" units="dimensionless"/>
         <!-- Equations-->
         <math xmlns="http://www.w3.org/1998/Math/MathML">

@@ -1,0 +1,84 @@
+<?xml version='1.0'?>
+<model cmeta:id="calcineurin" name="calcineurin" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="liter"/>
+    </units>
+    <!--
+*********************************************************
+***       C   O   M   P   O   N   E   N   T   S       ***
+*********************************************************
+-->
+    <component name="calcineurin">
+        <variable name="time" public_interface="in" units="s"/>
+        <variable name="Ca" public_interface="in" units="nM"/>
+        <variable name="M" public_interface="in" units="nM"/>
+        <variable name="Ntot" public_interface="in" units="nM"/>
+        <variable name="K_mN" public_interface="in" units="nM"/>
+        <variable name="n" public_interface="in" units="dimensionless"/>
+        <variable name="K_dN" public_interface="in" units="nM"/>
+        <variable name="act_N" public_interface="out" units="dimensionless"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>act_N</ci>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <power/>
+                        <ci>Ca</ci>
+                        <ci>n</ci>
+                    </apply>
+                    <apply>
+                        <plus/>
+                        <apply>
+                            <power/>
+                            <ci>Ca</ci>
+                            <ci>n</ci>
+                        </apply>
+                        <apply>
+                            <times/>
+                            <apply>
+                                <power/>
+                                <ci>K_mN</ci>
+                                <ci>n</ci>
+                            </apply>
+                            <apply>
+                                <plus/>
+                                <cn cellml:units="dimensionless">1</cn>
+                                <apply>
+                                    <divide/>
+                                    <ci>K_dN</ci>
+                                    <ci>M</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#calcineurin">
+            <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Cooling</vCard:Family>
+                    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Michael</vCard:Given>
+                </vCard:N>
+                <vCard:EMAIL xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">m.cooling@auckland.ac.nz</rdf:value>
+                    <rdf:type xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://imc.org/vCard/3.0#internet"/>
+                </vCard:EMAIL>
+            </dc:creator>
+            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Cooling's calcineurin module for the Tomida-derived protocol</dc:title>
+        </rdf:Description>
+    </rdf:RDF>
+</model>

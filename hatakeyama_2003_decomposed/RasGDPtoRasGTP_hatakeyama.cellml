@@ -8,16 +8,16 @@
     <units name="s">
         <unit units="second"/>
     </units>
-    <units name="um">
-        <unit prefix="micro" units="mole"/>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
         <unit exponent="-1" units="litre"/>
     </units>
     <units name="flux">
-        <unit units="nm"/>
+        <unit units="nM"/>
         <unit exponent="-1" units="s"/>
     </units>
     <units name="second_order_rate_constant">
-        <unit exponent="-1" units="nm"/>
+        <unit exponent="-1" units="nM"/>
         <unit exponent="-1" units="s"/>
     </units>
     <units name="first_order_rate_constant">
@@ -27,13 +27,13 @@
         <variable name="time" public_interface="in" units="second"/>
         <!-- Parameters-->
         <variable name="kf11" public_interface="in" units="first_order_rate_constant"/>
-        <variable name="k11" public_interface="in" units="nm"/>
+        <variable name="k11" public_interface="in" units="nM"/>
         <variable name="V12" public_interface="in" units="flux"/>
-        <variable name="k12" public_interface="in" units="nm"/>
+        <variable name="k12" public_interface="in" units="nM"/>
         <!-- Variables-->
-        <variable name="ShGS" public_interface="in" units="nm"/>
-        <variable name="RasGTP" public_interface="in" units="nm"/>
-        <variable name="RasGDP" public_interface="in" units="nm"/>
+        <variable name="ShGS" public_interface="in" units="nM"/>
+        <variable name="RasGTP" public_interface="in" units="nM"/>
+        <variable name="RasGDP" public_interface="in" units="nM"/>
         <!-- Equations-->
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>

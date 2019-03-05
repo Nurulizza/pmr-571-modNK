@@ -8,16 +8,16 @@
     <units name="s">
         <unit units="second"/>
     </units>
-    <units name="um">
-        <unit prefix="micro" units="mole"/>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
         <unit exponent="-1" units="litre"/>
     </units>
     <units name="flux">
-        <unit units="nm"/>
+        <unit units="nM"/>
         <unit exponent="-1" units="s"/>
     </units>
     <units name="second_order_rate_constant">
-        <unit exponent="-1" units="nm"/>
+        <unit exponent="-1" units="nM"/>
         <unit exponent="-1" units="s"/>
     </units>
     <units name="first_order_rate_constant">
@@ -27,32 +27,32 @@
         <variable name="time" public_interface="in" units="s"/>
         <!-- Parameters-->
         <variable name="kf27" public_interface="in" units="first_order_rate_constant"/>
-        <variable name="k27" public_interface="in" units="nm"/>
+        <variable name="k27" public_interface="in" units="nM"/>
         <variable name="V28" public_interface="in" units="flux"/>
-        <variable name="k28" public_interface="in" units="nm"/>
+        <variable name="k28" public_interface="in" units="nM"/>
         <variable name="kf29" public_interface="in" units="second_order_rate_constant"/>
         <variable name="kb29" public_interface="in" units="first_order_rate_constant"/>
         <variable name="V30" public_interface="in" units="flux"/>
-        <variable name="k30" public_interface="in" units="nm"/>
+        <variable name="k30" public_interface="in" units="nM"/>
         <variable name="kf31" public_interface="in" units="first_order_rate_constant"/>
-        <variable name="k31" public_interface="in" units="nm"/>
+        <variable name="k31" public_interface="in" units="nM"/>
         <variable name="V32" public_interface="in" units="flux"/>
-        <variable name="k32" public_interface="in" units="nm"/>
+        <variable name="k32" public_interface="in" units="nM"/>
         <variable name="kf33" public_interface="in" units="first_order_rate_constant"/>
-        <variable name="k33" public_interface="in" units="nm"/>
-        <variable name="k16" public_interface="in" units="nm"/>
-        <variable name="k18" public_interface="in" units="nm"/>
+        <variable name="k33" public_interface="in" units="nM"/>
+        <variable name="k16" public_interface="in" units="nM"/>
+        <variable name="k18" public_interface="in" units="nM"/>
         <!-- Variables-->
-        <variable name="P" public_interface="in" units="nm"/>
-        <variable name="PIP3" public_interface="in" units="nm"/>
-        <variable name="Akt" public_interface="in" units="nm"/>
-        <variable name="Akt_PIP3" public_interface="in" units="nm"/>
-        <variable name="Akt_PIP" public_interface="in" units="nm"/>
-        <variable name="Akt_PIPP" public_interface="in" units="nm"/>
-        <variable name="PP2A" public_interface="in" units="nm"/>
-        <variable name="PI3Kstar" public_interface="in" units="nm"/>
-        <variable name="MEKP" public_interface="in" units="nm"/>
-        <variable name="MEKPP" public_interface="in" units="nm"/>
+        <variable name="P" public_interface="in" units="nM"/>
+        <variable name="PIP3" public_interface="in" units="nM"/>
+        <variable name="Akt" public_interface="in" units="nM"/>
+        <variable name="Akt_PIP3" public_interface="in" units="nM"/>
+        <variable name="Akt_PIP" public_interface="in" units="nM"/>
+        <variable name="Akt_PIPP" public_interface="in" units="nM"/>
+        <variable name="PP2A" public_interface="in" units="nM"/>
+        <variable name="PI3Kstar" public_interface="in" units="nM"/>
+        <variable name="MEKP" public_interface="in" units="nM"/>
+        <variable name="MEKPP" public_interface="in" units="nM"/>
         <!-- Constants-->
         <variable initial_value="1" name="one" units="dimensionless"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">

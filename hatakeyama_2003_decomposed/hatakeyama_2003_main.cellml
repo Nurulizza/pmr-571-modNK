@@ -26,16 +26,16 @@
     <units name="s">
         <unit units="second"/>
     </units>
-    <units name="nm">
+    <units name="nM">
         <unit prefix="nano" units="mole"/>
         <unit exponent="-1" units="litre"/>
     </units>
     <units name="flux">
-        <unit units="nm"/>
+        <unit units="nM"/>
         <unit exponent="-1" units="s"/>
     </units>
     <units name="second_order_rate_constant">
-        <unit exponent="-1" units="nm"/>
+        <unit exponent="-1" units="nM"/>
         <unit exponent="-1" units="s"/>
     </units>
     <units name="first_order_rate_constant">
@@ -54,40 +54,40 @@
 -->
     <component name="parameters">
         <variable initial_value="16.9" name="Akt_kf27" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="39.1" name="Akt_k27" public_interface="out" units="nm"/>
+        <variable initial_value="39.1" name="Akt_k27" public_interface="out" units="nM"/>
         <variable initial_value="17000" name="Akt_V28" public_interface="out" units="flux"/>
-        <variable initial_value="9.02" name="Akt_k28" public_interface="out" units="nm"/>
+        <variable initial_value="9.02" name="Akt_k28" public_interface="out" units="nM"/>
         <variable initial_value="507" name="Akt_kf29" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="234" name="Akt_kb29" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="20000" name="Akt_V30" public_interface="out" units="flux"/>
-        <variable initial_value="80000" name="Akt_k30" public_interface="out" units="nm"/>
+        <variable initial_value="80000" name="Akt_k30" public_interface="out" units="nM"/>
         <variable initial_value="0.107" name="Akt_kf31" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="4.35" name="Akt_k31" public_interface="out" units="nm"/>
+        <variable initial_value="4.35" name="Akt_k31" public_interface="out" units="nM"/>
         <variable initial_value="20000" name="Akt_V32" public_interface="out" units="flux"/>
-        <variable initial_value="80000" name="Akt_k32" public_interface="out" units="nm"/>
+        <variable initial_value="80000" name="Akt_k32" public_interface="out" units="nM"/>
         <variable initial_value="0.211" name="Akt_kf33" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="12" name="Akt_k33" public_interface="out" units="nm"/>
-        <variable initial_value="2200" name="Akt_k16" public_interface="out" units="nm"/>
-        <variable initial_value="60" name="Akt_k18" public_interface="out" units="nm"/>
-        <variable initial_value="2.4" name="ERK_MKP3" public_interface="out" units="nm"/>
+        <variable initial_value="12" name="Akt_k33" public_interface="out" units="nM"/>
+        <variable initial_value="2200" name="Akt_k16" public_interface="out" units="nM"/>
+        <variable initial_value="60" name="Akt_k18" public_interface="out" units="nM"/>
+        <variable initial_value="2.4" name="ERK_MKP3" public_interface="out" units="nM"/>
         <variable initial_value="9.5" name="ERK_kf19" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="146000" name="ERK_k19" public_interface="out" units="nm"/>
+        <variable initial_value="146000" name="ERK_k19" public_interface="out" units="nM"/>
         <variable initial_value="0.3" name="ERK_kf20" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="160" name="ERK_k20" public_interface="out" units="nm"/>
+        <variable initial_value="160" name="ERK_k20" public_interface="out" units="nM"/>
         <variable initial_value="16" name="ERK_kf21" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="146000" name="ERK_k21" public_interface="out" units="nm"/>
+        <variable initial_value="146000" name="ERK_k21" public_interface="out" units="nM"/>
         <variable initial_value="0.27" name="ERK_kf22" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="60" name="ERK_k22" public_interface="out" units="nm"/>
+        <variable initial_value="60" name="ERK_k22" public_interface="out" units="nM"/>
         <variable initial_value="3.5" name="MEK_kf15" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="317" name="MEK_k15" public_interface="out" units="nm"/>
+        <variable initial_value="317" name="MEK_k15" public_interface="out" units="nM"/>
         <variable initial_value="0.058" name="MEK_kf16" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="2200" name="MEK_k16" public_interface="out" units="nm"/>
+        <variable initial_value="2200" name="MEK_k16" public_interface="out" units="nM"/>
         <variable initial_value="2.9" name="MEK_kf17" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="317" name="MEK_k17" public_interface="out" units="nm"/>
+        <variable initial_value="317" name="MEK_k17" public_interface="out" units="nM"/>
         <variable initial_value="0.058" name="MEK_kf18" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="60" name="MEK_k18" public_interface="out" units="nm"/>
-        <variable initial_value="4.35" name="MEK_k31" public_interface="out" units="nm"/>
-        <variable initial_value="12" name="MEK_k33" public_interface="out" units="nm"/>
+        <variable initial_value="60" name="MEK_k18" public_interface="out" units="nM"/>
+        <variable initial_value="4.35" name="MEK_k31" public_interface="out" units="nM"/>
+        <variable initial_value="12" name="MEK_k33" public_interface="out" units="nM"/>
         <variable initial_value="0.0012" name="PI3k_kf1" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="0.00076" name="PI3k_kb1" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.01" name="PI3k_kf2" public_interface="out" units="second_order_rate_constant"/>
@@ -97,7 +97,7 @@
         <variable initial_value="0.001" name="PI3k_kf34" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0" name="PI3k_kb34" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="62.5" name="PI3k_V4" public_interface="out" units="flux"/>
-        <variable initial_value="50" name="PI3k_k4" public_interface="out" units="nm"/>
+        <variable initial_value="50" name="PI3k_k4" public_interface="out" units="nM"/>
         <variable initial_value="0.1" name="PI3k_kf5" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="1" name="PI3k_kb5" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="20" name="PI3k_kf6" public_interface="out" units="first_order_rate_constant"/>
@@ -109,7 +109,7 @@
         <variable initial_value="40.8" name="PI3k_kf9" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0" name="PI3k_kb9" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="0.0154" name="PI3k_V10" public_interface="out" units="flux"/>
-        <variable initial_value="340" name="PI3k_k10" public_interface="out" units="nm"/>
+        <variable initial_value="340" name="PI3k_k10" public_interface="out" units="nM"/>
         <variable initial_value="0.1" name="PI3k_kf23" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="2" name="PI3k_kb23" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="9.85" name="PI3k_kf24" public_interface="out" units="first_order_rate_constant"/>
@@ -117,55 +117,55 @@
         <variable initial_value="45.8" name="PI3k_kf25" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.047" name="PI3k_kb25" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="2620" name="PI3k_V26" public_interface="out" units="flux"/>
-        <variable initial_value="3680" name="PI3k_k26" public_interface="out" units="nm"/>
+        <variable initial_value="3680" name="PI3k_k26" public_interface="out" units="nM"/>
         <variable initial_value="1.53" name="Raf_kf13" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="11.7" name="Raf_k13" public_interface="out" units="nm"/>
+        <variable initial_value="11.7" name="Raf_k13" public_interface="out" units="nM"/>
         <variable initial_value="0.00673" name="Raf_kf14" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="8.07" name="Raf_k14" public_interface="out" units="nm"/>
+        <variable initial_value="8.07" name="Raf_k14" public_interface="out" units="nM"/>
         <variable initial_value="0.222" name="RasGDPtoRasGTP_kf11" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="0.181" name="RasGDPtoRasGTP_k11" public_interface="out" units="nm"/>
+        <variable initial_value="0.181" name="RasGDPtoRasGTP_k11" public_interface="out" units="nM"/>
         <variable initial_value="0.289" name="RasGDPtoRasGTP_V12" public_interface="out" units="flux"/>
-        <variable initial_value="0.0571" name="RasGDPtoRasGTP_k12" public_interface="out" units="nm"/>
-        <variable initial_value="11.4" name="PP2A" public_interface="out" units="nm"/>
-        <variable initial_value="7" name="RAF_E" public_interface="out" units="nm"/>
+        <variable initial_value="0.0571" name="RasGDPtoRasGTP_k12" public_interface="out" units="nM"/>
+        <variable initial_value="11.4" name="PP2A" public_interface="out" units="nM"/>
+        <variable initial_value="7" name="RAF_E" public_interface="out" units="nM"/>
     </component>
     <!--
  Variable definitions
 -->
     <component name="variables">
-        <variable initial_value="0" name="MEKPP" public_interface="out" units="nm"/>
-        <variable initial_value="0" name="MEKP" public_interface="out" units="nm"/>
-        <variable initial_value="120" name="MEK" public_interface="out" units="nm"/>
-        <variable initial_value="800" name="P" public_interface="out" units="nm"/>
-        <variable initial_value="0" name="PIP3" public_interface="out" units="nm"/>
-        <variable initial_value="10" name="Akt" public_interface="out" units="nm"/>
-        <variable initial_value="0" name="Akt_PIP3" public_interface="out" units="nm"/>
-        <variable initial_value="0" name="Akt_PIP" public_interface="out" units="nm"/>
-        <variable initial_value="0.0" name="Akt_PIPP" public_interface="out" units="nm"/>
-        <variable initial_value="1000" name="ERK" public_interface="out" units="nm"/>
-        <variable initial_value="0" name="ERKP" public_interface="out" units="nm"/>
-        <variable initial_value="0" name="ERKPP" public_interface="out" units="nm"/>
-        <variable initial_value="80" name="R" public_interface="out" units="nm"/>
-        <variable initial_value="10" name="HRG" public_interface="out" units="nm"/>
-        <variable initial_value="0" name="R_HRG" public_interface="out" units="nm"/>
-        <variable initial_value="0" name="R_HRG2" public_interface="out" units="nm"/>
-        <variable initial_value="0" name="RP" public_interface="out" units="nm"/>
-        <variable initial_value="0" name="Internalisation" public_interface="out" units="nm"/>
-        <variable initial_value="0" name="R_Shc" public_interface="out" units="nm"/>
-        <variable initial_value="1000" name="Shc" public_interface="out" units="nm"/>
-        <variable initial_value="0" name="R_ShP" public_interface="out" units="nm"/>
-        <variable initial_value="10" name="GS" public_interface="out" units="nm"/>
-        <variable initial_value="0" name="ShP" public_interface="out" units="nm"/>
-        <variable initial_value="0" name="R_ShGS" public_interface="out" units="nm"/>
-        <variable initial_value="0" name="ShGS" public_interface="out" units="nm"/>
-        <variable initial_value="0" name="R_PI3K" public_interface="out" units="nm"/>
-        <variable initial_value="10" name="PI3K" public_interface="out" units="nm"/>
-        <variable initial_value="0" name="R_PI3Kstar" public_interface="out" units="nm"/>
-        <variable initial_value="0" name="PI3Kstar" public_interface="out" units="nm"/>
-        <variable initial_value="0" name="RasGTP" public_interface="out" units="nm"/>
-        <variable initial_value="120" name="RasGDP" public_interface="out" units="nm"/>
-        <variable initial_value="0" name="RAF" public_interface="out" units="nm"/>
-        <variable initial_value="100" name="RAFstar" public_interface="out" units="nm"/>
+        <variable initial_value="0" name="MEKPP" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="MEKP" public_interface="out" units="nM"/>
+        <variable initial_value="120" name="MEK" public_interface="out" units="nM"/>
+        <variable initial_value="800" name="P" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="PIP3" public_interface="out" units="nM"/>
+        <variable initial_value="10" name="Akt" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="Akt_PIP3" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="Akt_PIP" public_interface="out" units="nM"/>
+        <variable initial_value="0.0" name="Akt_PIPP" public_interface="out" units="nM"/>
+        <variable initial_value="1000" name="ERK" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="ERKP" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="ERKPP" public_interface="out" units="nM"/>
+        <variable initial_value="80" name="R" public_interface="out" units="nM"/>
+        <variable initial_value="10" name="HRG" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="R_HRG" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="R_HRG2" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="RP" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="Internalisation" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="R_Shc" public_interface="out" units="nM"/>
+        <variable initial_value="1000" name="Shc" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="R_ShP" public_interface="out" units="nM"/>
+        <variable initial_value="10" name="GS" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="ShP" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="R_ShGS" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="ShGS" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="R_PI3K" public_interface="out" units="nM"/>
+        <variable initial_value="10" name="PI3K" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="R_PI3Kstar" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="PI3Kstar" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="RasGTP" public_interface="out" units="nM"/>
+        <variable initial_value="120" name="RasGDP" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="RAF" public_interface="out" units="nM"/>
+        <variable initial_value="100" name="RAFstar" public_interface="out" units="nM"/>
     </component>
     <!--def comp geometry as
 enddef;-->

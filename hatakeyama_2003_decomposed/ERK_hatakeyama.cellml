@@ -8,16 +8,16 @@
     <units name="s">
         <unit units="second"/>
     </units>
-    <units name="um">
-        <unit prefix="micro" units="mole"/>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
         <unit exponent="-1" units="litre"/>
     </units>
     <units name="flux">
-        <unit units="nm"/>
+        <unit units="nM"/>
         <unit exponent="-1" units="s"/>
     </units>
     <units name="second_order_rate_constant">
-        <unit exponent="-1" units="nm"/>
+        <unit exponent="-1" units="nM"/>
         <unit exponent="-1" units="s"/>
     </units>
     <units name="first_order_rate_constant">
@@ -27,19 +27,19 @@
         <variable name="time" public_interface="in" units="s"/>
         <!-- Parameters-->
         <variable name="kf19" public_interface="in" units="first_order_rate_constant"/>
-        <variable name="k19" public_interface="in" units="nm"/>
+        <variable name="k19" public_interface="in" units="nM"/>
         <variable name="kf20" public_interface="in" units="first_order_rate_constant"/>
-        <variable name="k20" public_interface="in" units="nm"/>
+        <variable name="k20" public_interface="in" units="nM"/>
         <variable name="kf21" public_interface="in" units="first_order_rate_constant"/>
-        <variable name="k21" public_interface="in" units="nm"/>
+        <variable name="k21" public_interface="in" units="nM"/>
         <variable name="kf22" public_interface="in" units="first_order_rate_constant"/>
-        <variable name="k22" public_interface="in" units="nm"/>
+        <variable name="k22" public_interface="in" units="nM"/>
         <!-- Variables-->
-        <variable name="MEKPP" public_interface="in" units="nm"/>
-        <variable name="MKP3" public_interface="in" units="nm"/>
-        <variable name="ERK" public_interface="in" units="nm"/>
-        <variable name="ERKP" public_interface="in" units="nm"/>
-        <variable name="ERKPP" public_interface="in" units="nm"/>
+        <variable name="MEKPP" public_interface="in" units="nM"/>
+        <variable name="MKP3" public_interface="in" units="nM"/>
+        <variable name="ERK" public_interface="in" units="nM"/>
+        <variable name="ERKP" public_interface="in" units="nM"/>
+        <variable name="ERKPP" public_interface="in" units="nM"/>
         <!--Constants-->
         <variable initial_value="1" name="one" units="dimensionless"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
