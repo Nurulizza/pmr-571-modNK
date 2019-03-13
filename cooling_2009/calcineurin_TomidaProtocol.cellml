@@ -25,7 +25,7 @@
         <variable name="K_mN" public_interface="in" units="nM"/>
         <variable name="n" public_interface="in" units="dimensionless"/>
         <variable name="K_dN" public_interface="in" units="nM"/>
-        <variable name="act_N" public_interface="out" units="dimensionless"/>
+        <variable name="act_N" public_interface="in" units="dimensionless"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
                 <eq/>

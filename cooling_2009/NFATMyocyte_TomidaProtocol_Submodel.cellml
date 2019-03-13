@@ -61,11 +61,15 @@
         <variable initial_value="0.9957805651" name="NFATp_c" public_interface="out" units="nM"/>
         <variable initial_value="0.077917275" name="NFATp_n" public_interface="out" units="nM"/>
         <variable name="Ca" public_interface="out" units="nM"/>
-    </component>
-    <component name="NFATcyc_interface">
         <variable name="nuclearNFATpercent" public_interface="out" units="dimensionless"/>
         <variable name="nuclearNFAT" public_interface="out" units="nM"/>
         <variable name="NFATN_c_percent" public_interface="out" units="dimensionless"/>
+        <variable name="act_N" public_interface="out" units="dimensionless"/>
+    </component>
+    <component name="NFATcyc_interface">
+        <variable name="nuclearNFATpercent" public_interface="in" units="dimensionless"/>
+        <variable name="nuclearNFAT" public_interface="in" units="nM"/>
+        <variable name="NFATN_c_percent" public_interface="in" units="dimensionless"/>
         <variable name="NFATN_n" public_interface="in" units="nM"/>
         <variable name="NFATp_n" public_interface="in" units="nM"/>
         <variable name="NFATN_c" public_interface="in" units="nM"/>
@@ -143,30 +147,80 @@
             </apply>
         </math>
     </component>
-    <!--def group as encapsulation for
-    comp environment incl
-        comp variables incl
-            comp calcium;
-            comp calcineurin;
-            comp NFAT_Cycling;
-            comp NFAT_Cycling_interface;
-        endcomp;
-    endcomp;
-enddef;-->
+    <group>
+        <relationship_ref relationship="encapsulation"/>
+        <component_ref component="geometry">
+            <component_ref component="calcium"/>
+            <component_ref component="calcineurin"/>
+            <component_ref component="NFAT_Cycling"/>
+            <component_ref component="NFATcyc_interface"/>
+        </component_ref>
+    </group>
+    <component name="geometry">
+        <variable name="time" private_interface="out" public_interface="in" units="s"/>
+        <variable name="NFATcyc_k_f1" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="NFATcyc_k_r1" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="NFATcyc_k_f2" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="NFATcyc_k_f3" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="NFATcyc_k_r3" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="NFATcyc_k_f4" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="Ccn" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="M" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Ntot" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="K_mN" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="n" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="K_dN" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="stimEnd" private_interface="out" public_interface="in" units="s"/>
+        <variable name="NFATN_c" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="NFATN_n" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="NFATp_c" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="NFATp_n" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Ca" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="nuclearNFATpercent" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="nuclearNFAT" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="NFATN_c_percent" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="act_N" private_interface="out" public_interface="in" units="dimensionless"/>
+    </component>
     <connection>
-        <map_components component_1="environment" component_2="calcium"/>
+        <map_components component_1="environment" component_2="geometry"/>
         <map_variables variable_1="time" variable_2="time"/>
     </connection>
     <connection>
-        <map_components component_1="environment" component_2="calcineurin"/>
-        <map_variables variable_1="time" variable_2="time"/>
+        <map_components component_1="parameters" component_2="geometry"/>
+        <map_variables variable_1="NFATcyc_k_f1" variable_2="NFATcyc_k_f1"/>
+        <map_variables variable_1="NFATcyc_k_r1" variable_2="NFATcyc_k_r1"/>
+        <map_variables variable_1="NFATcyc_k_f2" variable_2="NFATcyc_k_f2"/>
+        <map_variables variable_1="NFATcyc_k_f3" variable_2="NFATcyc_k_f3"/>
+        <map_variables variable_1="NFATcyc_k_r3" variable_2="NFATcyc_k_r3"/>
+        <map_variables variable_1="NFATcyc_k_f4" variable_2="NFATcyc_k_f4"/>
+        <map_variables variable_1="Ccn" variable_2="Ccn"/>
+        <map_variables variable_1="M" variable_2="M"/>
+        <map_variables variable_1="Ntot" variable_2="Ntot"/>
+        <map_variables variable_1="K_mN" variable_2="K_mN"/>
+        <map_variables variable_1="n" variable_2="n"/>
+        <map_variables variable_1="K_dN" variable_2="K_dN"/>
+        <map_variables variable_1="stimEnd" variable_2="stimEnd"/>
     </connection>
     <connection>
-        <map_components component_1="environment" component_2="NFAT_Cycling"/>
+        <map_components component_1="geometry" component_2="calcium"/>
         <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="stimEnd" variable_2="stimEnd"/>
+        <map_variables variable_1="Ca" variable_2="Ca"/>
     </connection>
     <connection>
-        <map_components component_1="parameters" component_2="NFAT_Cycling"/>
+        <map_components component_1="geometry" component_2="calcineurin"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="M" variable_2="M"/>
+        <map_variables variable_1="Ntot" variable_2="Ntot"/>
+        <map_variables variable_1="K_mN" variable_2="K_mN"/>
+        <map_variables variable_1="n" variable_2="n"/>
+        <map_variables variable_1="K_dN" variable_2="K_dN"/>
+        <map_variables variable_1="Ca" variable_2="Ca"/>
+        <map_variables variable_1="act_N" variable_2="act_N"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="NFAT_Cycling"/>
+        <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="Ccn" variable_2="Ccn"/>
         <map_variables variable_1="NFATcyc_k_f1" variable_2="k_f1"/>
         <map_variables variable_1="NFATcyc_k_r1" variable_2="k_r1"/>
@@ -175,48 +229,34 @@ enddef;-->
         <map_variables variable_1="NFATcyc_k_r3" variable_2="k_r3"/>
         <map_variables variable_1="NFATcyc_k_f4" variable_2="k_f4"/>
         <map_variables variable_1="Ntot" variable_2="Ntot"/>
-    </connection>
-    <connection>
-        <map_components component_1="parameters" component_2="calcium"/>
-        <map_variables variable_1="stimEnd" variable_2="stimEnd"/>
-    </connection>
-    <connection>
-        <map_components component_1="parameters" component_2="calcineurin"/>
-        <map_variables variable_1="M" variable_2="M"/>
-        <map_variables variable_1="Ntot" variable_2="Ntot"/>
-        <map_variables variable_1="K_mN" variable_2="K_mN"/>
-        <map_variables variable_1="n" variable_2="n"/>
-        <map_variables variable_1="K_dN" variable_2="K_dN"/>
-    </connection>
-    <connection>
-        <map_components component_1="parameters" component_2="NFATcyc_interface"/>
-        <map_variables variable_1="Ccn" variable_2="Ccn"/>
-    </connection>
-    <connection>
-        <map_components component_1="variables" component_2="NFAT_Cycling"/>
         <map_variables variable_1="NFATN_c" variable_2="NFATN_c"/>
         <map_variables variable_1="NFATN_n" variable_2="NFATN_n"/>
         <map_variables variable_1="NFATp_c" variable_2="NFATp_c"/>
         <map_variables variable_1="NFATp_n" variable_2="NFATp_n"/>
-    </connection>
-    <connection>
-        <map_components component_1="variables" component_2="calcium"/>
-        <map_variables variable_1="Ca" variable_2="Ca"/>
-    </connection>
-    <connection>
-        <map_components component_1="variables" component_2="calcineurin"/>
-        <map_variables variable_1="Ca" variable_2="Ca"/>
-    </connection>
-    <connection>
-        <map_components component_1="calcineurin" component_2="NFAT_Cycling"/>
         <map_variables variable_1="act_N" variable_2="act_N"/>
     </connection>
     <connection>
-        <map_components component_1="variables" component_2="NFATcyc_interface"/>
+        <map_components component_1="geometry" component_2="NFATcyc_interface"/>
+        <map_variables variable_1="Ccn" variable_2="Ccn"/>
         <map_variables variable_1="NFATN_c" variable_2="NFATN_c"/>
         <map_variables variable_1="NFATN_n" variable_2="NFATN_n"/>
         <map_variables variable_1="NFATp_c" variable_2="NFATp_c"/>
         <map_variables variable_1="NFATp_n" variable_2="NFATp_n"/>
+        <map_variables variable_1="nuclearNFATpercent" variable_2="nuclearNFATpercent"/>
+        <map_variables variable_1="nuclearNFAT" variable_2="nuclearNFAT"/>
+        <map_variables variable_1="NFATN_c_percent" variable_2="NFATN_c_percent"/>
+    </connection>
+    <connection>
+        <map_components component_1="variables" component_2="geometry"/>
+        <map_variables variable_1="NFATN_c" variable_2="NFATN_c"/>
+        <map_variables variable_1="NFATN_n" variable_2="NFATN_n"/>
+        <map_variables variable_1="NFATp_c" variable_2="NFATp_c"/>
+        <map_variables variable_1="NFATp_n" variable_2="NFATp_n"/>
+        <map_variables variable_1="Ca" variable_2="Ca"/>
+        <map_variables variable_1="nuclearNFATpercent" variable_2="nuclearNFATpercent"/>
+        <map_variables variable_1="nuclearNFAT" variable_2="nuclearNFAT"/>
+        <map_variables variable_1="NFATN_c_percent" variable_2="NFATN_c_percent"/>
+        <map_variables variable_1="act_N" variable_2="act_N"/>
     </connection>
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">
