@@ -127,7 +127,7 @@
         <variable initial_value="0.289" name="RasGDPtoRasGTP_V12" public_interface="out" units="flux"/>
         <variable initial_value="0.0571" name="RasGDPtoRasGTP_k12" public_interface="out" units="nM"/>
         <variable initial_value="11.4" name="PP2A" public_interface="out" units="nM"/>
-        <variable initial_value="7" name="RAF_E" public_interface="out" units="nM"/>
+        <variable initial_value="7" name="Raf_E" public_interface="out" units="nM"/>
     </component>
     <!--
  Variable definitions
@@ -167,52 +167,255 @@
         <variable initial_value="0" name="RAF" public_interface="out" units="nM"/>
         <variable initial_value="100" name="RAFstar" public_interface="out" units="nM"/>
     </component>
-    <!--def comp geometry as
-enddef;-->
-    <!--def group as encapsulation for
-    comp geometry incl
-        comp parameters;
-        comp variables;
-        comp Akt;
-        comp ERK;
-        comp MEK;
-        comp RAF;
-        comp PI3K;
-        comp RasGDPtoRasGTP;
-    endcomp;
-enddef;-->
+    <group>
+        <relationship_ref relationship="encapsulation"/>
+        <component_ref component="geometry">
+            <component_ref component="Akt"/>
+            <component_ref component="ERK"/>
+            <component_ref component="MEK"/>
+            <component_ref component="RAF"/>
+            <component_ref component="PI3K"/>
+            <component_ref component="RasGDPtoRasGTP"/>
+        </component_ref>
+    </group>
+    <component name="geometry">
+        <variable name="time" private_interface="out" public_interface="in" units="second"/>
+        <variable name="Akt_kf27" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="Akt_k27" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Akt_V28" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="Akt_k28" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Akt_kf29" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="Akt_kb29" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="Akt_V30" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="Akt_k30" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Akt_kf31" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="Akt_k31" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Akt_V32" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="Akt_k32" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Akt_kf33" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="Akt_k33" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Akt_k16" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Akt_k18" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="ERK_MKP3" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="ERK_kf19" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="ERK_k19" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="ERK_kf20" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="ERK_k20" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="ERK_kf21" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="ERK_k21" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="ERK_kf22" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="ERK_k22" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="MEK_kf15" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="MEK_k15" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="MEK_kf16" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="MEK_k16" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="MEK_kf17" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="MEK_k17" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="MEK_kf18" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="MEK_k18" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="MEK_k31" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="MEK_k33" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="PI3k_kf1" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="PI3k_kb1" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3k_kf2" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="PI3k_kb2" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3k_kf3" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3k_kb3" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3k_kf34" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3k_kb34" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3k_V4" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="PI3k_k4" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="PI3k_kf5" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="PI3k_kb5" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3k_kf6" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3k_kb6" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3k_kf7" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3k_kb7" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3k_kf8" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3k_kb8" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="PI3k_kf9" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3k_kb9" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="PI3k_V10" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="PI3k_k10" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="PI3k_kf23" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="PI3k_kb23" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3k_kf24" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3k_kb24" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3k_kf25" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3k_kb25" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="PI3k_V26" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="PI3k_k26" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Raf_kf13" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="Raf_k13" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Raf_kf14" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="Raf_k14" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="RasGDPtoRasGTP_kf11" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="RasGDPtoRasGTP_k11" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="RasGDPtoRasGTP_V12" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="RasGDPtoRasGTP_k12" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="PP2A" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Raf_E" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="MEKPP" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="MEKP" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="MEK" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="P" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="PIP3" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Akt" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Akt_PIP3" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Akt_PIP" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Akt_PIPP" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="ERK" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="ERKP" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="ERKPP" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="R" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="HRG" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="R_HRG" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="R_HRG2" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="RP" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Internalisation" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="R_Shc" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Shc" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="R_ShP" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="GS" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="ShP" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="R_ShGS" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="ShGS" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="R_PI3K" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="PI3K" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="R_PI3Kstar" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="PI3Kstar" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="RasGTP" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="RasGDP" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="RAF" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="RAFstar" private_interface="out" public_interface="in" units="nM"/>
+    </component>
     <!--
  Mapping time to each component
 -->
     <connection>
-        <map_components component_1="environment" component_2="Akt"/>
+        <map_components component_1="environment" component_2="geometry"/>
         <map_variables variable_1="time" variable_2="time"/>
     </connection>
     <connection>
-        <map_components component_1="environment" component_2="PI3K"/>
-        <map_variables variable_1="time" variable_2="time"/>
+        <map_components component_1="parameters" component_2="geometry"/>
+        <map_variables variable_1="Akt_kf27" variable_2="Akt_kf27"/>
+        <map_variables variable_1="Akt_k27" variable_2="Akt_k27"/>
+        <map_variables variable_1="Akt_V28" variable_2="Akt_V28"/>
+        <map_variables variable_1="Akt_k28" variable_2="Akt_k28"/>
+        <map_variables variable_1="Akt_kf29" variable_2="Akt_kf29"/>
+        <map_variables variable_1="Akt_kb29" variable_2="Akt_kb29"/>
+        <map_variables variable_1="Akt_V30" variable_2="Akt_V30"/>
+        <map_variables variable_1="Akt_k30" variable_2="Akt_k30"/>
+        <map_variables variable_1="Akt_kf31" variable_2="Akt_kf31"/>
+        <map_variables variable_1="Akt_k31" variable_2="Akt_k31"/>
+        <map_variables variable_1="Akt_V32" variable_2="Akt_V32"/>
+        <map_variables variable_1="Akt_k32" variable_2="Akt_k32"/>
+        <map_variables variable_1="Akt_kf33" variable_2="Akt_kf33"/>
+        <map_variables variable_1="Akt_k33" variable_2="Akt_k33"/>
+        <map_variables variable_1="Akt_k16" variable_2="Akt_k16"/>
+        <map_variables variable_1="Akt_k18" variable_2="Akt_k18"/>
+        <map_variables variable_1="ERK_MKP3" variable_2="ERK_MKP3"/>
+        <map_variables variable_1="ERK_kf19" variable_2="ERK_kf19"/>
+        <map_variables variable_1="ERK_k19" variable_2="ERK_k19"/>
+        <map_variables variable_1="ERK_kf20" variable_2="ERK_kf20"/>
+        <map_variables variable_1="ERK_k20" variable_2="ERK_k20"/>
+        <map_variables variable_1="ERK_kf21" variable_2="ERK_kf21"/>
+        <map_variables variable_1="ERK_k21" variable_2="ERK_k21"/>
+        <map_variables variable_1="ERK_kf22" variable_2="ERK_kf22"/>
+        <map_variables variable_1="ERK_k22" variable_2="ERK_k22"/>
+        <map_variables variable_1="MEK_kf15" variable_2="MEK_kf15"/>
+        <map_variables variable_1="MEK_k15" variable_2="MEK_k15"/>
+        <map_variables variable_1="MEK_kf16" variable_2="MEK_kf16"/>
+        <map_variables variable_1="MEK_k16" variable_2="MEK_k16"/>
+        <map_variables variable_1="MEK_kf17" variable_2="MEK_kf17"/>
+        <map_variables variable_1="MEK_k17" variable_2="MEK_k17"/>
+        <map_variables variable_1="MEK_kf18" variable_2="MEK_kf18"/>
+        <map_variables variable_1="MEK_k18" variable_2="MEK_k18"/>
+        <map_variables variable_1="MEK_k31" variable_2="MEK_k31"/>
+        <map_variables variable_1="MEK_k33" variable_2="MEK_k33"/>
+        <map_variables variable_1="PI3k_kf1" variable_2="PI3k_kf1"/>
+        <map_variables variable_1="PI3k_kb1" variable_2="PI3k_kb1"/>
+        <map_variables variable_1="PI3k_kf2" variable_2="PI3k_kf2"/>
+        <map_variables variable_1="PI3k_kb2" variable_2="PI3k_kb2"/>
+        <map_variables variable_1="PI3k_kf3" variable_2="PI3k_kf3"/>
+        <map_variables variable_1="PI3k_kb3" variable_2="PI3k_kb3"/>
+        <map_variables variable_1="PI3k_kf34" variable_2="PI3k_kf34"/>
+        <map_variables variable_1="PI3k_kb34" variable_2="PI3k_kb34"/>
+        <map_variables variable_1="PI3k_V4" variable_2="PI3k_V4"/>
+        <map_variables variable_1="PI3k_k4" variable_2="PI3k_k4"/>
+        <map_variables variable_1="PI3k_kf5" variable_2="PI3k_kf5"/>
+        <map_variables variable_1="PI3k_kb5" variable_2="PI3k_kb5"/>
+        <map_variables variable_1="PI3k_kf6" variable_2="PI3k_kf6"/>
+        <map_variables variable_1="PI3k_kb6" variable_2="PI3k_kb6"/>
+        <map_variables variable_1="PI3k_kf7" variable_2="PI3k_kf7"/>
+        <map_variables variable_1="PI3k_kb7" variable_2="PI3k_kb7"/>
+        <map_variables variable_1="PI3k_kf8" variable_2="PI3k_kf8"/>
+        <map_variables variable_1="PI3k_kb8" variable_2="PI3k_kb8"/>
+        <map_variables variable_1="PI3k_kf9" variable_2="PI3k_kf9"/>
+        <map_variables variable_1="PI3k_kb9" variable_2="PI3k_kb9"/>
+        <map_variables variable_1="PI3k_V10" variable_2="PI3k_V10"/>
+        <map_variables variable_1="PI3k_k10" variable_2="PI3k_k10"/>
+        <map_variables variable_1="PI3k_kf23" variable_2="PI3k_kf23"/>
+        <map_variables variable_1="PI3k_kb23" variable_2="PI3k_kb23"/>
+        <map_variables variable_1="PI3k_kf24" variable_2="PI3k_kf24"/>
+        <map_variables variable_1="PI3k_kb24" variable_2="PI3k_kb24"/>
+        <map_variables variable_1="PI3k_kf25" variable_2="PI3k_kf25"/>
+        <map_variables variable_1="PI3k_kb25" variable_2="PI3k_kb25"/>
+        <map_variables variable_1="PI3k_V26" variable_2="PI3k_V26"/>
+        <map_variables variable_1="PI3k_k26" variable_2="PI3k_k26"/>
+        <map_variables variable_1="Raf_kf13" variable_2="Raf_kf13"/>
+        <map_variables variable_1="Raf_k13" variable_2="Raf_k13"/>
+        <map_variables variable_1="Raf_kf14" variable_2="Raf_kf14"/>
+        <map_variables variable_1="Raf_k14" variable_2="Raf_k14"/>
+        <map_variables variable_1="RasGDPtoRasGTP_kf11" variable_2="RasGDPtoRasGTP_kf11"/>
+        <map_variables variable_1="RasGDPtoRasGTP_k11" variable_2="RasGDPtoRasGTP_k11"/>
+        <map_variables variable_1="RasGDPtoRasGTP_V12" variable_2="RasGDPtoRasGTP_V12"/>
+        <map_variables variable_1="RasGDPtoRasGTP_k12" variable_2="RasGDPtoRasGTP_k12"/>
+        <map_variables variable_1="PP2A" variable_2="PP2A"/>
+        <map_variables variable_1="Raf_E" variable_2="Raf_E"/>
     </connection>
     <connection>
-        <map_components component_1="environment" component_2="RasGDPtoRasGTP"/>
-        <map_variables variable_1="time" variable_2="time"/>
-    </connection>
-    <connection>
-        <map_components component_1="environment" component_2="RAF"/>
-        <map_variables variable_1="time" variable_2="time"/>
-    </connection>
-    <connection>
-        <map_components component_1="environment" component_2="MEK"/>
-        <map_variables variable_1="time" variable_2="time"/>
-    </connection>
-    <connection>
-        <map_components component_1="environment" component_2="ERK"/>
-        <map_variables variable_1="time" variable_2="time"/>
+        <map_components component_1="variables" component_2="geometry"/>
+        <map_variables variable_1="MEKPP" variable_2="MEKPP"/>
+        <map_variables variable_1="MEKP" variable_2="MEKP"/>
+        <map_variables variable_1="MEK" variable_2="MEK"/>
+        <map_variables variable_1="P" variable_2="P"/>
+        <map_variables variable_1="PIP3" variable_2="PIP3"/>
+        <map_variables variable_1="Akt" variable_2="Akt"/>
+        <map_variables variable_1="Akt_PIP3" variable_2="Akt_PIP3"/>
+        <map_variables variable_1="Akt_PIP" variable_2="Akt_PIP"/>
+        <map_variables variable_1="Akt_PIPP" variable_2="Akt_PIPP"/>
+        <map_variables variable_1="ERK" variable_2="ERK"/>
+        <map_variables variable_1="ERKP" variable_2="ERKP"/>
+        <map_variables variable_1="ERKPP" variable_2="ERKPP"/>
+        <map_variables variable_1="R" variable_2="R"/>
+        <map_variables variable_1="HRG" variable_2="HRG"/>
+        <map_variables variable_1="R_HRG" variable_2="R_HRG"/>
+        <map_variables variable_1="R_HRG2" variable_2="R_HRG2"/>
+        <map_variables variable_1="RP" variable_2="RP"/>
+        <map_variables variable_1="Internalisation" variable_2="Internalisation"/>
+        <map_variables variable_1="R_Shc" variable_2="R_Shc"/>
+        <map_variables variable_1="Shc" variable_2="Shc"/>
+        <map_variables variable_1="R_ShP" variable_2="R_ShP"/>
+        <map_variables variable_1="GS" variable_2="GS"/>
+        <map_variables variable_1="ShP" variable_2="ShP"/>
+        <map_variables variable_1="R_ShGS" variable_2="R_ShGS"/>
+        <map_variables variable_1="ShGS" variable_2="ShGS"/>
+        <map_variables variable_1="R_PI3K" variable_2="R_PI3K"/>
+        <map_variables variable_1="PI3K" variable_2="PI3K"/>
+        <map_variables variable_1="R_PI3Kstar" variable_2="R_PI3Kstar"/>
+        <map_variables variable_1="PI3Kstar" variable_2="PI3Kstar"/>
+        <map_variables variable_1="RasGTP" variable_2="RasGTP"/>
+        <map_variables variable_1="RasGDP" variable_2="RasGDP"/>
+        <map_variables variable_1="RAF" variable_2="RAF"/>
+        <map_variables variable_1="RAFstar" variable_2="RAFstar"/>
     </connection>
     <!--
  Parameter maps
 -->
     <connection>
-        <map_components component_1="parameters" component_2="Akt"/>
+        <map_components component_1="geometry" component_2="Akt"/>
+        <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="PP2A" variable_2="PP2A"/>
         <map_variables variable_1="Akt_kf27" variable_2="kf27"/>
         <map_variables variable_1="Akt_k27" variable_2="k27"/>
@@ -230,9 +433,19 @@ enddef;-->
         <map_variables variable_1="Akt_k33" variable_2="k33"/>
         <map_variables variable_1="Akt_k16" variable_2="k16"/>
         <map_variables variable_1="Akt_k18" variable_2="k18"/>
+        <map_variables variable_1="P" variable_2="P"/>
+        <map_variables variable_1="PIP3" variable_2="PIP3"/>
+        <map_variables variable_1="Akt" variable_2="Akt"/>
+        <map_variables variable_1="Akt_PIP3" variable_2="Akt_PIP3"/>
+        <map_variables variable_1="Akt_PIP" variable_2="Akt_PIP"/>
+        <map_variables variable_1="Akt_PIPP" variable_2="Akt_PIPP"/>
+        <map_variables variable_1="MEKP" variable_2="MEKP"/>
+        <map_variables variable_1="MEKPP" variable_2="MEKPP"/>
+        <map_variables variable_1="PI3Kstar" variable_2="PI3Kstar"/>
     </connection>
     <connection>
-        <map_components component_1="parameters" component_2="ERK"/>
+        <map_components component_1="geometry" component_2="ERK"/>
+        <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="ERK_kf19" variable_2="kf19"/>
         <map_variables variable_1="ERK_k19" variable_2="k19"/>
         <map_variables variable_1="ERK_kf20" variable_2="kf20"/>
@@ -242,9 +455,14 @@ enddef;-->
         <map_variables variable_1="ERK_kf22" variable_2="kf22"/>
         <map_variables variable_1="ERK_k22" variable_2="k22"/>
         <map_variables variable_1="ERK_MKP3" variable_2="MKP3"/>
+        <map_variables variable_1="ERK" variable_2="ERK"/>
+        <map_variables variable_1="ERKP" variable_2="ERKP"/>
+        <map_variables variable_1="ERKPP" variable_2="ERKPP"/>
+        <map_variables variable_1="MEKPP" variable_2="MEKPP"/>
     </connection>
     <connection>
-        <map_components component_1="parameters" component_2="MEK"/>
+        <map_components component_1="geometry" component_2="MEK"/>
+        <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="PP2A" variable_2="PP2A"/>
         <map_variables variable_1="MEK_kf15" variable_2="kf15"/>
         <map_variables variable_1="MEK_k15" variable_2="k15"/>
@@ -256,9 +474,16 @@ enddef;-->
         <map_variables variable_1="MEK_k18" variable_2="k18"/>
         <map_variables variable_1="MEK_k31" variable_2="k31"/>
         <map_variables variable_1="MEK_k33" variable_2="k33"/>
+        <map_variables variable_1="MEKP" variable_2="MEKP"/>
+        <map_variables variable_1="MEK" variable_2="MEK"/>
+        <map_variables variable_1="MEKPP" variable_2="MEKPP"/>
+        <map_variables variable_1="Akt_PIP" variable_2="Akt_PIP"/>
+        <map_variables variable_1="Akt_PIPP" variable_2="Akt_PIPP"/>
+        <map_variables variable_1="RAFstar" variable_2="RAFstar"/>
     </connection>
     <connection>
-        <map_components component_1="parameters" component_2="PI3K"/>
+        <map_components component_1="geometry" component_2="PI3K"/>
+        <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="PI3k_kf1" variable_2="kf1"/>
         <map_variables variable_1="PI3k_kb1" variable_2="kb1"/>
         <map_variables variable_1="PI3k_kf2" variable_2="kf2"/>
@@ -289,55 +514,6 @@ enddef;-->
         <map_variables variable_1="PI3k_kb25" variable_2="kb25"/>
         <map_variables variable_1="PI3k_V26" variable_2="V26"/>
         <map_variables variable_1="PI3k_k26" variable_2="k26"/>
-    </connection>
-    <connection>
-        <map_components component_1="parameters" component_2="RAF"/>
-        <map_variables variable_1="Raf_kf13" variable_2="kf13"/>
-        <map_variables variable_1="Raf_k13" variable_2="k13"/>
-        <map_variables variable_1="Raf_kf14" variable_2="kf14"/>
-        <map_variables variable_1="Raf_k14" variable_2="k14"/>
-        <map_variables variable_1="RAF_E" variable_2="E"/>
-    </connection>
-    <connection>
-        <map_components component_1="parameters" component_2="RasGDPtoRasGTP"/>
-        <map_variables variable_1="RasGDPtoRasGTP_kf11" variable_2="kf11"/>
-        <map_variables variable_1="RasGDPtoRasGTP_k11" variable_2="k11"/>
-        <map_variables variable_1="RasGDPtoRasGTP_V12" variable_2="V12"/>
-        <map_variables variable_1="RasGDPtoRasGTP_k12" variable_2="k12"/>
-    </connection>
-    <!--
- Variable maps
--->
-    <connection>
-        <map_components component_1="variables" component_2="Akt"/>
-        <map_variables variable_1="P" variable_2="P"/>
-        <map_variables variable_1="PIP3" variable_2="PIP3"/>
-        <map_variables variable_1="Akt" variable_2="Akt"/>
-        <map_variables variable_1="Akt_PIP3" variable_2="Akt_PIP3"/>
-        <map_variables variable_1="Akt_PIP" variable_2="Akt_PIP"/>
-        <map_variables variable_1="Akt_PIPP" variable_2="Akt_PIPP"/>
-        <map_variables variable_1="MEKP" variable_2="MEKP"/>
-        <map_variables variable_1="MEKPP" variable_2="MEKPP"/>
-        <map_variables variable_1="PI3Kstar" variable_2="PI3Kstar"/>
-    </connection>
-    <connection>
-        <map_components component_1="variables" component_2="ERK"/>
-        <map_variables variable_1="ERK" variable_2="ERK"/>
-        <map_variables variable_1="ERKP" variable_2="ERKP"/>
-        <map_variables variable_1="ERKPP" variable_2="ERKPP"/>
-        <map_variables variable_1="MEKPP" variable_2="MEKPP"/>
-    </connection>
-    <connection>
-        <map_components component_1="variables" component_2="MEK"/>
-        <map_variables variable_1="MEKP" variable_2="MEKP"/>
-        <map_variables variable_1="MEK" variable_2="MEK"/>
-        <map_variables variable_1="MEKPP" variable_2="MEKPP"/>
-        <map_variables variable_1="Akt_PIP" variable_2="Akt_PIP"/>
-        <map_variables variable_1="Akt_PIPP" variable_2="Akt_PIPP"/>
-        <map_variables variable_1="RAFstar" variable_2="RAFstar"/>
-    </connection>
-    <connection>
-        <map_components component_1="variables" component_2="PI3K"/>
         <map_variables variable_1="R" variable_2="R"/>
         <map_variables variable_1="Shc" variable_2="Shc"/>
         <map_variables variable_1="PI3K" variable_2="PI3K"/>
@@ -357,14 +533,25 @@ enddef;-->
         <map_variables variable_1="PI3Kstar" variable_2="PI3Kstar"/>
     </connection>
     <connection>
-        <map_components component_1="variables" component_2="RAF"/>
+        <map_components component_1="geometry" component_2="RAF"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="Raf_kf13" variable_2="kf13"/>
+        <map_variables variable_1="Raf_k13" variable_2="k13"/>
+        <map_variables variable_1="Raf_kf14" variable_2="kf14"/>
+        <map_variables variable_1="Raf_k14" variable_2="k14"/>
+        <map_variables variable_1="Raf_E" variable_2="E"/>
         <map_variables variable_1="RAFstar" variable_2="RAFstar"/>
         <map_variables variable_1="RAF" variable_2="RAF"/>
         <map_variables variable_1="RasGTP" variable_2="RasGTP"/>
         <map_variables variable_1="Akt_PIPP" variable_2="Akt_PIPP"/>
     </connection>
     <connection>
-        <map_components component_1="variables" component_2="RasGDPtoRasGTP"/>
+        <map_components component_1="geometry" component_2="RasGDPtoRasGTP"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="RasGDPtoRasGTP_kf11" variable_2="kf11"/>
+        <map_variables variable_1="RasGDPtoRasGTP_k11" variable_2="k11"/>
+        <map_variables variable_1="RasGDPtoRasGTP_V12" variable_2="V12"/>
+        <map_variables variable_1="RasGDPtoRasGTP_k12" variable_2="k12"/>
         <map_variables variable_1="ShGS" variable_2="ShGS"/>
         <map_variables variable_1="RasGTP" variable_2="RasGTP"/>
         <map_variables variable_1="RasGDP" variable_2="RasGDP"/>
