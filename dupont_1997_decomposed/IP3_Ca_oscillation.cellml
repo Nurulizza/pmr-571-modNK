@@ -1,0 +1,429 @@
+<?xml version='1.0'?>
+<model cmeta:id="IP3_Ca_oscillation" name="IP3_Ca_oscillation" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="per_nM">
+        <unit exponent="-1" units="nM"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="third_order_rate_constant">
+        <unit exponent="-2" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="fourth_order_rate_constant">
+        <unit exponent="-3" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="fifth_order_rate_constant">
+        <unit exponent="-4" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--
+*******************************************************
+***         C O M P O N E N T S                     ***
+*******************************************************
+   -->
+    <component name="R_des">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="R_des" public_interface="in" units="dimensionless"/>
+        <variable name="K_plus" public_interface="in" units="fifth_order_rate_constant"/>
+        <variable name="C_cyto" public_interface="in" units="nM"/>
+        <variable name="n_i" public_interface="in" units="dimensionless"/>
+        <variable name="K_act" public_interface="in" units="nM"/>
+        <variable name="n_a" public_interface="in" units="dimensionless"/>
+        <variable name="K_minus" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="K_inh" public_interface="in" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>K_plus</ci>
+                <apply>
+                    <divide/>
+                    <ci>K_minus</ci>
+                    <apply>
+                        <power/>
+                        <ci>K_inh</ci>
+                        <ci>n_i</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>R_des</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>K_plus</ci>
+                            <apply>
+                                <power/>
+                                <ci>C_cyto</ci>
+                                <ci>n_i</ci>
+                            </apply>
+                            <apply>
+                                <minus/>
+                                <cn cellml:units="dimensionless">1</cn>
+                                <ci>R_des</ci>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <cn cellml:units="dimensionless">1</cn>
+                            <apply>
+                                <power/>
+                                <apply>
+                                    <divide/>
+                                    <ci>C_cyto</ci>
+                                    <ci>K_act</ci>
+                                </apply>
+                                <ci>n_a</ci>
+                            </apply>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>K_minus</ci>
+                        <ci>R_des</ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="C_cyto">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="C_cyto" public_interface="in" units="nM"/>
+        <variable name="K_1" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="b" public_interface="in" units="dimensionless"/>
+        <variable name="n_i" public_interface="in" units="dimensionless"/>
+        <variable name="I_ra" public_interface="in" units="dimensionless"/>
+        <variable name="Ca_tot" public_interface="in" units="nM"/>
+        <variable name="alpha" public_interface="in" units="dimensionless"/>
+        <variable name="V_MP" public_interface="in" units="flux"/>
+        <variable name="n_p" public_interface="in" units="dimensionless"/>
+        <variable name="K_p" public_interface="in" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>C_cyto</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>K_1</ci>
+                        <apply>
+                            <plus/>
+                            <ci>b</ci>
+                            <ci>I_ra</ci>
+                        </apply>
+                        <apply>
+                            <minus/>
+                            <ci>Ca_tot</ci>
+                            <apply>
+                                <times/>
+                                <ci>C_cyto</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>alpha</ci>
+                                    <cn cellml:units="dimensionless">1</cn>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>V_MP</ci>
+                            <apply>
+                                <power/>
+                                <ci>C_cyto</ci>
+                                <ci>n_p</ci>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <apply>
+                                <power/>
+                                <ci>K_p</ci>
+                                <ci>n_p</ci>
+                            </apply>
+                            <apply>
+                                <power/>
+                                <ci>C_cyto</ci>
+                                <ci>n_p</ci>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="I_ra">
+        <variable name="I_ra" public_interface="in" units="dimensionless"/>
+        <variable name="I_rable" public_interface="in" units="dimensionless"/>
+        <variable name="K_act" public_interface="in" units="nM"/>
+        <variable name="C_cyto" public_interface="in" units="nM"/>
+        <variable name="n_a" public_interface="in" units="dimensionless"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>I_ra</ci>
+                <apply>
+                    <divide/>
+                    <ci>I_rable</ci>
+                    <apply>
+                        <plus/>
+                        <cn cellml:units="dimensionless">1</cn>
+                        <apply>
+                            <power/>
+                            <apply>
+                                <divide/>
+                                <ci>K_act</ci>
+                                <ci>C_cyto</ci>
+                            </apply>
+                            <ci>n_a</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="I_rable">
+        <variable name="I_rable" public_interface="in" units="dimensionless"/>
+        <variable name="R_des" public_interface="in" units="dimensionless"/>
+        <variable name="IP3" public_interface="in" units="nM"/>
+        <variable name="K_IP" public_interface="in" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>I_rable</ci>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <times/>
+                        <apply>
+                            <minus/>
+                            <cn cellml:units="dimensionless">1</cn>
+                            <ci>R_des</ci>
+                        </apply>
+                        <ci>IP3</ci>
+                    </apply>
+                    <apply>
+                        <plus/>
+                        <ci>K_IP</ci>
+                        <ci>IP3</ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="IP3">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="IP3" public_interface="in" units="nM"/>
+        <variable name="V_PLC" public_interface="in" units="flux"/>
+        <variable name="V_3K" public_interface="in" units="flux"/>
+        <variable name="V_5P" public_interface="in" units="flux"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>IP3</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci>V_PLC</ci>
+                        <ci>V_3K</ci>
+                    </apply>
+                    <ci>V_5P</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="V_PLC">
+        <variable name="V_PLC" public_interface="in" units="flux"/>
+        <variable name="V_plc" public_interface="in" units="flux"/>
+        <variable name="gamma" public_interface="in" units="dimensionless"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>V_PLC</ci>
+                <apply>
+                    <times/>
+                    <ci>gamma</ci>
+                    <ci>V_plc</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="V_3K">
+        <variable name="V_3K" public_interface="in" units="flux"/>
+        <variable name="IP3" public_interface="in" units="nM"/>
+        <variable name="V_k" public_interface="in" units="flux"/>
+        <variable name="K_k" public_interface="in" units="nM"/>
+        <variable name="C_cyto" public_interface="in" units="nM"/>
+        <variable name="n_d" public_interface="in" units="dimensionless"/>
+        <variable name="K_d" public_interface="in" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>V_3K</ci>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <times/>
+                        <apply>
+                            <divide/>
+                            <apply>
+                                <times/>
+                                <ci>V_k</ci>
+                                <ci>IP3</ci>
+                            </apply>
+                            <apply>
+                                <plus/>
+                                <ci>K_k</ci>
+                                <ci>IP3</ci>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <power/>
+                            <ci>C_cyto</ci>
+                            <ci>n_d</ci>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <plus/>
+                        <apply>
+                            <power/>
+                            <ci>K_d</ci>
+                            <ci>n_d</ci>
+                        </apply>
+                        <apply>
+                            <power/>
+                            <ci>C_cyto</ci>
+                            <ci>n_d</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="V_5P">
+        <variable name="V_5P" public_interface="in" units="flux"/>
+        <variable name="IP3" public_interface="in" units="nM"/>
+        <variable name="IP4" public_interface="in" units="nM"/>
+        <variable name="V_p1" public_interface="in" units="flux"/>
+        <variable name="K_p1" public_interface="in" units="nM"/>
+        <variable name="K_p2" public_interface="in" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>V_5P</ci>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <times/>
+                        <ci>V_p1</ci>
+                        <ci>IP3</ci>
+                    </apply>
+                    <apply>
+                        <plus/>
+                        <apply>
+                            <times/>
+                            <ci>K_p1</ci>
+                            <apply>
+                                <plus/>
+                                <cn cellml:units="dimensionless">1</cn>
+                                <apply>
+                                    <divide/>
+                                    <ci>IP4</ci>
+                                    <ci>K_p2</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <ci>IP3</ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="V_15P">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="V_15P" public_interface="in" units="flux"/>
+        <variable name="IP3" public_interface="in" units="nM"/>
+        <variable name="IP4" public_interface="in" units="nM"/>
+        <variable name="V_p2" public_interface="in" units="flux"/>
+        <variable name="K_p1" public_interface="in" units="nM"/>
+        <variable name="K_p2" public_interface="in" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>V_15P</ci>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <times/>
+                        <ci>V_p2</ci>
+                        <ci>IP4</ci>
+                    </apply>
+                    <apply>
+                        <plus/>
+                        <apply>
+                            <times/>
+                            <ci>K_p2</ci>
+                            <apply>
+                                <plus/>
+                                <cn cellml:units="dimensionless">1</cn>
+                                <apply>
+                                    <divide/>
+                                    <ci>IP3</ci>
+                                    <ci>K_p1</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <ci>IP4</ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

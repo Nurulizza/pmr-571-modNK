@@ -34,6 +34,13 @@ def check_all_same_state(model,data,expt_state_uri,times):
     for i in range(0,data.shape[1]):
         if np.isclose(model.states()[expt_state_uri[i]].values()[times],data[:,i]).all:
             count_true = count_true + 1
+        else:
+            print('Data and model not alike: ' + str(expt_state_uri[i]))
+            print('Model: ')
+            print(model.states()[expt_state_uri[i]].values()[times])
+            print('Data: ')
+            print(data[:,i])
+            
     if(count_true == data.shape[1]):
         output = True
     return  output
@@ -91,6 +98,22 @@ def test_cooling_2009_tomida():
     are_same = check_all_same_algebraic(myresults,expt_points, expt_algebraic_uri,times)
     return are_same
     
+    
+def test_dupont_1997():
+    # The state variable in the model that the data represents
+    expt_state_uri = ['variables/IP3','variables/IP4']
+    simulation_cellml = 'dupont_1997_decomposed/dupont_1997_main.cellml'
+    start_time = 0.0
+    end_time = 100.0
+    time_interval = 0.01
+    # Experimental data
+    expt_data = np.loadtxt('test_data/dupont_1997_test_data.csv', delimiter=',')
+    expt_time = expt_data[...,0]
+    expt_points = expt_data[...,1:]
+    myresults = simulate_cellml(simulation_cellml, start_time, end_time, time_interval)
+    times = expt_time.astype(int)  
+    are_same = check_all_same_state(myresults,expt_points, expt_state_uri,times)
+    return are_same
 ################################################################  
 countpasses = 0
 counttotal = 0  
@@ -100,6 +123,9 @@ test1 = test_hatakeyama_2003()
 ## TEST 2 - Cooling (2009) Tomida protocol
 test2 = test_cooling_2009_tomida()
 [countpasses,counttotal] = report_test_result("Cooling 2009 Tomida protocol",test2, countpasses,counttotal)
+## TEST 3 - Dupont & Erneaux (1997)
+test3 = test_dupont_1997()
+[countpasses,counttotal] = report_test_result("Dupont 1997 protocol",test3, countpasses,counttotal)
 
 print("-------------------------------")
 print("        TESTS COMPLETED        ")

@@ -29,8 +29,8 @@
     <component name="IP4">
         <variable name="time" public_interface="in" units="second"/>
         <variable name="IP4" public_interface="in" units="nM"/>
-        <variable name="V_3K" public_interface="in" units="nM"/>
-        <variable name="V_15P" public_interface="in" units="nM"/>
+        <variable name="V_3K" public_interface="in" units="flux"/>
+        <variable name="V_15P" public_interface="in" units="flux"/>
         <variable name="k" public_interface="in" units="first_order_rate_constant"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -45,13 +45,9 @@
                 <apply>
                     <minus/>
                     <apply>
-                        <times/>
-                        <apply>
-                            <minus/>
-                            <ci>V_3K</ci>
-                            <ci>V_15P</ci>
-                        </apply>
-                        <cn cellml:units="first_order_rate_constant">1</cn>
+                        <minus/>
+                        <ci>V_3K</ci>
+                        <ci>V_15P</ci>
                     </apply>
                     <apply>
                         <times/>
