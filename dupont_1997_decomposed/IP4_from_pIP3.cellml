@@ -1,0 +1,65 @@
+<?xml version='1.0'?>
+<model cmeta:id="IP4_from_pIP3" name="IP4_from_pIP3" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="per_nM">
+        <unit exponent="-1" units="nM"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <component name="IP4">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="IP4" public_interface="in" units="nM"/>
+        <variable name="V_3K" public_interface="in" units="nM"/>
+        <variable name="V_15P" public_interface="in" units="nM"/>
+        <variable name="k" public_interface="in" units="first_order_rate_constant"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>IP4</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <apply>
+                            <minus/>
+                            <ci>V_3K</ci>
+                            <ci>V_15P</ci>
+                        </apply>
+                        <cn cellml:units="first_order_rate_constant">1</cn>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k</ci>
+                        <ci>IP4</ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>
