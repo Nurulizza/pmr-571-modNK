@@ -9,6 +9,9 @@
     <import xlink:href="NFATCycling_TomidaProtocol.cellml">
         <component component_ref="NFAT_Cycling" name="NFAT_Cycling"/>
     </import>
+    <import xlink:href="Nuclear_NFAT_TomidaProtocol.cellml">
+        <component component_ref="nuclearNFAT" name="nuclearNFAT"/>
+    </import>
     <!--
         *******************************************************
         ***         U   N   I   T   S                       ***
@@ -154,6 +157,7 @@
             <component_ref component="calcineurin"/>
             <component_ref component="NFAT_Cycling"/>
             <component_ref component="NFATcyc_interface"/>
+            <component_ref component="nuclearNFAT"/>
         </component_ref>
     </group>
     <component name="geometry">
@@ -180,6 +184,7 @@
         <variable name="nuclearNFAT" private_interface="out" public_interface="in" units="nM"/>
         <variable name="NFATN_c_percent" private_interface="out" public_interface="in" units="dimensionless"/>
         <variable name="act_N" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="JNFAT_n_cyc" private_interface="out" public_interface="out" units="flux"/>
     </component>
     <connection>
         <map_components component_1="environment" component_2="geometry"/>
@@ -234,6 +239,7 @@
         <map_variables variable_1="NFATp_c" variable_2="NFATp_c"/>
         <map_variables variable_1="NFATp_n" variable_2="NFATp_n"/>
         <map_variables variable_1="act_N" variable_2="act_N"/>
+        <map_variables variable_1="JNFAT_n_cyc" variable_2="JNFAT_n_cyc"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="NFATcyc_interface"/>
@@ -245,6 +251,12 @@
         <map_variables variable_1="nuclearNFATpercent" variable_2="nuclearNFATpercent"/>
         <map_variables variable_1="nuclearNFAT" variable_2="nuclearNFAT"/>
         <map_variables variable_1="NFATN_c_percent" variable_2="NFATN_c_percent"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="nuclearNFAT"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="NFATN_n" variable_2="NFATN_n"/>
+        <map_variables variable_1="JNFAT_n_cyc" variable_2="JNFAT_n_cyc"/>
     </connection>
     <connection>
         <map_components component_1="variables" component_2="geometry"/>

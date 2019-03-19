@@ -47,6 +47,7 @@
         <variable name="J2" units="flux"/>
         <variable name="J3" units="flux"/>
         <variable name="J4" units="flux"/>
+        <variable name="JNFAT_n_cyc" public_interface="in" units="flux"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
                 <eq/>
@@ -116,6 +117,19 @@
             </apply>
             <apply>
                 <eq/>
+                <ci>JNFAT_n_cyc</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>J2</ci>
+                        <ci>Ccn</ci>
+                    </apply>
+                    <ci>J3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
                 <apply>
                     <diff/>
                     <bvar>
@@ -148,25 +162,7 @@
                     <ci>J2</ci>
                 </apply>
             </apply>
-            <apply>
-                <eq/>
-                <apply>
-                    <diff/>
-                    <bvar>
-                        <ci>time</ci>
-                    </bvar>
-                    <ci>NFATN_n</ci>
-                </apply>
-                <apply>
-                    <minus/>
-                    <apply>
-                        <times/>
-                        <ci>J2</ci>
-                        <ci>Ccn</ci>
-                    </apply>
-                    <ci>J3</ci>
-                </apply>
-            </apply>
+            <!--ode(NFATN_n, time) = J2*Ccn-J3;-->
             <apply>
                 <eq/>
                 <apply>

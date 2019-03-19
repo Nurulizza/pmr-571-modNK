@@ -85,7 +85,7 @@ def test_hatakeyama_2003():
 def test_cooling_2009_tomida():
     # The state variable in the model that the data represents
     expt_algebraic_uri = ['variables/nuclearNFATpercent','variables/NFATN_c_percent']
-    simulation_cellml = 'cooling_2009/NFATMyocyte_TomidaProtocol_Submodel.cellml'
+    simulation_cellml = 'cooling_2009/cooling_2009_main.cellml'
     start_time = 0.0
     end_time = 1800.0
     time_interval = 1.0
