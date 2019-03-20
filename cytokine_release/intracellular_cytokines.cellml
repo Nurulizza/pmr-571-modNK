@@ -1,0 +1,100 @@
+<?xml version='1.0'?>
+<model cmeta:id="intracellular_cytokines" name="intracellular_cytokines" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="liter"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--
+*********************************************************
+***       C   O   M   P   O   N   E   N   T   S       ***
+*********************************************************
+-->
+    <component name="intracellular_IFN">
+        <variable name="time" public_interface="in" units="s"/>
+        <variable name="IFN_c" public_interface="in" units="nM"/>
+        <variable name="JIFN_rel" public_interface="in" units="flux"/>
+        <variable name="JNFAT_n_IFN" public_interface="in" units="flux"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>IFN_c</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>JNFAT_n_IFN</ci>
+                    <ci>JIFN_rel</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="intracellular_TNF">
+        <variable name="time" public_interface="in" units="s"/>
+        <variable name="TNF_c" public_interface="in" units="nM"/>
+        <variable name="JTNF_rel" public_interface="in" units="flux"/>
+        <variable name="JNFAT_n_TNF" public_interface="in" units="flux"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>TNF_c</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>JNFAT_n_TNF</ci>
+                    <ci>JTNF_rel</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="intracellular_GSMCSF">
+        <variable name="time" public_interface="in" units="s"/>
+        <variable name="GSMCSF_c" public_interface="in" units="nM"/>
+        <variable name="JGSMCSF_rel" public_interface="in" units="flux"/>
+        <variable name="JNFAT_n_GSMCSF" public_interface="in" units="flux"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>GSMCSF_c</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>JNFAT_n_GSMCSF</ci>
+                    <ci>JGSMCSF_rel</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

@@ -1,0 +1,64 @@
+<?xml version='1.0'?>
+<model cmeta:id="nuclearNFAT" name="nuclearNFAT" xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="liter"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--
+*********************************************************
+***       C   O   M   P   O   N   E   N   T   S       ***
+*********************************************************
+-->
+    <component name="nuclearNFAT">
+        <variable name="time" public_interface="in" units="s"/>
+        <variable name="NFATN_n" public_interface="in" units="nM"/>
+        <variable name="JNFAT_n_cyc" public_interface="in" units="flux"/>
+        <variable name="JNFAT_n_IFN" public_interface="in" units="flux"/>
+        <variable name="JNFAT_n_TNF" public_interface="in" units="flux"/>
+        <variable name="JNFAT_n_GSMCSF" public_interface="in" units="flux"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>NFATN_n</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <minus/>
+                            <ci>JNFAT_n_cyc</ci>
+                            <ci>JNFAT_n_IFN</ci>
+                        </apply>
+                        <ci>JNFAT_n_TNF</ci>
+                    </apply>
+                    <ci>JNFAT_n_GSMCSF</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>
