@@ -3,6 +3,17 @@
     <import xlink:href="../cooling_2009/calcium_TomidaProtocol.cellml">
         <component component_ref="calcium" name="calcium"/>
     </import>
+    <import xlink:href="../dupont_1997_decomposed/IP3_Ca_oscillation.cellml">
+        <component component_ref="R_des" name="R_des"/>
+        <component component_ref="C_cyto" name="C_cyto"/>
+        <component component_ref="I_ra" name="I_ra"/>
+        <component component_ref="I_rable" name="I_rable"/>
+        <component component_ref="IP3" name="IP3"/>
+        <component component_ref="V_PLC" name="V_PLC"/>
+        <component component_ref="V_3K" name="V_3K"/>
+        <component component_ref="V_5P" name="V_5P"/>
+        <component component_ref="V_15P" name="V_15P"/>
+    </import>
     <import xlink:href="../cooling_2009/calcineurin_TomidaProtocol.cellml">
         <component component_ref="calcineurin" name="calcineurin"/>
     </import>
@@ -81,6 +92,28 @@
         <variable initial_value="2.92" name="n" public_interface="out" units="dimensionless"/>
         <variable initial_value="1760" name="K_dN" public_interface="out" units="nM"/>
         <variable initial_value="1800" name="stimEnd" public_interface="out" units="s"/>
+        <variable initial_value="1300.0" name="V_plc" public_interface="out" units="flux"/>
+        <variable initial_value="500.0" name="V_k" public_interface="out" units="flux"/>
+        <variable initial_value="1000.0" name="K_k" public_interface="out" units="nM"/>
+        <variable initial_value="300.0" name="K_d" public_interface="out" units="nM"/>
+        <variable initial_value="2" name="n_d" public_interface="out" units="dimensionless"/>
+        <variable initial_value="5000.0" name="V_p1" public_interface="out" units="flux"/>
+        <variable initial_value="10000" name="K_p1" public_interface="out" units="nM"/>
+        <variable initial_value="200.0" name="V_p2" public_interface="out" units="flux"/>
+        <variable initial_value="2000" name="K_p2" public_interface="out" units="nM"/>
+        <variable initial_value="0.01" name="k" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.2" name="gamma" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.1" name="alpha" public_interface="out" units="dimensionless"/>
+        <variable initial_value="80000" name="Ca_tot" public_interface="out" units="nM"/>
+        <variable initial_value="4000.0" name="V_MP" public_interface="out" units="flux"/>
+        <variable initial_value="350.0" name="K_p" public_interface="out" units="nM"/>
+        <variable initial_value="2" name="n_p" public_interface="out" units="dimensionless"/>
+        <variable initial_value="560.0" name="K_act" public_interface="out" units="nM"/>
+        <variable initial_value="150.0" name="K_inh" public_interface="out" units="nM"/>
+        <variable initial_value="0.5" name="K_minus" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="7e-4" name="b" public_interface="out" units="dimensionless"/>
+        <variable initial_value="2.57" name="K_1" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="1000.0" name="K_IP" public_interface="out" units="nM"/>
     </component>
     <component name="variables">
         <variable initial_value="0.0004806012" name="NFATN_c" public_interface="out" units="nM"/>
