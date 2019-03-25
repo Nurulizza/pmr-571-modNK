@@ -114,6 +114,22 @@ def test_dupont_1997():
     times = expt_time.astype(int)  
     are_same = check_all_same_state(myresults,expt_points, expt_state_uri,times)
     return are_same
+    
+def test_FCepsilon_to_Grb():
+    # The state variable in the model that the data represents
+    expt_state_uri = ['variables/pGrb2','variables/Grb2']
+    simulation_cellml = 'HLAG_to_PI3K/FCepsilonRI_to_Grb_main.cellml'
+    start_time = 0.0
+    end_time = 1800.0
+    time_interval = 1.0
+    # Experimental data
+    expt_data = np.loadtxt('test_data/FCepsilonRI_to_Grb_test_data.csv', delimiter=',')
+    expt_time = expt_data[...,0]
+    expt_points = expt_data[...,1:]
+    myresults = simulate_cellml(simulation_cellml, start_time, end_time, time_interval)
+    times = expt_time.astype(int)  
+    are_same = check_all_same_state(myresults,expt_points, expt_state_uri,times)
+    return are_same
 ################################################################  
 countpasses = 0
 counttotal = 0  
@@ -126,6 +142,9 @@ test2 = test_cooling_2009_tomida()
 ## TEST 3 - Dupont & Erneaux (1997)
 test3 = test_dupont_1997()
 [countpasses,counttotal] = report_test_result("Dupont 1997 protocol",test3, countpasses,counttotal)
+
+test4 = test_FCepsilon_to_Grb()
+[countpasses,counttotal] = report_test_result("FCepsilon to Grb",test4, countpasses,counttotal)
 
 print("-------------------------------")
 print("        TESTS COMPLETED        ")

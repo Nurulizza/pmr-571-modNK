@@ -1,8 +1,5 @@
 <?xml version='1.0'?>
 <model cmeta:id="NFATMyocyte_TomidaProtocol" name="NFATMyocyte_TomidaProtocol" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <import xlink:href="../cooling_2009/calcium_TomidaProtocol.cellml">
-        <component component_ref="calcium" name="calcium"/>
-    </import>
     <import xlink:href="../dupont_1997_decomposed/IP3_Ca_oscillation.cellml">
         <component component_ref="R_des" name="R_des"/>
         <component component_ref="C_cyto" name="C_cyto"/>
@@ -13,6 +10,9 @@
         <component component_ref="V_3K" name="V_3K"/>
         <component component_ref="V_5P" name="V_5P"/>
         <component component_ref="V_15P" name="V_15P"/>
+    </import>
+    <import xlink:href="../dupont_1997_decomposed/IP4_from_pIP3.cellml">
+        <component component_ref="IP4" name="IP4"/>
     </import>
     <import xlink:href="../cooling_2009/calcineurin_TomidaProtocol.cellml">
         <component component_ref="calcineurin" name="calcineurin"/>
@@ -50,15 +50,30 @@
         <unit prefix="nano" units="mole"/>
         <unit exponent="-1" units="litre"/>
     </units>
+    <units name="per_nM">
+        <unit exponent="-1" units="nM"/>
+    </units>
     <units name="flux">
         <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
         <unit exponent="-1" units="s"/>
     </units>
     <units name="second_order_rate_constant">
         <unit exponent="-1" units="nM"/>
         <unit exponent="-1" units="s"/>
     </units>
-    <units name="first_order_rate_constant">
+    <units name="third_order_rate_constant">
+        <unit exponent="-2" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="fourth_order_rate_constant">
+        <unit exponent="-3" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="fifth_order_rate_constant">
+        <unit exponent="-4" units="nM"/>
         <unit exponent="-1" units="s"/>
     </units>
     <!--
@@ -91,7 +106,7 @@
         <variable initial_value="535" name="K_mN" public_interface="out" units="nM"/>
         <variable initial_value="2.92" name="n" public_interface="out" units="dimensionless"/>
         <variable initial_value="1760" name="K_dN" public_interface="out" units="nM"/>
-        <variable initial_value="1800" name="stimEnd" public_interface="out" units="s"/>
+        <!--Dupont 1997-->
         <variable initial_value="1300.0" name="V_plc" public_interface="out" units="flux"/>
         <variable initial_value="500.0" name="V_k" public_interface="out" units="flux"/>
         <variable initial_value="1000.0" name="K_k" public_interface="out" units="nM"/>
@@ -126,11 +141,21 @@
         <variable initial_value="0.0" name="IFN_released" public_interface="out" units="nM"/>
         <variable initial_value="0.0" name="TNF_released" public_interface="out" units="nM"/>
         <variable initial_value="0.0" name="GSMCSF_released" public_interface="out" units="nM"/>
-        <variable name="Ca" public_interface="out" units="nM"/>
         <variable name="nuclearNFATpercent" public_interface="out" units="dimensionless"/>
         <variable name="nuclearNFAT" public_interface="out" units="nM"/>
         <variable name="NFATN_c_percent" public_interface="out" units="dimensionless"/>
         <variable name="act_N" public_interface="out" units="dimensionless"/>
+        <!-- Dupont 1997-->
+        <variable initial_value="0.1" name="R_des" public_interface="out" units="dimensionless"/>
+        <variable initial_value="100.0" name="Ca_cyto" public_interface="out" units="nM"/>
+        <variable initial_value="100.0" name="IP3" public_interface="out" units="nM"/>
+        <variable initial_value="100.0" name="IP4" public_interface="out" units="nM"/>
+        <variable name="I_ra" public_interface="out" units="dimensionless"/>
+        <variable name="I_rable" public_interface="out" units="dimensionless"/>
+        <variable name="V_PLC" public_interface="out" units="flux"/>
+        <variable name="V_3K" public_interface="out" units="flux"/>
+        <variable name="V_5P" public_interface="out" units="flux"/>
+        <variable name="V_15P" public_interface="out" units="flux"/>
     </component>
     <component name="NFATcyc_interface">
         <variable name="nuclearNFATpercent" public_interface="in" units="dimensionless"/>
@@ -216,7 +241,6 @@
     <group>
         <relationship_ref relationship="encapsulation"/>
         <component_ref component="geometry">
-            <component_ref component="calcium"/>
             <component_ref component="calcineurin"/>
             <component_ref component="NFAT_Cycling"/>
             <component_ref component="NFATcyc_interface"/>
@@ -230,11 +254,24 @@
             <component_ref component="intracellular_IFN"/>
             <component_ref component="intracellular_TNF"/>
             <component_ref component="intracellular_GSMCSF"/>
+            <!--Dupont 1997-->
+            <component_ref component="IP4"/>
+            <component_ref component="R_des"/>
+            <component_ref component="C_cyto"/>
+            <component_ref component="I_ra"/>
+            <component_ref component="I_rable"/>
+            <component_ref component="IP3"/>
+            <component_ref component="V_PLC"/>
+            <component_ref component="V_3K"/>
+            <component_ref component="V_5P"/>
+            <component_ref component="V_15P"/>
         </component_ref>
     </group>
     <component name="geometry">
         <variable name="time" private_interface="out" public_interface="in" units="s"/>
-        <!--free parameters-->
+        <!-- ****************
+ 'Free' parameters
+ ****************-->
         <variable name="NFAT2cyt_k_f1" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="NFAT2cyt_k_f2" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="NFAT2cyt_k_f3" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
@@ -242,7 +279,9 @@
         <variable name="CytRel_k_f4" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="CytRel_k_f5" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="CytRel_k_f6" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
-        <!--fixed parameters-->
+        <!-- ****************
+ Fixed parameters
+ ****************-->
         <variable name="NFATcyc_k_f1" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
         <variable name="NFATcyc_k_r1" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="NFATcyc_k_f2" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
@@ -255,13 +294,39 @@
         <variable name="K_mN" private_interface="out" public_interface="in" units="nM"/>
         <variable name="n" private_interface="out" public_interface="in" units="dimensionless"/>
         <variable name="K_dN" private_interface="out" public_interface="in" units="nM"/>
-        <variable name="stimEnd" private_interface="out" public_interface="in" units="s"/>
-        <!--variables-->
+        <!-- Dupont 1997-->
+        <variable name="V_plc" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="V_k" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="K_k" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="K_d" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="n_d" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="V_p1" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="K_p1" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="V_p2" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="K_p2" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="k" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="gamma" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="alpha" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="Ca_tot" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="V_MP" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="K_p" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="n_p" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="K_act" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="K_inh" private_interface="out" public_interface="in" units="nM"/>
+        <variable initial_value="3" name="n_a" private_interface="out" public_interface="out" units="dimensionless"/>
+        <variable initial_value="4" name="n_i" private_interface="out" public_interface="out" units="dimensionless"/>
+        <variable name="K_minus" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="K_plus" private_interface="out" public_interface="out" units="fifth_order_rate_constant"/>
+        <variable name="b" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="K_1" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="K_IP" private_interface="out" public_interface="in" units="nM"/>
+        <!-- *********
+ Variables
+ *********-->
         <variable name="NFATN_c" private_interface="out" public_interface="in" units="nM"/>
         <variable name="NFATN_n" private_interface="out" public_interface="in" units="nM"/>
         <variable name="NFATp_c" private_interface="out" public_interface="in" units="nM"/>
         <variable name="NFATp_n" private_interface="out" public_interface="in" units="nM"/>
-        <variable name="Ca" private_interface="out" public_interface="in" units="nM"/>
         <variable name="nuclearNFATpercent" private_interface="out" public_interface="in" units="dimensionless"/>
         <variable name="nuclearNFAT" private_interface="out" public_interface="in" units="nM"/>
         <variable name="NFATN_c_percent" private_interface="out" public_interface="in" units="dimensionless"/>
@@ -272,6 +337,17 @@
         <variable name="IFN_released" private_interface="out" public_interface="in" units="nM"/>
         <variable name="TNF_released" private_interface="out" public_interface="in" units="nM"/>
         <variable name="GSMCSF_released" private_interface="out" public_interface="in" units="nM"/>
+        <!--Dupont 1997-->
+        <variable name="R_des" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="Ca_cyto" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="I_ra" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="I_rable" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="IP3" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="IP4" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="V_PLC" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="V_3K" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="V_5P" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="V_15P" private_interface="out" public_interface="in" units="flux"/>
         <!--other-->
         <variable name="JNFAT_n_cyc" private_interface="out" public_interface="out" units="flux"/>
         <variable name="JNFAT_n_IFN" private_interface="out" public_interface="out" units="flux"/>
@@ -309,7 +385,30 @@
         <map_variables variable_1="K_mN" variable_2="K_mN"/>
         <map_variables variable_1="n" variable_2="n"/>
         <map_variables variable_1="K_dN" variable_2="K_dN"/>
-        <map_variables variable_1="stimEnd" variable_2="stimEnd"/>
+        <!--vars stimEnd and stimEnd;
+Dupont 1997-->
+        <map_variables variable_1="V_plc" variable_2="V_plc"/>
+        <map_variables variable_1="V_k" variable_2="V_k"/>
+        <map_variables variable_1="K_k" variable_2="K_k"/>
+        <map_variables variable_1="K_d" variable_2="K_d"/>
+        <map_variables variable_1="n_d" variable_2="n_d"/>
+        <map_variables variable_1="V_p1" variable_2="V_p1"/>
+        <map_variables variable_1="K_p1" variable_2="K_p1"/>
+        <map_variables variable_1="V_p2" variable_2="V_p2"/>
+        <map_variables variable_1="K_p2" variable_2="K_p2"/>
+        <map_variables variable_1="k" variable_2="k"/>
+        <map_variables variable_1="gamma" variable_2="gamma"/>
+        <map_variables variable_1="alpha" variable_2="alpha"/>
+        <map_variables variable_1="Ca_tot" variable_2="Ca_tot"/>
+        <map_variables variable_1="V_MP" variable_2="V_MP"/>
+        <map_variables variable_1="K_p" variable_2="K_p"/>
+        <map_variables variable_1="n_p" variable_2="n_p"/>
+        <map_variables variable_1="K_act" variable_2="K_act"/>
+        <map_variables variable_1="K_inh" variable_2="K_inh"/>
+        <map_variables variable_1="K_minus" variable_2="K_minus"/>
+        <map_variables variable_1="b" variable_2="b"/>
+        <map_variables variable_1="K_1" variable_2="K_1"/>
+        <map_variables variable_1="K_IP" variable_2="K_IP"/>
     </connection>
     <connection>
         <map_components component_1="variables" component_2="geometry"/>
@@ -317,7 +416,7 @@
         <map_variables variable_1="NFATN_n" variable_2="NFATN_n"/>
         <map_variables variable_1="NFATp_c" variable_2="NFATp_c"/>
         <map_variables variable_1="NFATp_n" variable_2="NFATp_n"/>
-        <map_variables variable_1="Ca" variable_2="Ca"/>
+        <!--vars Ca and Ca;-->
         <map_variables variable_1="nuclearNFATpercent" variable_2="nuclearNFATpercent"/>
         <map_variables variable_1="nuclearNFAT" variable_2="nuclearNFAT"/>
         <map_variables variable_1="NFATN_c_percent" variable_2="NFATN_c_percent"/>
@@ -328,12 +427,17 @@
         <map_variables variable_1="IFN_released" variable_2="IFN_released"/>
         <map_variables variable_1="TNF_released" variable_2="TNF_released"/>
         <map_variables variable_1="GSMCSF_released" variable_2="GSMCSF_released"/>
-    </connection>
-    <connection>
-        <map_components component_1="geometry" component_2="calcium"/>
-        <map_variables variable_1="time" variable_2="time"/>
-        <map_variables variable_1="stimEnd" variable_2="stimEnd"/>
-        <map_variables variable_1="Ca" variable_2="Ca"/>
+        <!-- Dupont 1997-->
+        <map_variables variable_1="R_des" variable_2="R_des"/>
+        <map_variables variable_1="Ca_cyto" variable_2="Ca_cyto"/>
+        <map_variables variable_1="I_ra" variable_2="I_ra"/>
+        <map_variables variable_1="I_rable" variable_2="I_rable"/>
+        <map_variables variable_1="IP3" variable_2="IP3"/>
+        <map_variables variable_1="IP4" variable_2="IP4"/>
+        <map_variables variable_1="V_PLC" variable_2="V_PLC"/>
+        <map_variables variable_1="V_3K" variable_2="V_3K"/>
+        <map_variables variable_1="V_5P" variable_2="V_5P"/>
+        <map_variables variable_1="V_15P" variable_2="V_15P"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="calcineurin"/>
@@ -343,7 +447,7 @@
         <map_variables variable_1="K_mN" variable_2="K_mN"/>
         <map_variables variable_1="n" variable_2="n"/>
         <map_variables variable_1="K_dN" variable_2="K_dN"/>
-        <map_variables variable_1="Ca" variable_2="Ca"/>
+        <map_variables variable_1="Ca_cyto" variable_2="Ca"/>
         <map_variables variable_1="act_N" variable_2="act_N"/>
     </connection>
     <connection>
@@ -455,6 +559,98 @@
         <map_variables variable_1="GSMCSF_c" variable_2="GSMCSF_c"/>
         <map_variables variable_1="JGSMCSF_rel" variable_2="JGSMCSF_rel"/>
         <map_variables variable_1="JNFAT_n_GSMCSF" variable_2="JNFAT_n_GSMCSF"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="R_des"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="R_des" variable_2="R_des"/>
+        <map_variables variable_1="K_plus" variable_2="K_plus"/>
+        <map_variables variable_1="Ca_cyto" variable_2="C_cyto"/>
+        <map_variables variable_1="n_i" variable_2="n_i"/>
+        <map_variables variable_1="K_act" variable_2="K_act"/>
+        <map_variables variable_1="n_a" variable_2="n_a"/>
+        <map_variables variable_1="K_minus" variable_2="K_minus"/>
+        <map_variables variable_1="K_inh" variable_2="K_inh"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="C_cyto"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="Ca_cyto" variable_2="C_cyto"/>
+        <map_variables variable_1="I_ra" variable_2="I_ra"/>
+        <map_variables variable_1="K_1" variable_2="K_1"/>
+        <map_variables variable_1="b" variable_2="b"/>
+        <map_variables variable_1="Ca_tot" variable_2="Ca_tot"/>
+        <map_variables variable_1="alpha" variable_2="alpha"/>
+        <map_variables variable_1="V_MP" variable_2="V_MP"/>
+        <map_variables variable_1="n_p" variable_2="n_p"/>
+        <map_variables variable_1="K_p" variable_2="K_p"/>
+        <map_variables variable_1="n_i" variable_2="n_i"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="I_ra"/>
+        <map_variables variable_1="I_ra" variable_2="I_ra"/>
+        <map_variables variable_1="I_rable" variable_2="I_rable"/>
+        <map_variables variable_1="Ca_cyto" variable_2="C_cyto"/>
+        <map_variables variable_1="n_a" variable_2="n_a"/>
+        <map_variables variable_1="K_act" variable_2="K_act"/>
+    </connection>
+    <connection>
+        <map_components component_1="I_rable" component_2="geometry"/>
+        <map_variables variable_1="I_rable" variable_2="I_rable"/>
+        <map_variables variable_1="IP3" variable_2="IP3"/>
+        <map_variables variable_1="K_IP" variable_2="K_IP"/>
+        <map_variables variable_1="R_des" variable_2="R_des"/>
+    </connection>
+    <connection>
+        <map_components component_1="IP3" component_2="geometry"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="IP3" variable_2="IP3"/>
+        <map_variables variable_1="V_PLC" variable_2="V_PLC"/>
+        <map_variables variable_1="V_3K" variable_2="V_3K"/>
+        <map_variables variable_1="V_5P" variable_2="V_5P"/>
+    </connection>
+    <connection>
+        <map_components component_1="V_PLC" component_2="geometry"/>
+        <map_variables variable_1="gamma" variable_2="gamma"/>
+        <map_variables variable_1="V_plc" variable_2="V_plc"/>
+        <map_variables variable_1="V_PLC" variable_2="V_PLC"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="V_3K"/>
+        <map_variables variable_1="Ca_cyto" variable_2="C_cyto"/>
+        <map_variables variable_1="V_3K" variable_2="V_3K"/>
+        <map_variables variable_1="IP3" variable_2="IP3"/>
+        <map_variables variable_1="K_d" variable_2="K_d"/>
+        <map_variables variable_1="K_k" variable_2="K_k"/>
+        <map_variables variable_1="n_d" variable_2="n_d"/>
+        <map_variables variable_1="V_k" variable_2="V_k"/>
+    </connection>
+    <connection>
+        <map_components component_1="V_5P" component_2="geometry"/>
+        <map_variables variable_1="V_5P" variable_2="V_5P"/>
+        <map_variables variable_1="IP3" variable_2="IP3"/>
+        <map_variables variable_1="IP4" variable_2="IP4"/>
+        <map_variables variable_1="V_p1" variable_2="V_p1"/>
+        <map_variables variable_1="K_p1" variable_2="K_p1"/>
+        <map_variables variable_1="K_p2" variable_2="K_p2"/>
+    </connection>
+    <connection>
+        <map_components component_1="V_15P" component_2="geometry"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="V_15P" variable_2="V_15P"/>
+        <map_variables variable_1="IP3" variable_2="IP3"/>
+        <map_variables variable_1="IP4" variable_2="IP4"/>
+        <map_variables variable_1="V_p2" variable_2="V_p2"/>
+        <map_variables variable_1="K_p2" variable_2="K_p2"/>
+        <map_variables variable_1="K_p1" variable_2="K_p1"/>
+    </connection>
+    <connection>
+        <map_components component_1="IP4" component_2="geometry"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="k" variable_2="k"/>
+        <map_variables variable_1="V_3K" variable_2="V_3K"/>
+        <map_variables variable_1="IP4" variable_2="IP4"/>
+        <map_variables variable_1="V_15P" variable_2="V_15P"/>
     </connection>
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">

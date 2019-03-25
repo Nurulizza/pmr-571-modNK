@@ -1,0 +1,170 @@
+<?xml version='1.0'?>
+<model cmeta:id="FCepsilonRI_to_Grb_main" name="FCepsilonRI_to_Grb_main" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="FCepsilonRI_to_Grb.cellml">
+        <component component_ref="FCepsilonRI" name="FCepsilonRI"/>
+    </import>
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="uM">
+        <unit prefix="micro" units="mole"/>
+        <unit exponent="-1" units="liter"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="uM_first_order_rate_constant">
+        <unit units="uM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="per_uM_first_order_rate_constant">
+        <unit exponent="-1" units="uM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--
+*********************************************************
+***       C   O   M   P   O   N   E   N   T   S       ***
+*********************************************************
+-->
+    <component name="environment">
+        <variable name="time" public_interface="out" units="s"/>
+    </component>
+    <component name="parameters">
+        <variable initial_value="0.0583902" name="FCepsilonRI_k_f1" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.013548" name="FCepsilonRI_k_r1" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.00817889" name="FCepsilonRI_k_f2" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0010887" name="FCepsilonRI_k_f3" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0105797" name="FCepsilonRI_k_f4" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0806961" name="FCepsilonRI_k_r4" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="63.6727" name="FCepsilonRI_k_f5" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.000414288" name="FCepsilonRI_k_f6" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.731255" name="FCepsilonRI_k_r6" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="11.4185" name="FCepsilonRI_k_f7" public_interface="out" units="first_order_rate_constant"/>
+    </component>
+    <component name="variables">
+        <variable initial_value="0.368825824579846" name="Lyn" public_interface="out" units="nM"/>
+        <variable initial_value="0.00495180204319584" name="FC" public_interface="out" units="nM"/>
+        <variable initial_value="906.99094038241" name="pFC" public_interface="out" units="nM"/>
+        <variable initial_value="0.0618216184262085" name="Syk" public_interface="out" units="nM"/>
+        <variable initial_value="4.87699697240553" name="pSyk" public_interface="out" units="nM"/>
+        <variable initial_value="6158.04911360919" name="pGrb2" public_interface="out" units="nM"/>
+        <variable initial_value="92.9948025207461" name="pFCLyn" public_interface="out" units="nM"/>
+        <variable initial_value="0.00930525797532725" name="pFCSyk" public_interface="out" units="nM"/>
+        <variable initial_value="0.0518761511522306" name="pSykGrb2" public_interface="out" units="nM"/>
+        <variable initial_value="1895.85" name="Pi" public_interface="out" units="nM"/>
+        <variable initial_value="311.899010239632" name="Grb2" public_interface="out" units="nM"/>
+        <variable initial_value="6406.63637163925" name="pLyn" public_interface="out" units="nM"/>
+    </component>
+    <group>
+        <relationship_ref relationship="encapsulation"/>
+        <component_ref component="geometry">
+            <component_ref component="FCepsilonRI"/>
+        </component_ref>
+    </group>
+    <component name="geometry">
+        <variable name="time" private_interface="out" public_interface="in" units="s"/>
+        <variable name="FCepsilonRI_k_f1" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_r1" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_f2" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_f3" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_f4" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_r4" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_f5" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_f6" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_r6" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_f7" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="Lyn" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="FC" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pFC" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Syk" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pSyk" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pGrb2" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pFCLyn" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pFCSyk" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pSykGrb2" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Pi" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Grb2" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pLyn" private_interface="out" public_interface="in" units="nM"/>
+    </component>
+    <connection>
+        <map_components component_1="environment" component_2="geometry"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="parameters" component_2="geometry"/>
+        <map_variables variable_1="FCepsilonRI_k_f1" variable_2="FCepsilonRI_k_f1"/>
+        <map_variables variable_1="FCepsilonRI_k_r1" variable_2="FCepsilonRI_k_r1"/>
+        <map_variables variable_1="FCepsilonRI_k_f2" variable_2="FCepsilonRI_k_f2"/>
+        <map_variables variable_1="FCepsilonRI_k_f3" variable_2="FCepsilonRI_k_f3"/>
+        <map_variables variable_1="FCepsilonRI_k_f4" variable_2="FCepsilonRI_k_f4"/>
+        <map_variables variable_1="FCepsilonRI_k_r4" variable_2="FCepsilonRI_k_r4"/>
+        <map_variables variable_1="FCepsilonRI_k_f5" variable_2="FCepsilonRI_k_f5"/>
+        <map_variables variable_1="FCepsilonRI_k_f6" variable_2="FCepsilonRI_k_f6"/>
+        <map_variables variable_1="FCepsilonRI_k_r6" variable_2="FCepsilonRI_k_r6"/>
+        <map_variables variable_1="FCepsilonRI_k_f7" variable_2="FCepsilonRI_k_f7"/>
+    </connection>
+    <connection>
+        <map_components component_1="variables" component_2="geometry"/>
+        <map_variables variable_1="Lyn" variable_2="Lyn"/>
+        <map_variables variable_1="FC" variable_2="FC"/>
+        <map_variables variable_1="pFC" variable_2="pFC"/>
+        <map_variables variable_1="Syk" variable_2="Syk"/>
+        <map_variables variable_1="pSyk" variable_2="pSyk"/>
+        <map_variables variable_1="pGrb2" variable_2="pGrb2"/>
+        <map_variables variable_1="pFCLyn" variable_2="pFCLyn"/>
+        <map_variables variable_1="pFCSyk" variable_2="pFCSyk"/>
+        <map_variables variable_1="pSykGrb2" variable_2="pSykGrb2"/>
+        <map_variables variable_1="Pi" variable_2="Pi"/>
+        <map_variables variable_1="Grb2" variable_2="Grb2"/>
+        <map_variables variable_1="pLyn" variable_2="pLyn"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="FCepsilonRI"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="FCepsilonRI_k_f1" variable_2="k_f1"/>
+        <map_variables variable_1="FCepsilonRI_k_r1" variable_2="k_r1"/>
+        <map_variables variable_1="FCepsilonRI_k_f2" variable_2="k_f2"/>
+        <map_variables variable_1="FCepsilonRI_k_f3" variable_2="k_f3"/>
+        <map_variables variable_1="FCepsilonRI_k_f4" variable_2="k_f4"/>
+        <map_variables variable_1="FCepsilonRI_k_r4" variable_2="k_r4"/>
+        <map_variables variable_1="FCepsilonRI_k_f5" variable_2="k_f5"/>
+        <map_variables variable_1="FCepsilonRI_k_f6" variable_2="k_f6"/>
+        <map_variables variable_1="FCepsilonRI_k_r6" variable_2="k_r6"/>
+        <map_variables variable_1="FCepsilonRI_k_f7" variable_2="k_f7"/>
+        <map_variables variable_1="Lyn" variable_2="Lyn"/>
+        <map_variables variable_1="FC" variable_2="FC"/>
+        <map_variables variable_1="pFC" variable_2="pFC"/>
+        <map_variables variable_1="Syk" variable_2="Syk"/>
+        <map_variables variable_1="pSyk" variable_2="pSyk"/>
+        <map_variables variable_1="pGrb2" variable_2="pGrb2"/>
+        <map_variables variable_1="pFCLyn" variable_2="pFCLyn"/>
+        <map_variables variable_1="pFCSyk" variable_2="pFCSyk"/>
+        <map_variables variable_1="pSykGrb2" variable_2="pSykGrb2"/>
+        <map_variables variable_1="Pi" variable_2="Pi"/>
+        <map_variables variable_1="Grb2" variable_2="Grb2"/>
+        <map_variables variable_1="pLyn" variable_2="pLyn"/>
+    </connection>
+</model>
