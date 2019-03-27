@@ -1,5 +1,5 @@
 <?xml version='1.0'?>
-<model cmeta:id="NFATMyocyte_TomidaProtocol" name="NFATMyocyte_TomidaProtocol" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
+<model cmeta:id="HLAG_to_cytokine_main" name="HLAG_to_cytokine_main" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
     <import xlink:href="../dupont_1997_decomposed/IP3_Ca_oscillation.cellml">
         <component component_ref="R_des" name="R_des"/>
         <component component_ref="C_cyto" name="C_cyto"/>

@@ -1,0 +1,145 @@
+<?xml version='1.0'?>
+<model cmeta:id="HLAG_receptor" name="HLAG_receptor" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <component name="hG_activating_dl4">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="k_f10" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r10" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="dl4" public_interface="in" units="nM"/>
+        <variable name="hGdl4" public_interface="in" units="nM"/>
+        <variable name="hG" public_interface="in" units="nM"/>
+        <variable name="J_hGdl4" public_interface="in" units="flux"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J_hGdl4</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f10</ci>
+                        <ci>hG</ci>
+                        <ci>dl4</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r10</ci>
+                        <ci>hGdl4</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hG</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J_hGdl4</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>dl4</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J_hGdl4</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="hgdl4_FC">
+        <variable name="time" public_interface="in" units="s"/>
+        <variable name="free_FC" public_interface="in" units="nM"/>
+        <!--FC available for activation by hGdl4-->
+        <variable name="hGdl4" public_interface="in" units="nM"/>
+        <!--HLA-G activated dl4-->
+        <variable name="hGdl4FC" public_interface="in" units="nM"/>
+        <!--HLAG activated dl4 with FC-->
+        <variable name="k_f21" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r21" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="J_hGdl4" public_interface="in" units="flux"/>
+        <variable name="J_hGdl4FC" public_interface="in" units="flux"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J_hGdl4FC</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f21</ci>
+                        <ci>hGdl4</ci>
+                        <ci>free_FC</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r21</ci>
+                        <ci>hGdl4FC</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hGdl4</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J_hGdl4</ci>
+                    <ci>J_hGdl4FC</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>free_FC</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J_hGdl4FC</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

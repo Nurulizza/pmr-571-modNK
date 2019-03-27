@@ -1,10 +1,14 @@
 <?xml version='1.0'?>
-<model cmeta:id="FCepsilonRI_to_Grb_main" name="FCepsilonRI_to_Grb_main" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
+<model cmeta:id="HLAG_to_PI3K_main" name="HLAG_to_PI3K_main" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
     <import xlink:href="FCepsilonRI_to_Grb.cellml">
         <component component_ref="FCepsilonRI" name="FCepsilonRI"/>
     </import>
-    <import xlink:href="pGrb2_isolated.cellml">
-        <component component_ref="pGrb2" name="pGrb2"/>
+    <import xlink:href="PI3K_activation.cellml">
+        <component component_ref="PI3K" name="PI3K"/>
+    </import>
+    <import xlink:href="HLAG_receptor.cellml">
+        <component component_ref="hG_activating_dl4" name="hG_activating_dl4"/>
+        <component component_ref="hgdl4_FC" name="hgdl4_FC"/>
     </import>
     <!--
 *******************************************************
@@ -48,11 +52,20 @@
         <variable initial_value="0.000414288" name="FCepsilonRI_k_f6" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="0.731255" name="FCepsilonRI_k_r6" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="11.4185" name="FCepsilonRI_k_f7" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.00891653" name="PI3K_k_f2" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.00611373" name="PI3K_k_r2" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="14.6231" name="PI3K_k_f3" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="1.141382e-5" name="hG_activating_dl4_k_f10" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.014043" name="hG_activating_dl4_k_r10" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="1.6521e-5" name="hgdl4_FC_k_f21" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0517365" name="hgdl4_FC_k_r21" public_interface="out" units="first_order_rate_constant"/>
     </component>
     <component name="variables">
         <variable initial_value="0.368825824579846" name="Lyn" public_interface="out" units="nM"/>
-        <variable initial_value="0.00495180204319584" name="FC" public_interface="out" units="nM"/>
-        <variable initial_value="906.99094038241" name="pFC" public_interface="out" units="nM"/>
+        <variable initial_value="1000.0" name="FC" public_interface="out" units="nM"/>
+        <!-- total FC available-->
+        <variable initial_value="906.99094038241" name="phGdl4FC" public_interface="out" units="nM"/>
+        <!--phosphorylated and activated FC-->
         <variable initial_value="0.0618216184262085" name="Syk" public_interface="out" units="nM"/>
         <variable initial_value="4.87699697240553" name="pSyk" public_interface="out" units="nM"/>
         <variable initial_value="6158.04911360919" name="pGrb2" public_interface="out" units="nM"/>
@@ -62,12 +75,21 @@
         <variable initial_value="1895.85" name="Pi" public_interface="out" units="nM"/>
         <variable initial_value="311.899010239632" name="Grb2" public_interface="out" units="nM"/>
         <variable initial_value="6406.63637163925" name="pLyn" public_interface="out" units="nM"/>
+        <variable initial_value="0.1" name="PI3K" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="PI3Kstar" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pGrb2PI3K" public_interface="out" units="nM"/>
+        <variable initial_value="98.0" name="dl4" public_interface="out" units="nM"/>
+        <variable initial_value="0.0" name="hGdl4" public_interface="out" units="nM"/>
+        <variable initial_value="105.2" name="hG" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="hGdl4FC" public_interface="out" units="nM"/>
     </component>
     <group>
         <relationship_ref relationship="encapsulation"/>
         <component_ref component="geometry">
             <component_ref component="FCepsilonRI"/>
-            <component_ref component="pGrb2"/>
+            <component_ref component="PI3K"/>
+            <component_ref component="hG_activating_dl4"/>
+            <component_ref component="hgdl4_FC"/>
         </component_ref>
     </group>
     <component name="geometry">
@@ -82,9 +104,16 @@
         <variable name="FCepsilonRI_k_f6" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
         <variable name="FCepsilonRI_k_r6" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="FCepsilonRI_k_f7" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3K_k_f2" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="PI3K_k_r2" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3K_k_f3" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hG_activating_dl4_k_f10" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hG_activating_dl4_k_r10" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hgdl4_FC_k_f21" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hgdl4_FC_k_r21" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="Lyn" private_interface="out" public_interface="in" units="nM"/>
         <variable name="FC" private_interface="out" public_interface="in" units="nM"/>
-        <variable name="pFC" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="phGdl4FC" private_interface="out" public_interface="in" units="nM"/>
         <variable name="Syk" private_interface="out" public_interface="in" units="nM"/>
         <variable name="pSyk" private_interface="out" public_interface="in" units="nM"/>
         <variable name="pGrb2" private_interface="out" public_interface="in" units="nM"/>
@@ -94,9 +123,17 @@
         <variable name="Pi" private_interface="out" public_interface="in" units="nM"/>
         <variable name="Grb2" private_interface="out" public_interface="in" units="nM"/>
         <variable name="pLyn" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="PI3K" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="PI3Kstar" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pGrb2PI3K" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="dl4" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hGdl4" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hG" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hGdl4FC" private_interface="out" public_interface="in" units="nM"/>
         <!--other-->
         <variable name="J7" private_interface="out" public_interface="out" units="flux"/>
-        <variable initial_value="0.0" name="J_FCsource" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_hGdl4" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_hGdl4FC" private_interface="out" public_interface="out" units="flux"/>
     </component>
     <connection>
         <map_components component_1="environment" component_2="geometry"/>
@@ -114,12 +151,19 @@
         <map_variables variable_1="FCepsilonRI_k_f6" variable_2="FCepsilonRI_k_f6"/>
         <map_variables variable_1="FCepsilonRI_k_r6" variable_2="FCepsilonRI_k_r6"/>
         <map_variables variable_1="FCepsilonRI_k_f7" variable_2="FCepsilonRI_k_f7"/>
+        <map_variables variable_1="PI3K_k_f2" variable_2="PI3K_k_f2"/>
+        <map_variables variable_1="PI3K_k_r2" variable_2="PI3K_k_r2"/>
+        <map_variables variable_1="PI3K_k_f3" variable_2="PI3K_k_f3"/>
+        <map_variables variable_1="hG_activating_dl4_k_f10" variable_2="hG_activating_dl4_k_f10"/>
+        <map_variables variable_1="hG_activating_dl4_k_r10" variable_2="hG_activating_dl4_k_r10"/>
+        <map_variables variable_1="hgdl4_FC_k_f21" variable_2="hgdl4_FC_k_f21"/>
+        <map_variables variable_1="hgdl4_FC_k_r21" variable_2="hgdl4_FC_k_r21"/>
     </connection>
     <connection>
         <map_components component_1="variables" component_2="geometry"/>
         <map_variables variable_1="Lyn" variable_2="Lyn"/>
         <map_variables variable_1="FC" variable_2="FC"/>
-        <map_variables variable_1="pFC" variable_2="pFC"/>
+        <map_variables variable_1="phGdl4FC" variable_2="phGdl4FC"/>
         <map_variables variable_1="Syk" variable_2="Syk"/>
         <map_variables variable_1="pSyk" variable_2="pSyk"/>
         <map_variables variable_1="pGrb2" variable_2="pGrb2"/>
@@ -129,6 +173,13 @@
         <map_variables variable_1="Pi" variable_2="Pi"/>
         <map_variables variable_1="Grb2" variable_2="Grb2"/>
         <map_variables variable_1="pLyn" variable_2="pLyn"/>
+        <map_variables variable_1="PI3K" variable_2="PI3K"/>
+        <map_variables variable_1="PI3Kstar" variable_2="PI3Kstar"/>
+        <map_variables variable_1="pGrb2PI3K" variable_2="pGrb2PI3K"/>
+        <map_variables variable_1="dl4" variable_2="dl4"/>
+        <map_variables variable_1="hGdl4" variable_2="hGdl4"/>
+        <map_variables variable_1="hG" variable_2="hG"/>
+        <map_variables variable_1="hGdl4FC" variable_2="hGdl4FC"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="FCepsilonRI"/>
@@ -144,8 +195,8 @@
         <map_variables variable_1="FCepsilonRI_k_r6" variable_2="k_r6"/>
         <map_variables variable_1="FCepsilonRI_k_f7" variable_2="k_f7"/>
         <map_variables variable_1="Lyn" variable_2="Lyn"/>
-        <map_variables variable_1="FC" variable_2="FC"/>
-        <map_variables variable_1="pFC" variable_2="pFC"/>
+        <map_variables variable_1="hGdl4FC" variable_2="FC"/>
+        <map_variables variable_1="phGdl4FC" variable_2="pFC"/>
         <map_variables variable_1="Syk" variable_2="Syk"/>
         <map_variables variable_1="pSyk" variable_2="pSyk"/>
         <map_variables variable_1="pGrb2" variable_2="pGrb2"/>
@@ -156,12 +207,40 @@
         <map_variables variable_1="Grb2" variable_2="Grb2"/>
         <map_variables variable_1="pLyn" variable_2="pLyn"/>
         <map_variables variable_1="J7" variable_2="J7"/>
-        <map_variables variable_1="J_FCsource" variable_2="J_FCsource"/>
+        <map_variables variable_1="J_hGdl4FC" variable_2="J_FCsource"/>
     </connection>
     <connection>
-        <map_components component_1="geometry" component_2="pGrb2"/>
+        <map_components component_1="geometry" component_2="PI3K"/>
         <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="PI3K_k_f2" variable_2="k_f2"/>
+        <map_variables variable_1="PI3K_k_r2" variable_2="k_r2"/>
+        <map_variables variable_1="PI3K_k_f3" variable_2="k_f3"/>
         <map_variables variable_1="pGrb2" variable_2="pGrb2"/>
+        <map_variables variable_1="PI3K" variable_2="PI3K"/>
+        <map_variables variable_1="PI3Kstar" variable_2="PI3Kstar"/>
+        <map_variables variable_1="pGrb2PI3K" variable_2="pGrb2PI3K"/>
         <map_variables variable_1="J7" variable_2="J7"/>
+        <!--   -->
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="hG_activating_dl4"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="hG_activating_dl4_k_f10" variable_2="k_f10"/>
+        <map_variables variable_1="hG_activating_dl4_k_r10" variable_2="k_r10"/>
+        <map_variables variable_1="dl4" variable_2="dl4"/>
+        <map_variables variable_1="hGdl4" variable_2="hGdl4"/>
+        <map_variables variable_1="hG" variable_2="hG"/>
+        <map_variables variable_1="J_hGdl4" variable_2="J_hGdl4"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="hgdl4_FC"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="FC" variable_2="free_FC"/>
+        <map_variables variable_1="hGdl4FC" variable_2="hGdl4FC"/>
+        <map_variables variable_1="hGdl4" variable_2="hGdl4"/>
+        <map_variables variable_1="J_hGdl4" variable_2="J_hGdl4"/>
+        <map_variables variable_1="J_hGdl4FC" variable_2="J_hGdl4FC"/>
+        <map_variables variable_1="hgdl4_FC_k_f21" variable_2="k_f21"/>
+        <map_variables variable_1="hgdl4_FC_k_r21" variable_2="k_r21"/>
     </connection>
 </model>

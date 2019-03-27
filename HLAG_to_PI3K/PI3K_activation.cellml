@@ -1,0 +1,127 @@
+<?xml version='1.0'?>
+<model cmeta:id="PI3K_activation" name="PI3K_activation" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <component name="PI3K">
+        <variable name="time" public_interface="in" units="s"/>
+        <variable name="k_f2" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r2" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f3" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="pGrb2" public_interface="in" units="nM"/>
+        <variable name="PI3K" public_interface="in" units="nM"/>
+        <variable name="PI3Kstar" public_interface="in" units="nM"/>
+        <variable name="pGrb2PI3K" public_interface="in" units="nM"/>
+        <variable name="J2" units="flux"/>
+        <variable name="J3" units="flux"/>
+        <variable name="J7" public_interface="in" units="flux"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J2</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f2</ci>
+                        <ci>pGrb2</ci>
+                        <ci>PI3K</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r2</ci>
+                        <ci>pGrb2PI3K</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J3</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f3</ci>
+                    <ci>pGrb2PI3K</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>pGrb2</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <ci>J7</ci>
+                        <ci>J2</ci>
+                    </apply>
+                    <ci>J3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>PI3K</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J2</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>pGrb2PI3K</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J2</ci>
+                    <ci>J3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>PI3Kstar</ci>
+                </apply>
+                <ci>J3</ci>
+            </apply>
+        </math>
+    </component>
+</model>

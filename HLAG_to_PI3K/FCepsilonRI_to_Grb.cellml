@@ -60,7 +60,9 @@
         <variable name="k_f7" public_interface="in" units="first_order_rate_constant"/>
         <variable name="Lyn" public_interface="in" units="nM"/>
         <variable name="FC" public_interface="in" units="nM"/>
+        <!--FC available to be phosphorylated (e.g. activated by HLA-G)-->
         <variable name="pFC" public_interface="in" units="nM"/>
+        <!--phosphorylated FC-->
         <variable name="Syk" public_interface="in" units="nM"/>
         <variable name="pSyk" public_interface="in" units="nM"/>
         <variable name="pGrb2" public_interface="in" units="nM"/>
@@ -76,7 +78,9 @@
         <variable name="J4" units="flux"/>
         <variable name="J5" units="flux"/>
         <variable name="J6" units="flux"/>
-        <variable name="J7" units="flux"/>
+        <variable name="J7" public_interface="in" units="flux"/>
+        <variable name="J_FCsource" public_interface="in" units="flux"/>
+        <!--rate of activation of FC-->
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
                 <eq/>
@@ -182,6 +186,7 @@
                     <plus/>
                     <apply>
                         <minus/>
+                        <ci>J_FCsource</ci>
                         <ci>J1</ci>
                     </apply>
                     <ci>J5</ci>
@@ -326,17 +331,6 @@
                     <minus/>
                     <ci>J6</ci>
                 </apply>
-            </apply>
-            <apply>
-                <eq/>
-                <apply>
-                    <diff/>
-                    <bvar>
-                        <ci>time</ci>
-                    </bvar>
-                    <ci>pGrb2</ci>
-                </apply>
-                <ci>J7</ci>
             </apply>
         </math>
     </component>
