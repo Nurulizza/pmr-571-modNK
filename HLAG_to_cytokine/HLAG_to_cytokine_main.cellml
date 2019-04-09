@@ -38,6 +38,9 @@
         <component component_ref="intracellular_TNF" name="intracellular_TNF"/>
         <component component_ref="intracellular_GSMCSF" name="intracellular_GSMCSF"/>
     </import>
+    <!--def import using "../HLAG_to_PI3K/PI3K_activation.cellml" for
+   comp PI3K using comp PI3K;
+enddef;-->
     <!--
         *******************************************************
         ***         U   N   I   T   S                       ***
@@ -107,7 +110,6 @@
         <variable initial_value="2.92" name="n" public_interface="out" units="dimensionless"/>
         <variable initial_value="1760" name="K_dN" public_interface="out" units="nM"/>
         <!--Dupont 1997-->
-        <variable initial_value="1300.0" name="V_plc" public_interface="out" units="flux"/>
         <variable initial_value="500.0" name="V_k" public_interface="out" units="flux"/>
         <variable initial_value="1000.0" name="K_k" public_interface="out" units="nM"/>
         <variable initial_value="300.0" name="K_d" public_interface="out" units="nM"/>
@@ -152,10 +154,6 @@
         <variable initial_value="100.0" name="IP4" public_interface="out" units="nM"/>
         <variable name="I_ra" public_interface="out" units="dimensionless"/>
         <variable name="I_rable" public_interface="out" units="dimensionless"/>
-        <variable name="V_PLC" public_interface="out" units="flux"/>
-        <variable name="V_3K" public_interface="out" units="flux"/>
-        <variable name="V_5P" public_interface="out" units="flux"/>
-        <variable name="V_15P" public_interface="out" units="flux"/>
     </component>
     <component name="NFATcyc_interface">
         <variable name="nuclearNFATpercent" public_interface="in" units="dimensionless"/>
@@ -265,6 +263,7 @@
             <component_ref component="V_3K"/>
             <component_ref component="V_5P"/>
             <component_ref component="V_15P"/>
+            <!--comp PI3K;-->
         </component_ref>
     </group>
     <component name="geometry">
@@ -295,7 +294,6 @@
         <variable name="n" private_interface="out" public_interface="in" units="dimensionless"/>
         <variable name="K_dN" private_interface="out" public_interface="in" units="nM"/>
         <!-- Dupont 1997-->
-        <variable name="V_plc" private_interface="out" public_interface="in" units="flux"/>
         <variable name="V_k" private_interface="out" public_interface="in" units="flux"/>
         <variable name="K_k" private_interface="out" public_interface="in" units="nM"/>
         <variable name="K_d" private_interface="out" public_interface="in" units="nM"/>
@@ -344,11 +342,12 @@
         <variable name="I_rable" private_interface="out" public_interface="in" units="dimensionless"/>
         <variable name="IP3" private_interface="out" public_interface="in" units="nM"/>
         <variable name="IP4" private_interface="out" public_interface="in" units="nM"/>
-        <variable name="V_PLC" private_interface="out" public_interface="in" units="flux"/>
-        <variable name="V_3K" private_interface="out" public_interface="in" units="flux"/>
-        <variable name="V_5P" private_interface="out" public_interface="in" units="flux"/>
-        <variable name="V_15P" private_interface="out" public_interface="in" units="flux"/>
         <!--other-->
+        <variable name="J_PLCIP3" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_3K" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_5P" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_15P" private_interface="out" public_interface="out" units="flux"/>
+        <variable initial_value="1300.0" name="J_PLC" private_interface="out" public_interface="out" units="flux"/>
         <variable name="JNFAT_n_cyc" private_interface="out" public_interface="out" units="flux"/>
         <variable name="JNFAT_n_IFN" private_interface="out" public_interface="out" units="flux"/>
         <variable name="JNFAT_n_TNF" private_interface="out" public_interface="out" units="flux"/>
@@ -387,7 +386,6 @@
         <map_variables variable_1="K_dN" variable_2="K_dN"/>
         <!--vars stimEnd and stimEnd;
 Dupont 1997-->
-        <map_variables variable_1="V_plc" variable_2="V_plc"/>
         <map_variables variable_1="V_k" variable_2="V_k"/>
         <map_variables variable_1="K_k" variable_2="K_k"/>
         <map_variables variable_1="K_d" variable_2="K_d"/>
@@ -434,10 +432,6 @@ Dupont 1997-->
         <map_variables variable_1="I_rable" variable_2="I_rable"/>
         <map_variables variable_1="IP3" variable_2="IP3"/>
         <map_variables variable_1="IP4" variable_2="IP4"/>
-        <map_variables variable_1="V_PLC" variable_2="V_PLC"/>
-        <map_variables variable_1="V_3K" variable_2="V_3K"/>
-        <map_variables variable_1="V_5P" variable_2="V_5P"/>
-        <map_variables variable_1="V_15P" variable_2="V_15P"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="calcineurin"/>
@@ -605,20 +599,20 @@ Dupont 1997-->
         <map_components component_1="IP3" component_2="geometry"/>
         <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="IP3" variable_2="IP3"/>
-        <map_variables variable_1="V_PLC" variable_2="V_PLC"/>
-        <map_variables variable_1="V_3K" variable_2="V_3K"/>
-        <map_variables variable_1="V_5P" variable_2="V_5P"/>
+        <map_variables variable_1="V_PLC" variable_2="J_PLCIP3"/>
+        <map_variables variable_1="V_3K" variable_2="J_3K"/>
+        <map_variables variable_1="V_5P" variable_2="J_5P"/>
     </connection>
     <connection>
         <map_components component_1="V_PLC" component_2="geometry"/>
         <map_variables variable_1="gamma" variable_2="gamma"/>
-        <map_variables variable_1="V_plc" variable_2="V_plc"/>
-        <map_variables variable_1="V_PLC" variable_2="V_PLC"/>
+        <map_variables variable_1="V_plc" variable_2="J_PLC"/>
+        <map_variables variable_1="V_PLC" variable_2="J_PLCIP3"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="V_3K"/>
         <map_variables variable_1="Ca_cyto" variable_2="C_cyto"/>
-        <map_variables variable_1="V_3K" variable_2="V_3K"/>
+        <map_variables variable_1="J_3K" variable_2="V_3K"/>
         <map_variables variable_1="IP3" variable_2="IP3"/>
         <map_variables variable_1="K_d" variable_2="K_d"/>
         <map_variables variable_1="K_k" variable_2="K_k"/>
@@ -627,7 +621,7 @@ Dupont 1997-->
     </connection>
     <connection>
         <map_components component_1="V_5P" component_2="geometry"/>
-        <map_variables variable_1="V_5P" variable_2="V_5P"/>
+        <map_variables variable_1="V_5P" variable_2="J_5P"/>
         <map_variables variable_1="IP3" variable_2="IP3"/>
         <map_variables variable_1="IP4" variable_2="IP4"/>
         <map_variables variable_1="V_p1" variable_2="V_p1"/>
@@ -637,7 +631,7 @@ Dupont 1997-->
     <connection>
         <map_components component_1="V_15P" component_2="geometry"/>
         <map_variables variable_1="time" variable_2="time"/>
-        <map_variables variable_1="V_15P" variable_2="V_15P"/>
+        <map_variables variable_1="V_15P" variable_2="J_15P"/>
         <map_variables variable_1="IP3" variable_2="IP3"/>
         <map_variables variable_1="IP4" variable_2="IP4"/>
         <map_variables variable_1="V_p2" variable_2="V_p2"/>
@@ -648,9 +642,9 @@ Dupont 1997-->
         <map_components component_1="IP4" component_2="geometry"/>
         <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="k" variable_2="k"/>
-        <map_variables variable_1="V_3K" variable_2="V_3K"/>
+        <map_variables variable_1="V_3K" variable_2="J_3K"/>
         <map_variables variable_1="IP4" variable_2="IP4"/>
-        <map_variables variable_1="V_15P" variable_2="V_15P"/>
+        <map_variables variable_1="V_15P" variable_2="J_15P"/>
     </connection>
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">
