@@ -38,9 +38,16 @@
         <component component_ref="intracellular_TNF" name="intracellular_TNF"/>
         <component component_ref="intracellular_GSMCSF" name="intracellular_GSMCSF"/>
     </import>
-    <!--def import using "../HLAG_to_PI3K/PI3K_activation.cellml" for
-   comp PI3K using comp PI3K;
-enddef;-->
+    <import xlink:href="../HLAG_to_PI3K/PI3K_activation.cellml">
+        <component component_ref="PI3K" name="PI3K"/>
+    </import>
+    <import xlink:href="../HLAG_to_PI3K/FCepsilonRI_to_Grb.cellml">
+        <component component_ref="FCepsilonRI" name="FCepsilonRI"/>
+    </import>
+    <import xlink:href="../HLAG_to_PI3K/HLAG_receptor.cellml">
+        <component component_ref="hG_activating_dl4" name="hG_activating_dl4"/>
+        <component component_ref="hgdl4_FC" name="hgdl4_FC"/>
+    </import>
     <!--
         *******************************************************
         ***         U   N   I   T   S                       ***
@@ -95,6 +102,15 @@ enddef;-->
         <variable initial_value="0.5" name="CytRel_k_f4" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.5" name="CytRel_k_f5" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.5" name="CytRel_k_f6" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.00891653" name="PI3K_k_f2" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.00611373" name="PI3K_k_r2" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="14.6231" name="PI3K_k_f3" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="10" name="PI3K_V_PLC" public_interface="out" units="flux"/>
+        <variable initial_value="100" name="PI3K_K_PLC" public_interface="out" units="nM"/>
+        <variable initial_value="1.141382e-5" name="hG_activating_dl4_k_f10" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.014043" name="hG_activating_dl4_k_r10" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="1.6521e-5" name="hgdl4_FC_k_f21" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0517365" name="hgdl4_FC_k_r21" public_interface="out" units="first_order_rate_constant"/>
     </component>
     <component name="fixed_parameters">
         <variable initial_value="7.68934e-6" name="NFATcyc_k_f1" public_interface="out" units="second_order_rate_constant"/>
@@ -131,6 +147,17 @@ enddef;-->
         <variable initial_value="7e-4" name="b" public_interface="out" units="dimensionless"/>
         <variable initial_value="2.57" name="K_1" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="1000.0" name="K_IP" public_interface="out" units="nM"/>
+        <!--FCepsilon-->
+        <variable initial_value="0.0583902" name="FCepsilonRI_k_f1" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.013548" name="FCepsilonRI_k_r1" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.00817889" name="FCepsilonRI_k_f2" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0010887" name="FCepsilonRI_k_f3" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0105797" name="FCepsilonRI_k_f4" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0806961" name="FCepsilonRI_k_r4" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="63.6727" name="FCepsilonRI_k_f5" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.000414288" name="FCepsilonRI_k_f6" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.731255" name="FCepsilonRI_k_r6" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="11.4185" name="FCepsilonRI_k_f7" public_interface="out" units="first_order_rate_constant"/>
     </component>
     <component name="variables">
         <variable initial_value="0.0004806012" name="NFATN_c" public_interface="out" units="nM"/>
@@ -154,6 +181,26 @@ enddef;-->
         <variable initial_value="100.0" name="IP4" public_interface="out" units="nM"/>
         <variable name="I_ra" public_interface="out" units="dimensionless"/>
         <variable name="I_rable" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.1" name="PI3K" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="PI3Kstar" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pGrb2PI3K" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="PLCgamma" public_interface="out" units="nM"/>
+        <variable initial_value="6158.04911360919" name="pGrb2" public_interface="out" units="nM"/>
+        <variable initial_value="0.368825824579846" name="Lyn" public_interface="out" units="nM"/>
+        <variable initial_value="906.99094038241" name="phGdl4FC" public_interface="out" units="nM"/>
+        <variable initial_value="0.0618216184262085" name="Syk" public_interface="out" units="nM"/>
+        <variable initial_value="4.87699697240553" name="pSyk" public_interface="out" units="nM"/>
+        <variable initial_value="92.9948025207461" name="pFCLyn" public_interface="out" units="nM"/>
+        <variable initial_value="0.00930525797532725" name="pFCSyk" public_interface="out" units="nM"/>
+        <variable initial_value="0.0518761511522306" name="pSykGrb2" public_interface="out" units="nM"/>
+        <variable initial_value="1895.85" name="Pi" public_interface="out" units="nM"/>
+        <variable initial_value="311.899010239632" name="Grb2" public_interface="out" units="nM"/>
+        <variable initial_value="6406.63637163925" name="pLyn" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="hGdl4FC" public_interface="out" units="nM"/>
+        <variable initial_value="1000.0" name="FC" public_interface="out" units="nM"/>
+        <variable initial_value="98.0" name="dl4" public_interface="out" units="nM"/>
+        <variable initial_value="0.0" name="hGdl4" public_interface="out" units="nM"/>
+        <variable initial_value="105.2" name="hG" public_interface="out" units="nM"/>
     </component>
     <component name="NFATcyc_interface">
         <variable name="nuclearNFATpercent" public_interface="in" units="dimensionless"/>
@@ -263,7 +310,11 @@ enddef;-->
             <component_ref component="V_3K"/>
             <component_ref component="V_5P"/>
             <component_ref component="V_15P"/>
-            <!--comp PI3K;-->
+            <!--receptor to PI3K-->
+            <component_ref component="FCepsilonRI"/>
+            <component_ref component="PI3K"/>
+            <component_ref component="hG_activating_dl4"/>
+            <component_ref component="hgdl4_FC"/>
         </component_ref>
     </group>
     <component name="geometry">
@@ -278,6 +329,15 @@ enddef;-->
         <variable name="CytRel_k_f4" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="CytRel_k_f5" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="CytRel_k_f6" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3K_k_f2" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="PI3K_k_r2" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3K_k_f3" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3K_V_PLC" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="PI3K_K_PLC" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hG_activating_dl4_k_f10" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hG_activating_dl4_k_r10" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hgdl4_FC_k_f21" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hgdl4_FC_k_r21" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <!-- ****************
  Fixed parameters
  ****************-->
@@ -318,6 +378,17 @@ enddef;-->
         <variable name="b" private_interface="out" public_interface="in" units="dimensionless"/>
         <variable name="K_1" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="K_IP" private_interface="out" public_interface="in" units="nM"/>
+        <!-- FCepsilon-->
+        <variable name="FCepsilonRI_k_f1" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_r1" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_f2" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_f3" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_f4" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_r4" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_f5" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_f6" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_r6" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_f7" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <!-- *********
  Variables
  *********-->
@@ -342,12 +413,35 @@ enddef;-->
         <variable name="I_rable" private_interface="out" public_interface="in" units="dimensionless"/>
         <variable name="IP3" private_interface="out" public_interface="in" units="nM"/>
         <variable name="IP4" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="PI3K" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="PI3Kstar" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pGrb2PI3K" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="PLCgamma" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pGrb2" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Lyn" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="phGdl4FC" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Syk" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pSyk" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pFCLyn" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pFCSyk" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pSykGrb2" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Pi" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Grb2" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pLyn" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hGdl4FC" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="FC" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="dl4" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hGdl4" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hG" private_interface="out" public_interface="in" units="nM"/>
         <!--other-->
+        <variable name="J_hGdl4" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_hGdl4FC" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J_PLCIP3" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J_3K" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J_5P" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J_15P" private_interface="out" public_interface="out" units="flux"/>
-        <variable initial_value="1300.0" name="J_PLC" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_PLC" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J7" private_interface="out" public_interface="out" units="flux"/>
         <variable name="JNFAT_n_cyc" private_interface="out" public_interface="out" units="flux"/>
         <variable name="JNFAT_n_IFN" private_interface="out" public_interface="out" units="flux"/>
         <variable name="JNFAT_n_TNF" private_interface="out" public_interface="out" units="flux"/>
@@ -369,6 +463,15 @@ enddef;-->
         <map_variables variable_1="CytRel_k_f4" variable_2="CytRel_k_f4"/>
         <map_variables variable_1="CytRel_k_f5" variable_2="CytRel_k_f5"/>
         <map_variables variable_1="CytRel_k_f6" variable_2="CytRel_k_f6"/>
+        <map_variables variable_1="PI3K_k_f2" variable_2="PI3K_k_f2"/>
+        <map_variables variable_1="PI3K_k_r2" variable_2="PI3K_k_r2"/>
+        <map_variables variable_1="PI3K_k_f3" variable_2="PI3K_k_f3"/>
+        <map_variables variable_1="PI3K_V_PLC" variable_2="PI3K_V_PLC"/>
+        <map_variables variable_1="PI3K_K_PLC" variable_2="PI3K_K_PLC"/>
+        <map_variables variable_1="hG_activating_dl4_k_f10" variable_2="hG_activating_dl4_k_f10"/>
+        <map_variables variable_1="hG_activating_dl4_k_r10" variable_2="hG_activating_dl4_k_r10"/>
+        <map_variables variable_1="hgdl4_FC_k_f21" variable_2="hgdl4_FC_k_f21"/>
+        <map_variables variable_1="hgdl4_FC_k_r21" variable_2="hgdl4_FC_k_r21"/>
     </connection>
     <connection>
         <map_components component_1="fixed_parameters" component_2="geometry"/>
@@ -407,6 +510,16 @@ Dupont 1997-->
         <map_variables variable_1="b" variable_2="b"/>
         <map_variables variable_1="K_1" variable_2="K_1"/>
         <map_variables variable_1="K_IP" variable_2="K_IP"/>
+        <map_variables variable_1="FCepsilonRI_k_f1" variable_2="FCepsilonRI_k_f1"/>
+        <map_variables variable_1="FCepsilonRI_k_r1" variable_2="FCepsilonRI_k_r1"/>
+        <map_variables variable_1="FCepsilonRI_k_f2" variable_2="FCepsilonRI_k_f2"/>
+        <map_variables variable_1="FCepsilonRI_k_f3" variable_2="FCepsilonRI_k_f3"/>
+        <map_variables variable_1="FCepsilonRI_k_f4" variable_2="FCepsilonRI_k_f4"/>
+        <map_variables variable_1="FCepsilonRI_k_r4" variable_2="FCepsilonRI_k_r4"/>
+        <map_variables variable_1="FCepsilonRI_k_f5" variable_2="FCepsilonRI_k_f5"/>
+        <map_variables variable_1="FCepsilonRI_k_f6" variable_2="FCepsilonRI_k_f6"/>
+        <map_variables variable_1="FCepsilonRI_k_r6" variable_2="FCepsilonRI_k_r6"/>
+        <map_variables variable_1="FCepsilonRI_k_f7" variable_2="FCepsilonRI_k_f7"/>
     </connection>
     <connection>
         <map_components component_1="variables" component_2="geometry"/>
@@ -432,6 +545,26 @@ Dupont 1997-->
         <map_variables variable_1="I_rable" variable_2="I_rable"/>
         <map_variables variable_1="IP3" variable_2="IP3"/>
         <map_variables variable_1="IP4" variable_2="IP4"/>
+        <map_variables variable_1="PI3K" variable_2="PI3K"/>
+        <map_variables variable_1="PI3Kstar" variable_2="PI3Kstar"/>
+        <map_variables variable_1="pGrb2PI3K" variable_2="pGrb2PI3K"/>
+        <map_variables variable_1="PLCgamma" variable_2="PLCgamma"/>
+        <map_variables variable_1="pGrb2" variable_2="pGrb2"/>
+        <map_variables variable_1="Lyn" variable_2="Lyn"/>
+        <map_variables variable_1="phGdl4FC" variable_2="phGdl4FC"/>
+        <map_variables variable_1="Syk" variable_2="Syk"/>
+        <map_variables variable_1="pSyk" variable_2="pSyk"/>
+        <map_variables variable_1="pFCLyn" variable_2="pFCLyn"/>
+        <map_variables variable_1="pFCSyk" variable_2="pFCSyk"/>
+        <map_variables variable_1="pSykGrb2" variable_2="pSykGrb2"/>
+        <map_variables variable_1="Pi" variable_2="Pi"/>
+        <map_variables variable_1="Grb2" variable_2="Grb2"/>
+        <map_variables variable_1="pLyn" variable_2="pLyn"/>
+        <map_variables variable_1="hGdl4FC" variable_2="hGdl4FC"/>
+        <map_variables variable_1="FC" variable_2="FC"/>
+        <map_variables variable_1="dl4" variable_2="dl4"/>
+        <map_variables variable_1="hGdl4" variable_2="hGdl4"/>
+        <map_variables variable_1="hG" variable_2="hG"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="calcineurin"/>
@@ -645,6 +778,71 @@ Dupont 1997-->
         <map_variables variable_1="V_3K" variable_2="J_3K"/>
         <map_variables variable_1="IP4" variable_2="IP4"/>
         <map_variables variable_1="V_15P" variable_2="J_15P"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="PI3K"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="PI3K_k_f2" variable_2="k_f2"/>
+        <map_variables variable_1="PI3K_k_r2" variable_2="k_r2"/>
+        <map_variables variable_1="PI3K_k_f3" variable_2="k_f3"/>
+        <map_variables variable_1="PI3K_V_PLC" variable_2="V_PLC"/>
+        <map_variables variable_1="PI3K_K_PLC" variable_2="K_PLC"/>
+        <map_variables variable_1="pGrb2" variable_2="pGrb2"/>
+        <map_variables variable_1="PI3K" variable_2="PI3K"/>
+        <map_variables variable_1="PI3Kstar" variable_2="PI3Kstar"/>
+        <map_variables variable_1="pGrb2PI3K" variable_2="pGrb2PI3K"/>
+        <map_variables variable_1="PLCgamma" variable_2="PLCgamma"/>
+        <map_variables variable_1="J_PLC" variable_2="J_PLC"/>
+        <map_variables variable_1="J7" variable_2="J7"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="FCepsilonRI"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="FCepsilonRI_k_f1" variable_2="k_f1"/>
+        <map_variables variable_1="FCepsilonRI_k_r1" variable_2="k_r1"/>
+        <map_variables variable_1="FCepsilonRI_k_f2" variable_2="k_f2"/>
+        <map_variables variable_1="FCepsilonRI_k_f3" variable_2="k_f3"/>
+        <map_variables variable_1="FCepsilonRI_k_f4" variable_2="k_f4"/>
+        <map_variables variable_1="FCepsilonRI_k_r4" variable_2="k_r4"/>
+        <map_variables variable_1="FCepsilonRI_k_f5" variable_2="k_f5"/>
+        <map_variables variable_1="FCepsilonRI_k_f6" variable_2="k_f6"/>
+        <map_variables variable_1="FCepsilonRI_k_r6" variable_2="k_r6"/>
+        <map_variables variable_1="FCepsilonRI_k_f7" variable_2="k_f7"/>
+        <map_variables variable_1="Lyn" variable_2="Lyn"/>
+        <map_variables variable_1="hGdl4FC" variable_2="FC"/>
+        <map_variables variable_1="phGdl4FC" variable_2="pFC"/>
+        <map_variables variable_1="Syk" variable_2="Syk"/>
+        <map_variables variable_1="pSyk" variable_2="pSyk"/>
+        <map_variables variable_1="pGrb2" variable_2="pGrb2"/>
+        <map_variables variable_1="pFCLyn" variable_2="pFCLyn"/>
+        <map_variables variable_1="pFCSyk" variable_2="pFCSyk"/>
+        <map_variables variable_1="pSykGrb2" variable_2="pSykGrb2"/>
+        <map_variables variable_1="Pi" variable_2="Pi"/>
+        <map_variables variable_1="Grb2" variable_2="Grb2"/>
+        <map_variables variable_1="pLyn" variable_2="pLyn"/>
+        <map_variables variable_1="J7" variable_2="J7"/>
+        <map_variables variable_1="J_hGdl4FC" variable_2="J_FCsource"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="hG_activating_dl4"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="hG_activating_dl4_k_f10" variable_2="k_f10"/>
+        <map_variables variable_1="hG_activating_dl4_k_r10" variable_2="k_r10"/>
+        <map_variables variable_1="dl4" variable_2="dl4"/>
+        <map_variables variable_1="hGdl4" variable_2="hGdl4"/>
+        <map_variables variable_1="hG" variable_2="hG"/>
+        <map_variables variable_1="J_hGdl4" variable_2="J_hGdl4"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="hgdl4_FC"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="FC" variable_2="free_FC"/>
+        <map_variables variable_1="hGdl4FC" variable_2="hGdl4FC"/>
+        <map_variables variable_1="hGdl4" variable_2="hGdl4"/>
+        <map_variables variable_1="J_hGdl4" variable_2="J_hGdl4"/>
+        <map_variables variable_1="J_hGdl4FC" variable_2="J_hGdl4FC"/>
+        <map_variables variable_1="hgdl4_FC_k_f21" variable_2="k_f21"/>
+        <map_variables variable_1="hgdl4_FC_k_r21" variable_2="k_r21"/>
     </connection>
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">
