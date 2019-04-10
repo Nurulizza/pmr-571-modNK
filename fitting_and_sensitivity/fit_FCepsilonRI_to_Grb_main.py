@@ -4,6 +4,8 @@ import OpenCOR as oc
 from SALib.sample import saltelli
 import math
 from matplotlib import pyplot as plt
+from scipy.optimize import curve_fit, minimize,least_squares
+
 
 
 class Simulation(object):
@@ -36,33 +38,45 @@ class Simulation(object):
         
         # default the parameter bounds to something sensible, needs to be set directly
         bounds = []
+        count_params = 0
+        num_vars = len(self.fitted_parameter_names)+len(self.fitted_variable_names)
+        parameter_bounds = [(num_vars)*[0] , (num_vars)*[6]]
         for c in self.fitted_parameter_names:
             v = self.constants[c];
             bounds.append([bounds_dictionary[c][0], bounds_dictionary[c][1]])
+            parameter_bounds[0][count_params] = bounds_dictionary[c][0]
+            parameter_bounds[1][count_params] = bounds_dictionary[c][1]
+            count_params = count_params+1
         for c in self.fitted_variable_names:
             print(c,self.variables)
             v = self.variables[c];
             bounds.append([ic_bounds_dictionary[c][0], ic_bounds_dictionary[c][1]])
+            parameter_bounds[0][count_params] = ic_bounds_dictionary[c][0]
+            parameter_bounds[1][count_params] = ic_bounds_dictionary[c][1]
+            count_params = count_params+1
 
         # define our sensitivity analysis problem
         self.problem = {
-                   'num_vars': len(self.fitted_parameter_names) + len(self.fitted_variable_names),
+                   'num_vars': num_vars,
                    'names': [self.fitted_parameter_names, self.fitted_variable_names],
                    'bounds': bounds
                    }
         self.samples = saltelli.sample(self.problem, num_samples)
         #print(self.samples)
         np.savetxt("self.samples.txt", self.samples)
+        return parameter_bounds
+        
+        
         
     def set_initial_conditions(self,ic_dictionary):
         for i in self.all_variable_names:
             self.simulation.data().states()[i]=ic_dictionary[i]
     #def set_parameters(self,parameter_values):
 
-    def run_once(self):
+    def run_model_once(self):
         self.simulation.run()
         
-    def evaluate_ssq(self,model,time_indices,fit_data,expt_state_uri,call_num):
+    def evaluate_ssq(self,time_indices,fit_data,expt_state_uri,call_num):
         num_series = len(fit_data)
         trial = np.zeros([num_series,len(time_indices)])
         ssq = np.ones(num_series+1)*1e10#
@@ -89,7 +103,7 @@ class Simulation(object):
         for i, k in enumerate(self.fitted_variable_names):
             self.simulation.data().states()[k]= 10.0**parameter_values[i+len(self.fitted_parameter_names)]
         
-            
+         
             
     def reset_sim_export_run_conditions(self, ic_dictionary, parameter_values, filename):
         self.simulation.clearResults()
@@ -113,31 +127,44 @@ class Simulation(object):
             else:
                 myfile.write(k + ' ' + str(self.simulation.data().states()[k]) +' (not fitted)\n')
                 
-                
         myfile.close()
         
-    def plot_current_best(self,time_indices,time_step,fit_data,expt_state_uri,plottitle):
+    def plot_current_best(self,time_indices,time_step,fit_data,expt_state_uri,plottitle,plotnum):
         
         self.simulation.run()
         num_series = len(fit_data)
         trial = np.zeros([num_series,len(time_indices)])
         for i in range(0,num_series):
             trial[i,:] = self.simulation.results().states()[expt_state_uri[i]].values()[time_indices]
+            plt.figure(plotnum)
             plt.plot(time_indices*time_step,trial[i,:])
             plt.plot(time_indices*time_step,fit_data[i,:],'*')
             plt.xlabel(expt_state_uri)
             plt.ylabel('Time')
             plt.title(plottitle)
             plt.show()
+            
+    def run_and_optimise(self,params,ic_dictionary,time_indices,fit_data,expt_state_uri,return_type):
+        self.define_individual_run(ic_dictionary,params)
+        try:
+            self.simulation.run()
+            if return_type == 'optimisation':
+                f1 = self.simulation.results().states()[expt_state_uri[0]].values()[time_indices]-fit_data[0,:]
+        except RuntimeError:
+            print("Runtime error, skipping")
+            if return_type == 'optimisation':
+                f1 = fit_data[0,:]
+        return f1
         
-    def run_parameter_sweep(self,num_retain,ic_dictionary,model,time_indices,fit_data,expt_state_uri):
+        
+    def run_parameter_sweep(self,num_retain,ic_dictionary,time_indices,fit_data,expt_state_uri):
         num_series =len(fit_data) 
         num_cols = num_series + 1 + self.samples.shape[1]
         num_rows = num_retain+1
         Y = np.zeros([num_rows,num_cols])
         for i, X in enumerate(self.samples):
             self.define_individual_run(ic_dictionary,X)
-            ssq = self.evaluate_ssq(model,time_indices,fit_data,expt_state_uri,i)            
+            ssq = self.evaluate_ssq(time_indices,fit_data,expt_state_uri,i)            
             j = i
             print('Run number: ' + str(i) + ' Overall SSQ: ' + str(ssq[0]))
             if j < num_retain:
@@ -169,16 +196,16 @@ time_step = 1
 parameter_list = ['geometry/J_FCsource', 'parameters/FCepsilonRI_k_f1', 'parameters/FCepsilonRI_k_f2', 'parameters/FCepsilonRI_k_f3', 'parameters/FCepsilonRI_k_f4', 'parameters/FCepsilonRI_k_f5', 'parameters/FCepsilonRI_k_f6', 'parameters/FCepsilonRI_k_f7', 'parameters/FCepsilonRI_k_r1', 'parameters/FCepsilonRI_k_r4', 'parameters/FCepsilonRI_k_r6', 'variables/Pi']
 variable_list = ['variables/FC', 'variables/Grb2', 'variables/Lyn', 'variables/Syk', 'variables/pFC', 'variables/pFCLyn', 'variables/pFCSyk', 'variables/pGrb2', 'variables/pLyn', 'variables/pSyk', 'variables/pSykGrb2']
 
-parameter_bounds_dictionary = {'parameters/FCepsilonRI_k_f1': [-3,2], 'parameters/FCepsilonRI_k_f2': [-3,2],'parameters/FCepsilonRI_k_f3': [-3,2], 'parameters/FCepsilonRI_k_f4': [-3,2],
-	 'parameters/FCepsilonRI_k_f5': [-3,2], 'parameters/FCepsilonRI_k_f6': [-3,2], 'parameters/FCepsilonRI_k_f7': [-3,2], 
-	 'parameters/FCepsilonRI_k_r1': [-3,2], 'parameters/FCepsilonRI_k_r4': [-3,2], 'parameters/FCepsilonRI_k_r6': [-3,2], 
-         'variables/Pi': [-3,2]}
+parameter_bounds_dictionary = {'parameters/FCepsilonRI_k_f1': [-6,1], 'parameters/FCepsilonRI_k_f2': [-3,2],'parameters/FCepsilonRI_k_f3': [-6,1], 'parameters/FCepsilonRI_k_f4': [-6,1],
+	 'parameters/FCepsilonRI_k_f5': [-3,3], 'parameters/FCepsilonRI_k_f6': [-6,1], 'parameters/FCepsilonRI_k_f7': [-3,3], 
+	 'parameters/FCepsilonRI_k_r1': [-3,3], 'parameters/FCepsilonRI_k_r4': [-3,3], 'parameters/FCepsilonRI_k_r6': [-3,3], 
+         'variables/Pi': [-3,3]}
      
 #List of parameters you want to exclude from fit
 fit_parameters_exclude = ['geometry/J_FCsource']#, 'parameters/FCepsilonRI_k_f2', 'parameters/FCepsilonRI_k_f4', 'parameters/FCepsilonRI_k_f6', 'parameters/FCepsilonRI_k_f7']
 
 
-ic_bounds_dictionary = {'variables/Lyn': [-3,3], 'variables/Grb2': [3,4]}
+ic_bounds_dictionary = {'variables/Lyn': [0,4], 'variables/Grb2': [3,4]}
 
 fit_ics_exclude = ['variables/FC', 'variables/Syk', 'variables/pFC', 'variables/pFCLyn', 'variables/pFCSyk', 'variables/pGrb2', 'variables/pLyn', 'variables/pSyk', 'variables/pSykGrb2']   
   
@@ -192,13 +219,10 @@ initial_consitions_faeder = { 'variables/FC': 47.4, 'variables/Grb2': 0.0, 'vari
 
 # The state variable  or variables in the model that the data represents
 num_series = 1
-expt_state_uri = ['variables/pGrb2']
-
-
-                          
+expt_state_uri_tsang = ['variables/pGrb2']                  
 
 #Number of samples to generate for each parameter
-num_samples = 2
+num_samples = 50
 
 #Number of results to retain, if we store too many in high res parameter sweeps we can have memory issues
 num_retain = 10
@@ -216,10 +240,20 @@ s = Simulation(("Sim_file", filename), ('start_time',start_time),('end_time',end
 
 #s.run_once()
 
-s.assign_param_ranges(parameter_bounds_dictionary,fit_parameters_exclude, ic_bounds_dictionary, fit_ics_exclude,num_samples)
-Z = s.run_parameter_sweep(num_retain,initial_conditions_tsang,'FCep_to_Grb',time_indices_tsang,exp_data_tsang,expt_state_uri)
+parameter_bounds =s.assign_param_ranges(parameter_bounds_dictionary,fit_parameters_exclude, ic_bounds_dictionary, fit_ics_exclude,num_samples)
+Z = s.run_parameter_sweep(num_retain,initial_conditions_tsang,time_indices_tsang,exp_data_tsang,expt_state_uri_tsang)
 
 s.reset_sim_export_run_conditions(initial_conditions_tsang,Z[0,num_series+1:],'parameter_sweep_best.txt')
 plottitle = 'Best fit after parameter sweep Tsang data. SSQ: ' + str(Z[0,0])
-s.plot_current_best(time_indices_tsang,time_step,exp_data_tsang,expt_state_uri,plottitle)
+s.plot_current_best(time_indices_tsang,time_step,exp_data_tsang,expt_state_uri_tsang,plottitle,1)
 
+initial_params = Z[0,num_series+1:]
+opt =least_squares(s.run_and_optimise, initial_params, args=(initial_conditions_tsang,time_indices_tsang,exp_data_tsang,expt_state_uri_tsang,'optimisation'),
+                               bounds=parameter_bounds,xtol=1e-8,verbose=2)
+                               
+                               
+s.reset_sim_export_run_conditions(initial_conditions_tsang,opt.x,'best_after_fit.txt')
+ssq = s.evaluate_ssq(time_indices_tsang,exp_data_tsang,expt_state_uri_tsang,100)
+plottitle = 'Best fit after fit Tsang data. SSQ: ' + str(ssq[0])
+s.reset_sim_export_run_conditions(initial_conditions_tsang,opt.x,'best_after_fit.txt')
+s.plot_current_best(time_indices_tsang,time_step,exp_data_tsang,expt_state_uri_tsang,plottitle,2)

@@ -1,0 +1,1024 @@
+<?xml version='1.0'?>
+<model cmeta:id="pNK_main" name="pNK_main" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="../dupont_1997_decomposed/IP3_Ca_oscillation.cellml">
+        <component component_ref="R_des" name="R_des"/>
+        <component component_ref="C_cyto" name="C_cyto"/>
+        <component component_ref="I_ra" name="I_ra"/>
+        <component component_ref="I_rable" name="I_rable"/>
+        <component component_ref="IP3" name="IP3"/>
+        <component component_ref="V_PLC" name="V_PLC"/>
+        <component component_ref="V_3K" name="V_3K"/>
+        <component component_ref="V_5P" name="V_5P"/>
+        <component component_ref="V_15P" name="V_15P"/>
+    </import>
+    <import xlink:href="../dupont_1997_decomposed/IP4_from_pIP3.cellml">
+        <component component_ref="IP4" name="IP4"/>
+    </import>
+    <import xlink:href="../cooling_2009/calcineurin_TomidaProtocol.cellml">
+        <component component_ref="calcineurin" name="calcineurin"/>
+    </import>
+    <import xlink:href="../cooling_2009/NFATCycling_TomidaProtocol.cellml">
+        <component component_ref="NFAT_Cycling" name="NFAT_Cycling"/>
+    </import>
+    <import xlink:href="../cytokine_release/nuclear_NFAT_withcytokines.cellml">
+        <component component_ref="nuclearNFAT" name="nuclearNFAT"/>
+    </import>
+    <import xlink:href="../cytokine_release/NFAT_to_cytokines.cellml">
+        <component component_ref="NFAT_to_IFN" name="NFAT_to_IFN"/>
+        <component component_ref="NFAT_to_TNF" name="NFAT_to_TNF"/>
+        <component component_ref="NFAT_to_GSMCSF" name="NFAT_to_GSMCSF"/>
+    </import>
+    <import xlink:href="../cytokine_release/cytokine_release.cellml">
+        <component component_ref="IFN_release" name="IFN_release"/>
+        <component component_ref="TNF_release" name="TNF_release"/>
+        <component component_ref="GSMCSF_release" name="GSMCSF_release"/>
+    </import>
+    <import xlink:href="../cytokine_release/intracellular_cytokines.cellml">
+        <component component_ref="intracellular_IFN" name="intracellular_IFN"/>
+        <component component_ref="intracellular_TNF" name="intracellular_TNF"/>
+        <component component_ref="intracellular_GSMCSF" name="intracellular_GSMCSF"/>
+    </import>
+    <import xlink:href="../HLAG_to_PI3K/PI3K_activation.cellml">
+        <component component_ref="PI3K" name="PI3K"/>
+    </import>
+    <import xlink:href="../HLAG_to_PI3K/FCepsilonRI_to_Grb.cellml">
+        <component component_ref="FCepsilonRI" name="FCepsilonRI"/>
+    </import>
+    <import xlink:href="../HLAG_to_PI3K/HLAG_receptor.cellml">
+        <component component_ref="hG_activating_dl4" name="hG_activating_dl4"/>
+        <component component_ref="hgdl4_FC" name="hgdl4_FC"/>
+    </import>
+    <!--
+        *******************************************************
+        ***         U   N   I   T   S                       ***
+        *******************************************************
+        -->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="per_nM">
+        <unit exponent="-1" units="nM"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="third_order_rate_constant">
+        <unit exponent="-2" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="fourth_order_rate_constant">
+        <unit exponent="-3" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="fifth_order_rate_constant">
+        <unit exponent="-4" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--
+     *********************************************************
+     ***       C   O   M   P   O   N   E   N   T   S       ***
+     *********************************************************
+     -->
+    <component name="environment">
+        <variable name="time" public_interface="out" units="s"/>
+    </component>
+    <component name="free_parameters">
+        <variable initial_value="0.01" name="NFAT2cyt_k_f1" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="1" name="NFAT2cyt_k_f2" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="1" name="NFAT2cyt_k_f3" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="1871.7" name="vm_vcw" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.5" name="CytRel_k_f4" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.5" name="CytRel_k_f5" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.5" name="CytRel_k_f6" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.00891653" name="PI3K_k_f2" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.00611373" name="PI3K_k_r2" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="14.6231" name="PI3K_k_f3" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="10" name="PI3K_V_PLC" public_interface="out" units="flux"/>
+        <variable initial_value="100" name="PI3K_K_PLC" public_interface="out" units="nM"/>
+        <variable initial_value="1.141382e-5" name="hG_activating_dl4_k_f10" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.014043" name="hG_activating_dl4_k_r10" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="1.6521e-5" name="hgdl4_FC_k_f21" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0517365" name="hgdl4_FC_k_r21" public_interface="out" units="first_order_rate_constant"/>
+    </component>
+    <component name="fixed_parameters">
+        <variable initial_value="7.68934e-6" name="NFATcyc_k_f1" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.019256" name="NFATcyc_k_r1" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.00144192" name="NFATcyc_k_f2" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.000361944" name="NFATcyc_k_f3" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="4.70813e-5" name="NFATcyc_k_r3" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.000444695" name="NFATcyc_k_f4" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="50" name="Ccn" public_interface="out" units="dimensionless"/>
+        <variable initial_value="6000" name="M" public_interface="out" units="nM"/>
+        <variable initial_value="1000" name="Ntot" public_interface="out" units="nM"/>
+        <variable initial_value="535" name="K_mN" public_interface="out" units="nM"/>
+        <variable initial_value="2.92" name="n" public_interface="out" units="dimensionless"/>
+        <variable initial_value="1760" name="K_dN" public_interface="out" units="nM"/>
+        <!--Dupont 1997-->
+        <variable initial_value="500" name="V_k" public_interface="out" units="flux"/>
+        <variable initial_value="1000" name="K_k" public_interface="out" units="nM"/>
+        <variable initial_value="300" name="K_d" public_interface="out" units="nM"/>
+        <variable initial_value="2" name="n_d" public_interface="out" units="dimensionless"/>
+        <variable initial_value="5000" name="V_p1" public_interface="out" units="flux"/>
+        <variable initial_value="10000" name="K_p1" public_interface="out" units="nM"/>
+        <variable initial_value="200" name="V_p2" public_interface="out" units="flux"/>
+        <variable initial_value="2000" name="K_p2" public_interface="out" units="nM"/>
+        <variable initial_value="0.01" name="k" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.2" name="gamma" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.1" name="alpha" public_interface="out" units="dimensionless"/>
+        <variable initial_value="80000" name="Ca_tot" public_interface="out" units="nM"/>
+        <variable initial_value="4000" name="V_MP" public_interface="out" units="flux"/>
+        <variable initial_value="350" name="K_p" public_interface="out" units="nM"/>
+        <variable initial_value="2" name="n_p" public_interface="out" units="dimensionless"/>
+        <variable initial_value="560" name="K_act" public_interface="out" units="nM"/>
+        <variable initial_value="150" name="K_inh" public_interface="out" units="nM"/>
+        <variable initial_value="0.5" name="K_minus" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0007" name="b" public_interface="out" units="dimensionless"/>
+        <variable initial_value="2.57" name="K_1" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="1000" name="K_IP" public_interface="out" units="nM"/>
+        <!--FCepsilon-->
+        <variable initial_value="0.0583902" name="FCepsilonRI_k_f1" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.013548" name="FCepsilonRI_k_r1" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.00817889" name="FCepsilonRI_k_f2" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0010887" name="FCepsilonRI_k_f3" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0105797" name="FCepsilonRI_k_f4" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0806961" name="FCepsilonRI_k_r4" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="63.6727" name="FCepsilonRI_k_f5" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.000414288" name="FCepsilonRI_k_f6" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.731255" name="FCepsilonRI_k_r6" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="11.4185" name="FCepsilonRI_k_f7" public_interface="out" units="first_order_rate_constant"/>
+    </component>
+    <component name="variables">
+        <variable initial_value="6.92406045126492e-7" name="NFATN_c" public_interface="out" units="nM"/>
+        <variable initial_value="2.4831951301443e-8" name="NFATN_n" public_interface="out" units="nM"/>
+        <variable initial_value="0.00101339805201531" name="NFATp_c" public_interface="out" units="nM"/>
+        <variable initial_value="1.69221943300304e-8" name="NFATp_n" public_interface="out" units="nM"/>
+        <variable initial_value="4.96640003787264e-10" name="IFN_c" public_interface="out" units="nM"/>
+        <variable initial_value="4.96640003787261e-8" name="TNF_c" public_interface="out" units="nM"/>
+        <variable initial_value="4.96640003787261e-8" name="GSMCSF_c" public_interface="out" units="nM"/>
+        <variable initial_value="0.000132769117322817" name="IFN_released" public_interface="out" units="nM"/>
+        <variable initial_value="0.0132769117322818" name="TNF_released" public_interface="out" units="nM"/>
+        <variable initial_value="0.0132769117322818" name="GSMCSF_released" public_interface="out" units="nM"/>
+        <variable name="nuclearNFATpercent" public_interface="out" units="dimensionless"/>
+        <variable name="nuclearNFAT" public_interface="out" units="nM"/>
+        <variable name="NFATN_c_percent" public_interface="out" units="dimensionless"/>
+        <variable name="act_N" public_interface="out" units="dimensionless"/>
+        <!-- Dupont 1997-->
+        <variable initial_value="0.0395144596881331" name="R_des" public_interface="out" units="dimensionless"/>
+        <variable initial_value="67.5846783643881" name="Ca_cyto" public_interface="out" units="nM"/>
+        <variable initial_value="0.00381189476807135" name="IP3" public_interface="out" units="nM"/>
+        <variable initial_value="0.000836894300188933" name="IP4" public_interface="out" units="nM"/>
+        <variable name="I_ra" public_interface="out" units="dimensionless"/>
+        <variable name="I_rable" public_interface="out" units="dimensionless"/>
+        <variable initial_value="4.98360553443528e-164" name="PI3K" public_interface="out" units="nM"/>
+        <variable initial_value="0.100000108620378" name="PI3Kstar" public_interface="out" units="nM"/>
+        <variable initial_value="9.67973726308301e-163" name="pGrb2PI3K" public_interface="out" units="nM"/>
+        <variable initial_value="69940.1349685008" name="PLCgamma" public_interface="out" units="nM"/>
+        <variable initial_value="6469.99999999998" name="pGrb2" public_interface="out" units="nM"/>
+        <variable initial_value="-3.88487097670028e-19" name="Lyn" public_interface="out" units="nM"/>
+        <variable initial_value="1097.99504787965" name="phGdl4FC" public_interface="out" units="nM"/>
+        <variable initial_value="2.80405421239954e-46" name="Syk" public_interface="out" units="nM"/>
+        <variable initial_value="4.99999999995929" name="pSyk" public_interface="out" units="nM"/>
+        <variable initial_value="-9.80359896642285e-17" name="pFCLyn" public_interface="out" units="nM"/>
+        <variable initial_value="6.03775666459874e-47" name="pFCSyk" public_interface="out" units="nM"/>
+        <variable initial_value="-2.1171594828769e-54" name="pSykGrb2" public_interface="out" units="nM"/>
+        <variable initial_value="1895.85" name="Pi" public_interface="out" units="nM"/>
+        <variable initial_value="-1.24159268141733e-50" name="Grb2" public_interface="out" units="nM"/>
+        <variable initial_value="6499.99999970316" name="pLyn" public_interface="out" units="nM"/>
+        <variable initial_value="-5.60124252281759e-21" name="hGdl4FC" public_interface="out" units="nM"/>
+        <variable initial_value="902.000000000488" name="FC" public_interface="out" units="nM"/>
+        <variable initial_value="-1.8829682277978e-14" name="dl4" public_interface="out" units="nM"/>
+        <variable initial_value="-5.35482440522169e-17" name="hGdl4" public_interface="out" units="nM"/>
+        <variable initial_value="7.20000000000002" name="hG" public_interface="out" units="nM"/>
+    </component>
+    <component name="NFATcyc_interface">
+        <variable name="nuclearNFATpercent" public_interface="in" units="dimensionless"/>
+        <variable name="nuclearNFAT" public_interface="in" units="nM"/>
+        <variable name="NFATN_c_percent" public_interface="in" units="dimensionless"/>
+        <variable name="NFATN_n" public_interface="in" units="nM"/>
+        <variable name="NFATp_n" public_interface="in" units="nM"/>
+        <variable name="NFATN_c" public_interface="in" units="nM"/>
+        <variable name="NFATp_c" public_interface="in" units="nM"/>
+        <variable name="Ccn" public_interface="in" units="dimensionless"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>nuclearNFAT</ci>
+                <apply>
+                    <plus/>
+                    <ci>NFATN_n</ci>
+                    <ci>NFATp_n</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>nuclearNFATpercent</ci>
+                <apply>
+                    <times/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <plus/>
+                            <ci>NFATN_n</ci>
+                            <ci>NFATp_n</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <ci>NFATN_n</ci>
+                            <ci>NFATp_n</ci>
+                            <apply>
+                                <times/>
+                                <ci>Ccn</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>NFATN_c</ci>
+                                    <ci>NFATp_c</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                    <cn cellml:units="dimensionless">100</cn>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>NFATN_c_percent</ci>
+                <apply>
+                    <times/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>NFATN_c</ci>
+                            <ci>Ccn</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <ci>NFATN_n</ci>
+                            <ci>NFATp_n</ci>
+                            <apply>
+                                <times/>
+                                <ci>Ccn</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>NFATN_c</ci>
+                                    <ci>NFATp_c</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                    <cn cellml:units="dimensionless">100</cn>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <group>
+        <relationship_ref relationship="encapsulation"/>
+        <component_ref component="geometry">
+            <component_ref component="calcineurin"/>
+            <component_ref component="NFAT_Cycling"/>
+            <component_ref component="NFATcyc_interface"/>
+            <component_ref component="nuclearNFAT"/>
+            <component_ref component="NFAT_to_IFN"/>
+            <component_ref component="NFAT_to_TNF"/>
+            <component_ref component="NFAT_to_GSMCSF"/>
+            <component_ref component="IFN_release"/>
+            <component_ref component="TNF_release"/>
+            <component_ref component="GSMCSF_release"/>
+            <component_ref component="intracellular_IFN"/>
+            <component_ref component="intracellular_TNF"/>
+            <component_ref component="intracellular_GSMCSF"/>
+            <!--Dupont 1997-->
+            <component_ref component="IP4"/>
+            <component_ref component="R_des"/>
+            <component_ref component="C_cyto"/>
+            <component_ref component="I_ra"/>
+            <component_ref component="I_rable"/>
+            <component_ref component="IP3"/>
+            <component_ref component="V_PLC"/>
+            <component_ref component="V_3K"/>
+            <component_ref component="V_5P"/>
+            <component_ref component="V_15P"/>
+            <!--receptor to PI3K-->
+            <component_ref component="FCepsilonRI"/>
+            <component_ref component="PI3K"/>
+            <component_ref component="hG_activating_dl4"/>
+            <component_ref component="hgdl4_FC"/>
+        </component_ref>
+    </group>
+    <component name="geometry">
+        <variable name="time" private_interface="out" public_interface="in" units="s"/>
+        <!-- ****************
+ 'Free' parameters
+ ****************-->
+        <variable name="NFAT2cyt_k_f1" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="NFAT2cyt_k_f2" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="NFAT2cyt_k_f3" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="vm_vcw" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="CytRel_k_f4" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="CytRel_k_f5" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="CytRel_k_f6" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3K_k_f2" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="PI3K_k_r2" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3K_k_f3" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="PI3K_V_PLC" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="PI3K_K_PLC" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hG_activating_dl4_k_f10" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hG_activating_dl4_k_r10" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hgdl4_FC_k_f21" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hgdl4_FC_k_r21" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <!-- ****************
+ Fixed parameters
+ ****************-->
+        <variable name="NFATcyc_k_f1" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="NFATcyc_k_r1" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="NFATcyc_k_f2" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="NFATcyc_k_f3" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="NFATcyc_k_r3" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="NFATcyc_k_f4" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="Ccn" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="M" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Ntot" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="K_mN" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="n" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="K_dN" private_interface="out" public_interface="in" units="nM"/>
+        <!-- Dupont 1997-->
+        <variable name="V_k" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="K_k" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="K_d" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="n_d" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="V_p1" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="K_p1" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="V_p2" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="K_p2" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="k" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="gamma" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="alpha" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="Ca_tot" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="V_MP" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="K_p" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="n_p" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="K_act" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="K_inh" private_interface="out" public_interface="in" units="nM"/>
+        <variable initial_value="3" name="n_a" private_interface="out" public_interface="out" units="dimensionless"/>
+        <variable initial_value="4" name="n_i" private_interface="out" public_interface="out" units="dimensionless"/>
+        <variable name="K_minus" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="K_plus" private_interface="out" public_interface="out" units="fifth_order_rate_constant"/>
+        <variable name="b" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="K_1" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="K_IP" private_interface="out" public_interface="in" units="nM"/>
+        <!-- FCepsilon-->
+        <variable name="FCepsilonRI_k_f1" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_r1" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_f2" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_f3" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_f4" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_r4" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_f5" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_f6" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_r6" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="FCepsilonRI_k_f7" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <!-- *********
+ Variables
+ *********-->
+        <variable name="NFATN_c" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="NFATN_n" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="NFATp_c" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="NFATp_n" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="nuclearNFATpercent" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="nuclearNFAT" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="NFATN_c_percent" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="act_N" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="IFN_c" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="TNF_c" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="GSMCSF_c" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="IFN_released" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="TNF_released" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="GSMCSF_released" private_interface="out" public_interface="in" units="nM"/>
+        <!--Dupont 1997-->
+        <variable name="R_des" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="Ca_cyto" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="I_ra" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="I_rable" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="IP3" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="IP4" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="PI3K" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="PI3Kstar" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pGrb2PI3K" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="PLCgamma" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pGrb2" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Lyn" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="phGdl4FC" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Syk" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pSyk" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pFCLyn" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pFCSyk" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pSykGrb2" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Pi" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Grb2" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pLyn" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hGdl4FC" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="FC" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="dl4" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hGdl4" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hG" private_interface="out" public_interface="in" units="nM"/>
+        <!--other-->
+        <variable name="J_hGdl4" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_hGdl4FC" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_PLCIP3" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_3K" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_5P" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_15P" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_PLC" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J7" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="JNFAT_n_cyc" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="JNFAT_n_IFN" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="JNFAT_n_TNF" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="JNFAT_n_GSMCSF" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="JIFN_rel" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="JTNF_rel" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="JGSMCSF_rel" private_interface="out" public_interface="out" units="flux"/>
+    </component>
+    <connection>
+        <map_components component_1="environment" component_2="geometry"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="free_parameters" component_2="geometry"/>
+        <map_variables variable_1="NFAT2cyt_k_f1" variable_2="NFAT2cyt_k_f1"/>
+        <map_variables variable_1="NFAT2cyt_k_f2" variable_2="NFAT2cyt_k_f2"/>
+        <map_variables variable_1="NFAT2cyt_k_f3" variable_2="NFAT2cyt_k_f3"/>
+        <map_variables variable_1="vm_vcw" variable_2="vm_vcw"/>
+        <map_variables variable_1="CytRel_k_f4" variable_2="CytRel_k_f4"/>
+        <map_variables variable_1="CytRel_k_f5" variable_2="CytRel_k_f5"/>
+        <map_variables variable_1="CytRel_k_f6" variable_2="CytRel_k_f6"/>
+        <map_variables variable_1="PI3K_k_f2" variable_2="PI3K_k_f2"/>
+        <map_variables variable_1="PI3K_k_r2" variable_2="PI3K_k_r2"/>
+        <map_variables variable_1="PI3K_k_f3" variable_2="PI3K_k_f3"/>
+        <map_variables variable_1="PI3K_V_PLC" variable_2="PI3K_V_PLC"/>
+        <map_variables variable_1="PI3K_K_PLC" variable_2="PI3K_K_PLC"/>
+        <map_variables variable_1="hG_activating_dl4_k_f10" variable_2="hG_activating_dl4_k_f10"/>
+        <map_variables variable_1="hG_activating_dl4_k_r10" variable_2="hG_activating_dl4_k_r10"/>
+        <map_variables variable_1="hgdl4_FC_k_f21" variable_2="hgdl4_FC_k_f21"/>
+        <map_variables variable_1="hgdl4_FC_k_r21" variable_2="hgdl4_FC_k_r21"/>
+    </connection>
+    <connection>
+        <map_components component_1="fixed_parameters" component_2="geometry"/>
+        <map_variables variable_1="NFATcyc_k_f1" variable_2="NFATcyc_k_f1"/>
+        <map_variables variable_1="NFATcyc_k_r1" variable_2="NFATcyc_k_r1"/>
+        <map_variables variable_1="NFATcyc_k_f2" variable_2="NFATcyc_k_f2"/>
+        <map_variables variable_1="NFATcyc_k_f3" variable_2="NFATcyc_k_f3"/>
+        <map_variables variable_1="NFATcyc_k_r3" variable_2="NFATcyc_k_r3"/>
+        <map_variables variable_1="NFATcyc_k_f4" variable_2="NFATcyc_k_f4"/>
+        <map_variables variable_1="Ccn" variable_2="Ccn"/>
+        <map_variables variable_1="M" variable_2="M"/>
+        <map_variables variable_1="Ntot" variable_2="Ntot"/>
+        <map_variables variable_1="K_mN" variable_2="K_mN"/>
+        <map_variables variable_1="n" variable_2="n"/>
+        <map_variables variable_1="K_dN" variable_2="K_dN"/>
+        <!--vars stimEnd and stimEnd;
+Dupont 1997-->
+        <map_variables variable_1="V_k" variable_2="V_k"/>
+        <map_variables variable_1="K_k" variable_2="K_k"/>
+        <map_variables variable_1="K_d" variable_2="K_d"/>
+        <map_variables variable_1="n_d" variable_2="n_d"/>
+        <map_variables variable_1="V_p1" variable_2="V_p1"/>
+        <map_variables variable_1="K_p1" variable_2="K_p1"/>
+        <map_variables variable_1="V_p2" variable_2="V_p2"/>
+        <map_variables variable_1="K_p2" variable_2="K_p2"/>
+        <map_variables variable_1="k" variable_2="k"/>
+        <map_variables variable_1="gamma" variable_2="gamma"/>
+        <map_variables variable_1="alpha" variable_2="alpha"/>
+        <map_variables variable_1="Ca_tot" variable_2="Ca_tot"/>
+        <map_variables variable_1="V_MP" variable_2="V_MP"/>
+        <map_variables variable_1="K_p" variable_2="K_p"/>
+        <map_variables variable_1="n_p" variable_2="n_p"/>
+        <map_variables variable_1="K_act" variable_2="K_act"/>
+        <map_variables variable_1="K_inh" variable_2="K_inh"/>
+        <map_variables variable_1="K_minus" variable_2="K_minus"/>
+        <map_variables variable_1="b" variable_2="b"/>
+        <map_variables variable_1="K_1" variable_2="K_1"/>
+        <map_variables variable_1="K_IP" variable_2="K_IP"/>
+        <map_variables variable_1="FCepsilonRI_k_f1" variable_2="FCepsilonRI_k_f1"/>
+        <map_variables variable_1="FCepsilonRI_k_r1" variable_2="FCepsilonRI_k_r1"/>
+        <map_variables variable_1="FCepsilonRI_k_f2" variable_2="FCepsilonRI_k_f2"/>
+        <map_variables variable_1="FCepsilonRI_k_f3" variable_2="FCepsilonRI_k_f3"/>
+        <map_variables variable_1="FCepsilonRI_k_f4" variable_2="FCepsilonRI_k_f4"/>
+        <map_variables variable_1="FCepsilonRI_k_r4" variable_2="FCepsilonRI_k_r4"/>
+        <map_variables variable_1="FCepsilonRI_k_f5" variable_2="FCepsilonRI_k_f5"/>
+        <map_variables variable_1="FCepsilonRI_k_f6" variable_2="FCepsilonRI_k_f6"/>
+        <map_variables variable_1="FCepsilonRI_k_r6" variable_2="FCepsilonRI_k_r6"/>
+        <map_variables variable_1="FCepsilonRI_k_f7" variable_2="FCepsilonRI_k_f7"/>
+    </connection>
+    <connection>
+        <map_components component_1="variables" component_2="geometry"/>
+        <map_variables variable_1="NFATN_c" variable_2="NFATN_c"/>
+        <map_variables variable_1="NFATN_n" variable_2="NFATN_n"/>
+        <map_variables variable_1="NFATp_c" variable_2="NFATp_c"/>
+        <map_variables variable_1="NFATp_n" variable_2="NFATp_n"/>
+        <!--vars Ca and Ca;-->
+        <map_variables variable_1="nuclearNFATpercent" variable_2="nuclearNFATpercent"/>
+        <map_variables variable_1="nuclearNFAT" variable_2="nuclearNFAT"/>
+        <map_variables variable_1="NFATN_c_percent" variable_2="NFATN_c_percent"/>
+        <map_variables variable_1="act_N" variable_2="act_N"/>
+        <map_variables variable_1="IFN_c" variable_2="IFN_c"/>
+        <map_variables variable_1="TNF_c" variable_2="TNF_c"/>
+        <map_variables variable_1="GSMCSF_c" variable_2="GSMCSF_c"/>
+        <map_variables variable_1="IFN_released" variable_2="IFN_released"/>
+        <map_variables variable_1="TNF_released" variable_2="TNF_released"/>
+        <map_variables variable_1="GSMCSF_released" variable_2="GSMCSF_released"/>
+        <!-- Dupont 1997-->
+        <map_variables variable_1="R_des" variable_2="R_des"/>
+        <map_variables variable_1="Ca_cyto" variable_2="Ca_cyto"/>
+        <map_variables variable_1="I_ra" variable_2="I_ra"/>
+        <map_variables variable_1="I_rable" variable_2="I_rable"/>
+        <map_variables variable_1="IP3" variable_2="IP3"/>
+        <map_variables variable_1="IP4" variable_2="IP4"/>
+        <map_variables variable_1="PI3K" variable_2="PI3K"/>
+        <map_variables variable_1="PI3Kstar" variable_2="PI3Kstar"/>
+        <map_variables variable_1="pGrb2PI3K" variable_2="pGrb2PI3K"/>
+        <map_variables variable_1="PLCgamma" variable_2="PLCgamma"/>
+        <map_variables variable_1="pGrb2" variable_2="pGrb2"/>
+        <map_variables variable_1="Lyn" variable_2="Lyn"/>
+        <map_variables variable_1="phGdl4FC" variable_2="phGdl4FC"/>
+        <map_variables variable_1="Syk" variable_2="Syk"/>
+        <map_variables variable_1="pSyk" variable_2="pSyk"/>
+        <map_variables variable_1="pFCLyn" variable_2="pFCLyn"/>
+        <map_variables variable_1="pFCSyk" variable_2="pFCSyk"/>
+        <map_variables variable_1="pSykGrb2" variable_2="pSykGrb2"/>
+        <map_variables variable_1="Pi" variable_2="Pi"/>
+        <map_variables variable_1="Grb2" variable_2="Grb2"/>
+        <map_variables variable_1="pLyn" variable_2="pLyn"/>
+        <map_variables variable_1="hGdl4FC" variable_2="hGdl4FC"/>
+        <map_variables variable_1="FC" variable_2="FC"/>
+        <map_variables variable_1="dl4" variable_2="dl4"/>
+        <map_variables variable_1="hGdl4" variable_2="hGdl4"/>
+        <map_variables variable_1="hG" variable_2="hG"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="calcineurin"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="M" variable_2="M"/>
+        <map_variables variable_1="Ntot" variable_2="Ntot"/>
+        <map_variables variable_1="K_mN" variable_2="K_mN"/>
+        <map_variables variable_1="n" variable_2="n"/>
+        <map_variables variable_1="K_dN" variable_2="K_dN"/>
+        <map_variables variable_1="Ca_cyto" variable_2="Ca"/>
+        <map_variables variable_1="act_N" variable_2="act_N"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="NFAT_Cycling"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="Ccn" variable_2="Ccn"/>
+        <map_variables variable_1="NFATcyc_k_f1" variable_2="k_f1"/>
+        <map_variables variable_1="NFATcyc_k_r1" variable_2="k_r1"/>
+        <map_variables variable_1="NFATcyc_k_f2" variable_2="k_f2"/>
+        <map_variables variable_1="NFATcyc_k_f3" variable_2="k_f3"/>
+        <map_variables variable_1="NFATcyc_k_r3" variable_2="k_r3"/>
+        <map_variables variable_1="NFATcyc_k_f4" variable_2="k_f4"/>
+        <map_variables variable_1="Ntot" variable_2="Ntot"/>
+        <map_variables variable_1="NFATN_c" variable_2="NFATN_c"/>
+        <map_variables variable_1="NFATN_n" variable_2="NFATN_n"/>
+        <map_variables variable_1="NFATp_c" variable_2="NFATp_c"/>
+        <map_variables variable_1="NFATp_n" variable_2="NFATp_n"/>
+        <map_variables variable_1="act_N" variable_2="act_N"/>
+        <map_variables variable_1="JNFAT_n_cyc" variable_2="JNFAT_n_cyc"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="NFATcyc_interface"/>
+        <map_variables variable_1="Ccn" variable_2="Ccn"/>
+        <map_variables variable_1="NFATN_c" variable_2="NFATN_c"/>
+        <map_variables variable_1="NFATN_n" variable_2="NFATN_n"/>
+        <map_variables variable_1="NFATp_c" variable_2="NFATp_c"/>
+        <map_variables variable_1="NFATp_n" variable_2="NFATp_n"/>
+        <map_variables variable_1="nuclearNFATpercent" variable_2="nuclearNFATpercent"/>
+        <map_variables variable_1="nuclearNFAT" variable_2="nuclearNFAT"/>
+        <map_variables variable_1="NFATN_c_percent" variable_2="NFATN_c_percent"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="NFAT_to_IFN"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="NFATN_n" variable_2="NFATN_n"/>
+        <map_variables variable_1="IFN_c" variable_2="IFN_c"/>
+        <map_variables variable_1="JNFAT_n_IFN" variable_2="JNFAT_n_IFN"/>
+        <map_variables variable_1="NFAT2cyt_k_f1" variable_2="k_f1"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="NFAT_to_TNF"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="NFATN_n" variable_2="NFATN_n"/>
+        <map_variables variable_1="TNF_c" variable_2="TNF_c"/>
+        <map_variables variable_1="JNFAT_n_TNF" variable_2="JNFAT_n_TNF"/>
+        <map_variables variable_1="NFAT2cyt_k_f2" variable_2="k_f2"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="NFAT_to_GSMCSF"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="NFATN_n" variable_2="NFATN_n"/>
+        <map_variables variable_1="GSMCSF_c" variable_2="GSMCSF_c"/>
+        <map_variables variable_1="JNFAT_n_GSMCSF" variable_2="JNFAT_n_GSMCSF"/>
+        <map_variables variable_1="NFAT2cyt_k_f3" variable_2="k_f3"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="nuclearNFAT"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="NFATN_n" variable_2="NFATN_n"/>
+        <map_variables variable_1="JNFAT_n_cyc" variable_2="JNFAT_n_cyc"/>
+        <map_variables variable_1="JNFAT_n_IFN" variable_2="JNFAT_n_IFN"/>
+        <map_variables variable_1="JNFAT_n_TNF" variable_2="JNFAT_n_TNF"/>
+        <map_variables variable_1="JNFAT_n_GSMCSF" variable_2="JNFAT_n_GSMCSF"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="IFN_release"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="IFN_c" variable_2="IFN_c"/>
+        <map_variables variable_1="IFN_released" variable_2="IFN_released"/>
+        <map_variables variable_1="vm_vcw" variable_2="vm_vcw"/>
+        <map_variables variable_1="JIFN_rel" variable_2="JIFN_rel"/>
+        <map_variables variable_1="CytRel_k_f4" variable_2="k_f4"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="TNF_release"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="TNF_c" variable_2="TNF_c"/>
+        <map_variables variable_1="TNF_released" variable_2="TNF_released"/>
+        <map_variables variable_1="vm_vcw" variable_2="vm_vcw"/>
+        <map_variables variable_1="JTNF_rel" variable_2="JTNF_rel"/>
+        <map_variables variable_1="CytRel_k_f5" variable_2="k_f5"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="GSMCSF_release"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="GSMCSF_c" variable_2="GSMCSF_c"/>
+        <map_variables variable_1="GSMCSF_released" variable_2="GSMCSF_released"/>
+        <map_variables variable_1="vm_vcw" variable_2="vm_vcw"/>
+        <map_variables variable_1="JGSMCSF_rel" variable_2="JGSMCSF_rel"/>
+        <map_variables variable_1="CytRel_k_f6" variable_2="k_f6"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="intracellular_IFN"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="IFN_c" variable_2="IFN_c"/>
+        <map_variables variable_1="JIFN_rel" variable_2="JIFN_rel"/>
+        <map_variables variable_1="JNFAT_n_IFN" variable_2="JNFAT_n_IFN"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="intracellular_TNF"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="TNF_c" variable_2="TNF_c"/>
+        <map_variables variable_1="JTNF_rel" variable_2="JTNF_rel"/>
+        <map_variables variable_1="JNFAT_n_TNF" variable_2="JNFAT_n_TNF"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="intracellular_GSMCSF"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="GSMCSF_c" variable_2="GSMCSF_c"/>
+        <map_variables variable_1="JGSMCSF_rel" variable_2="JGSMCSF_rel"/>
+        <map_variables variable_1="JNFAT_n_GSMCSF" variable_2="JNFAT_n_GSMCSF"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="R_des"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="R_des" variable_2="R_des"/>
+        <map_variables variable_1="K_plus" variable_2="K_plus"/>
+        <map_variables variable_1="Ca_cyto" variable_2="C_cyto"/>
+        <map_variables variable_1="n_i" variable_2="n_i"/>
+        <map_variables variable_1="K_act" variable_2="K_act"/>
+        <map_variables variable_1="n_a" variable_2="n_a"/>
+        <map_variables variable_1="K_minus" variable_2="K_minus"/>
+        <map_variables variable_1="K_inh" variable_2="K_inh"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="C_cyto"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="Ca_cyto" variable_2="C_cyto"/>
+        <map_variables variable_1="I_ra" variable_2="I_ra"/>
+        <map_variables variable_1="K_1" variable_2="K_1"/>
+        <map_variables variable_1="b" variable_2="b"/>
+        <map_variables variable_1="Ca_tot" variable_2="Ca_tot"/>
+        <map_variables variable_1="alpha" variable_2="alpha"/>
+        <map_variables variable_1="V_MP" variable_2="V_MP"/>
+        <map_variables variable_1="n_p" variable_2="n_p"/>
+        <map_variables variable_1="K_p" variable_2="K_p"/>
+        <map_variables variable_1="n_i" variable_2="n_i"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="I_ra"/>
+        <map_variables variable_1="I_ra" variable_2="I_ra"/>
+        <map_variables variable_1="I_rable" variable_2="I_rable"/>
+        <map_variables variable_1="Ca_cyto" variable_2="C_cyto"/>
+        <map_variables variable_1="n_a" variable_2="n_a"/>
+        <map_variables variable_1="K_act" variable_2="K_act"/>
+    </connection>
+    <connection>
+        <map_components component_1="I_rable" component_2="geometry"/>
+        <map_variables variable_1="I_rable" variable_2="I_rable"/>
+        <map_variables variable_1="IP3" variable_2="IP3"/>
+        <map_variables variable_1="K_IP" variable_2="K_IP"/>
+        <map_variables variable_1="R_des" variable_2="R_des"/>
+    </connection>
+    <connection>
+        <map_components component_1="IP3" component_2="geometry"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="IP3" variable_2="IP3"/>
+        <map_variables variable_1="V_PLC" variable_2="J_PLCIP3"/>
+        <map_variables variable_1="V_3K" variable_2="J_3K"/>
+        <map_variables variable_1="V_5P" variable_2="J_5P"/>
+    </connection>
+    <connection>
+        <map_components component_1="V_PLC" component_2="geometry"/>
+        <map_variables variable_1="gamma" variable_2="gamma"/>
+        <map_variables variable_1="V_plc" variable_2="J_PLC"/>
+        <map_variables variable_1="V_PLC" variable_2="J_PLCIP3"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="V_3K"/>
+        <map_variables variable_1="Ca_cyto" variable_2="C_cyto"/>
+        <map_variables variable_1="J_3K" variable_2="V_3K"/>
+        <map_variables variable_1="IP3" variable_2="IP3"/>
+        <map_variables variable_1="K_d" variable_2="K_d"/>
+        <map_variables variable_1="K_k" variable_2="K_k"/>
+        <map_variables variable_1="n_d" variable_2="n_d"/>
+        <map_variables variable_1="V_k" variable_2="V_k"/>
+    </connection>
+    <connection>
+        <map_components component_1="V_5P" component_2="geometry"/>
+        <map_variables variable_1="V_5P" variable_2="J_5P"/>
+        <map_variables variable_1="IP3" variable_2="IP3"/>
+        <map_variables variable_1="IP4" variable_2="IP4"/>
+        <map_variables variable_1="V_p1" variable_2="V_p1"/>
+        <map_variables variable_1="K_p1" variable_2="K_p1"/>
+        <map_variables variable_1="K_p2" variable_2="K_p2"/>
+    </connection>
+    <connection>
+        <map_components component_1="V_15P" component_2="geometry"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="V_15P" variable_2="J_15P"/>
+        <map_variables variable_1="IP3" variable_2="IP3"/>
+        <map_variables variable_1="IP4" variable_2="IP4"/>
+        <map_variables variable_1="V_p2" variable_2="V_p2"/>
+        <map_variables variable_1="K_p2" variable_2="K_p2"/>
+        <map_variables variable_1="K_p1" variable_2="K_p1"/>
+    </connection>
+    <connection>
+        <map_components component_1="IP4" component_2="geometry"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="k" variable_2="k"/>
+        <map_variables variable_1="V_3K" variable_2="J_3K"/>
+        <map_variables variable_1="IP4" variable_2="IP4"/>
+        <map_variables variable_1="V_15P" variable_2="J_15P"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="PI3K"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="PI3K_k_f2" variable_2="k_f2"/>
+        <map_variables variable_1="PI3K_k_r2" variable_2="k_r2"/>
+        <map_variables variable_1="PI3K_k_f3" variable_2="k_f3"/>
+        <map_variables variable_1="PI3K_V_PLC" variable_2="V_PLC"/>
+        <map_variables variable_1="PI3K_K_PLC" variable_2="K_PLC"/>
+        <map_variables variable_1="pGrb2" variable_2="pGrb2"/>
+        <map_variables variable_1="PI3K" variable_2="PI3K"/>
+        <map_variables variable_1="PI3Kstar" variable_2="PI3Kstar"/>
+        <map_variables variable_1="pGrb2PI3K" variable_2="pGrb2PI3K"/>
+        <map_variables variable_1="PLCgamma" variable_2="PLCgamma"/>
+        <map_variables variable_1="J_PLC" variable_2="J_PLC"/>
+        <map_variables variable_1="J7" variable_2="J7"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="FCepsilonRI"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="FCepsilonRI_k_f1" variable_2="k_f1"/>
+        <map_variables variable_1="FCepsilonRI_k_r1" variable_2="k_r1"/>
+        <map_variables variable_1="FCepsilonRI_k_f2" variable_2="k_f2"/>
+        <map_variables variable_1="FCepsilonRI_k_f3" variable_2="k_f3"/>
+        <map_variables variable_1="FCepsilonRI_k_f4" variable_2="k_f4"/>
+        <map_variables variable_1="FCepsilonRI_k_r4" variable_2="k_r4"/>
+        <map_variables variable_1="FCepsilonRI_k_f5" variable_2="k_f5"/>
+        <map_variables variable_1="FCepsilonRI_k_f6" variable_2="k_f6"/>
+        <map_variables variable_1="FCepsilonRI_k_r6" variable_2="k_r6"/>
+        <map_variables variable_1="FCepsilonRI_k_f7" variable_2="k_f7"/>
+        <map_variables variable_1="Lyn" variable_2="Lyn"/>
+        <map_variables variable_1="hGdl4FC" variable_2="FC"/>
+        <map_variables variable_1="phGdl4FC" variable_2="pFC"/>
+        <map_variables variable_1="Syk" variable_2="Syk"/>
+        <map_variables variable_1="pSyk" variable_2="pSyk"/>
+        <map_variables variable_1="pGrb2" variable_2="pGrb2"/>
+        <map_variables variable_1="pFCLyn" variable_2="pFCLyn"/>
+        <map_variables variable_1="pFCSyk" variable_2="pFCSyk"/>
+        <map_variables variable_1="pSykGrb2" variable_2="pSykGrb2"/>
+        <map_variables variable_1="Pi" variable_2="Pi"/>
+        <map_variables variable_1="Grb2" variable_2="Grb2"/>
+        <map_variables variable_1="pLyn" variable_2="pLyn"/>
+        <map_variables variable_1="J7" variable_2="J7"/>
+        <map_variables variable_1="J_hGdl4FC" variable_2="J_FCsource"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="hG_activating_dl4"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="hG_activating_dl4_k_f10" variable_2="k_f10"/>
+        <map_variables variable_1="hG_activating_dl4_k_r10" variable_2="k_r10"/>
+        <map_variables variable_1="dl4" variable_2="dl4"/>
+        <map_variables variable_1="hGdl4" variable_2="hGdl4"/>
+        <map_variables variable_1="hG" variable_2="hG"/>
+        <map_variables variable_1="J_hGdl4" variable_2="J_hGdl4"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="hgdl4_FC"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="FC" variable_2="free_FC"/>
+        <map_variables variable_1="hGdl4FC" variable_2="hGdl4FC"/>
+        <map_variables variable_1="hGdl4" variable_2="hGdl4"/>
+        <map_variables variable_1="J_hGdl4" variable_2="J_hGdl4"/>
+        <map_variables variable_1="J_hGdl4FC" variable_2="J_hGdl4FC"/>
+        <map_variables variable_1="hgdl4_FC_k_f21" variable_2="k_f21"/>
+        <map_variables variable_1="hgdl4_FC_k_r21" variable_2="k_r21"/>
+    </connection>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">
+            <creator xmlns="http://purl.org/dc/elements/1.1/">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n1"/>
+            </creator>
+            <title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">Sensitivity of NFAT Cycling to Cytosolic Calcium Concentration: Implications for Hypertrophic Signals in Cardiac Myocytes (Tomida-derived calcium protocol)</title>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n1">
+            <N xmlns="http://www.w3.org/2001/vcard-rdf/3.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n2"/>
+            </N>
+            <ORG xmlns="http://www.w3.org/2001/vcard-rdf/3.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n3"/>
+            </ORG>
+            <EMAIL xmlns="http://www.w3.org/2001/vcard-rdf/3.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n4"/>
+            </EMAIL>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n2">
+            <Family xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">Cooling</Family>
+            <Given xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">Michael</Given>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n3">
+            <Orgname xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">Auckland Bioengineering Institute</Orgname>
+            <Orgunit xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">University of Auckland</Orgunit>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n4">
+            <rdf:type xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="http://imc.org/vCard/3.0#internet"/>
+            </rdf:type>
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">m.cooling@auckland.ac.nz</rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#NFATMyocyte_TomidaProtocol">
+            <reference xmlns="http://www.cellml.org/bqs/1.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n5"/>
+            </reference>
+            <reference xmlns="http://www.cellml.org/bqs/1.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n6"/>
+            </reference>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n5">
+            <JournalArticle xmlns="http://www.cellml.org/bqs/1.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n7"/>
+            </JournalArticle>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n7">
+            <creator xmlns="http://purl.org/dc/elements/1.1/">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n8"/>
+            </creator>
+            <title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">Sensitivity of NFAT Cycling to Cytosolic Calcium Concentration: Implications for Hypertrophic Signals in Cardiac Myocytes</title>
+            <volume xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">96</volume>
+            <first_page xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">2095</first_page>
+            <last_page xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">2104</last_page>
+            <Journal xmlns="http://www.cellml.org/bqs/1.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n9"/>
+            </Journal>
+            <issued xmlns="http://purl.org/dc/terms/">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n10"/>
+            </issued>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n8">
+            <rdf:type xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+            </rdf:type>
+            <rdf:_1 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n11"/>
+            </rdf:_1>
+            <rdf:_2 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n12"/>
+            </rdf:_2>
+            <rdf:_3 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n13"/>
+            </rdf:_3>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n11">
+            <N xmlns="http://www.w3.org/2001/vcard-rdf/3.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n14"/>
+            </N>
+            <ORG xmlns="http://www.w3.org/2001/vcard-rdf/3.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n15"/>
+            </ORG>
+            <EMAIL xmlns="http://www.w3.org/2001/vcard-rdf/3.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n16"/>
+            </EMAIL>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n14">
+            <Family xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">Cooling</Family>
+            <Given xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">Mike</Given>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n16">
+            <rdf:type xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="http://imc.org/vCard/3.0#internet"/>
+            </rdf:type>
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">m.cooling@auckland.ac.nz</rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n15">
+            <Orgname xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">Auckland Bioengineering Institute</Orgname>
+            <Orgunit xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">University of Auckland</Orgunit>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n12">
+            <N xmlns="http://www.w3.org/2001/vcard-rdf/3.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n17"/>
+            </N>
+            <ORG xmlns="http://www.w3.org/2001/vcard-rdf/3.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n18"/>
+            </ORG>
+            <EMAIL xmlns="http://www.w3.org/2001/vcard-rdf/3.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n19"/>
+            </EMAIL>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n17">
+            <Family xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">Hunter</Family>
+            <Given xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">Peter</Given>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n19">
+            <rdf:type xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="http://imc.org/vCard/3.0#internet"/>
+            </rdf:type>
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">p.hunter@auckland.ac.nz</rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n18">
+            <Orgname xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">Auckland Bioengineering Institute</Orgname>
+            <Orgunit xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">University of Auckland</Orgunit>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n13">
+            <N xmlns="http://www.w3.org/2001/vcard-rdf/3.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n20"/>
+            </N>
+            <ORG xmlns="http://www.w3.org/2001/vcard-rdf/3.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n21"/>
+            </ORG>
+            <EMAIL xmlns="http://www.w3.org/2001/vcard-rdf/3.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n22"/>
+            </EMAIL>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n20">
+            <Family xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">Crampin</Family>
+            <Given xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">Edmund</Given>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n22">
+            <rdf:type xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="http://imc.org/vCard/3.0#internet"/>
+            </rdf:type>
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">e.crampin@auckland.ac.nz</rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n21">
+            <Orgname xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">Auckland Bioengineering Institute</Orgname>
+            <Orgunit xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">University of Auckland</Orgunit>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n9">
+            <title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">Biophysical Journal</title>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n10">
+            <W3CDTF xmlns="http://purl.org/dc/terms/" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">2009-03-18 00:00</W3CDTF>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n6">
+            <subject xmlns="http://purl.org/dc/elements/1.1/">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n23"/>
+            </subject>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n23">
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n24"/>
+            </rdf:value>
+            <subject_type xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">keyword</subject_type>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n24">
+            <rdf:type xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
+            </rdf:type>
+            <rdf:_1 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">Signal Transduction</rdf:_1>
+            <rdf:_2 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">Calcium Dynamics</rdf:_2>
+            <rdf:_3 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">Gene Regulation</rdf:_3>
+            <rdf:_4 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">Excitation-Transcription Coupling</rdf:_4>
+            <rdf:_5 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">NFAT</rdf:_5>
+        </rdf:Description>
+    </rdf:RDF>
+</model>

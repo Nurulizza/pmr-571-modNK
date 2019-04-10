@@ -32,7 +32,7 @@ def check_all_same_state(model,data,expt_state_uri,times):
     output = False
     count_true = 0
     for i in range(0,data.shape[1]):
-        if np.isclose(model.states()[expt_state_uri[i]].values()[times],data[:,i]).all:
+        if (np.allclose(model.states()[expt_state_uri[i]].values()[times],data[:,i])):
             count_true = count_true + 1
         else:
             print('Data and model not alike: ' + str(expt_state_uri[i]))
@@ -40,6 +40,8 @@ def check_all_same_state(model,data,expt_state_uri,times):
             print(model.states()[expt_state_uri[i]].values()[times])
             print('Data: ')
             print(data[:,i])
+            print(np.allclose(model.states()[expt_state_uri[i]].values()[times],data[:,i]))
+            
             
     if(count_true == data.shape[1]):
         output = True
@@ -130,6 +132,23 @@ def test_FCepsilon_to_Grb():
     times = expt_time.astype(int)  
     are_same = check_all_same_state(myresults,expt_points, expt_state_uri,times)
     return are_same
+    
+    
+def test_HLAG_to_cyt():
+    # The state variable in the model that the data represents
+    expt_state_uri = ['variables/pGrb2','variables/IFN_released']
+    simulation_cellml = 'HLAG_to_cytokine/HLAG_to_cytokine_main.cellml'
+    start_time = 0.0
+    end_time = 1800.0
+    time_interval = 1.0
+    # Experimental data
+    expt_data = np.loadtxt('test_data/HLAG_to_cytokine_test_data.csv', delimiter=',')
+    expt_time = expt_data[...,0]
+    expt_points = expt_data[...,1:]
+    myresults = simulate_cellml(simulation_cellml, start_time, end_time, time_interval)
+    times = expt_time.astype(int)  
+    are_same = check_all_same_state(myresults,expt_points, expt_state_uri,times)
+    return are_same
 ################################################################  
 countpasses = 0
 counttotal = 0  
@@ -142,9 +161,13 @@ test2 = test_cooling_2009_tomida()
 ## TEST 3 - Dupont & Erneaux (1997)
 test3 = test_dupont_1997()
 [countpasses,counttotal] = report_test_result("Dupont 1997 protocol",test3, countpasses,counttotal)
-
+## TEST 4 - FC epsilon to Grb
 test4 = test_FCepsilon_to_Grb()
 [countpasses,counttotal] = report_test_result("FCepsilon to Grb",test4, countpasses,counttotal)
+
+## TEST 5 - HLAG to cytokine
+test5 = test_HLAG_to_cyt()
+[countpasses,counttotal] = report_test_result("HLA-G to cytokine",test5, countpasses,counttotal)
 
 print("-------------------------------")
 print("        TESTS COMPLETED        ")

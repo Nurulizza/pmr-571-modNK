@@ -1,0 +1,38 @@
+<?xml version='1.0'?>
+<model name="fit_params_FCepsilonRI_to_Grb" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <component name="FC_fit_params">
+        <variable initial_value="0.0583902" name="FCepsilonRI_k_f1" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.013548" name="FCepsilonRI_k_r1" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.00817889" name="FCepsilonRI_k_f2" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0010887" name="FCepsilonRI_k_f3" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0105797" name="FCepsilonRI_k_f4" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0806961" name="FCepsilonRI_k_r4" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="63.6727" name="FCepsilonRI_k_f5" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.000414288" name="FCepsilonRI_k_f6" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.731255" name="FCepsilonRI_k_r6" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="11.4185" name="FCepsilonRI_k_f7" public_interface="out" units="first_order_rate_constant"/>
+    </component>
+</model>

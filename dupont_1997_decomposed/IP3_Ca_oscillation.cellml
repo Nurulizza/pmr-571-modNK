@@ -255,6 +255,7 @@
         <variable name="time" public_interface="in" units="second"/>
         <variable name="IP3" public_interface="in" units="nM"/>
         <variable name="V_PLC" public_interface="in" units="flux"/>
+        <!--increase in IP from PLC-->
         <variable name="V_3K" public_interface="in" units="flux"/>
         <variable name="V_5P" public_interface="in" units="flux"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">

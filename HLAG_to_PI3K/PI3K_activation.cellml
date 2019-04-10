@@ -28,13 +28,18 @@
         <variable name="k_f2" public_interface="in" units="second_order_rate_constant"/>
         <variable name="k_r2" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f3" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="V_PLC" public_interface="in" units="flux"/>
+        <variable name="K_PLC" public_interface="in" units="nM"/>
         <variable name="pGrb2" public_interface="in" units="nM"/>
         <variable name="PI3K" public_interface="in" units="nM"/>
         <variable name="PI3Kstar" public_interface="in" units="nM"/>
         <variable name="pGrb2PI3K" public_interface="in" units="nM"/>
+        <variable name="PLCgamma" public_interface="in" units="nM"/>
+        <!--fluxes-->
         <variable name="J2" units="flux"/>
         <variable name="J3" units="flux"/>
         <variable name="J7" public_interface="in" units="flux"/>
+        <variable name="J_PLC" public_interface="in" units="flux"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
                 <eq/>
@@ -61,6 +66,23 @@
                     <times/>
                     <ci>k_f3</ci>
                     <ci>pGrb2PI3K</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J_PLC</ci>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <times/>
+                        <ci>V_PLC</ci>
+                        <ci>PI3Kstar</ci>
+                    </apply>
+                    <apply>
+                        <plus/>
+                        <ci>K_PLC</ci>
+                        <ci>PI3Kstar</ci>
+                    </apply>
                 </apply>
             </apply>
             <apply>
@@ -121,6 +143,17 @@
                     <ci>PI3Kstar</ci>
                 </apply>
                 <ci>J3</ci>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>PLCgamma</ci>
+                </apply>
+                <ci>J_PLC</ci>
             </apply>
         </math>
     </component>
