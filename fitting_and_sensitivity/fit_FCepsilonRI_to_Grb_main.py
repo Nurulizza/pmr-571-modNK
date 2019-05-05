@@ -11,7 +11,7 @@ from scipy.optimize import curve_fit, minimize,least_squares
 class Simulation(object):
     def __init__(self,*args):
         self.args = dict(args)
-        self.simulation = oc.simulation(self.args.get('Sim_file'))
+        self.simulation = oc.openSimulation(self.args.get('Sim_file'))
         self.simulation.data().setStartingPoint(self.args.get('start_time'))
         self.simulation.data().setEndingPoint(self.args.get('end_time'))
         self.simulation.data().setPointInterval(self.args.get('time_step'))
@@ -188,7 +188,7 @@ class Simulation(object):
         return Z
 
 
-filename = '../HLAG_to_PI3K/FCepsilonRI_to_GRB_main.cellml'
+filename = '../HLAG_to_PI3K/FCepsilonRI_to_Grb_main.cellml'
 start_time = 0
 end_time = 3900
 time_step = 1
@@ -222,7 +222,7 @@ num_series = 1
 expt_state_uri_tsang = ['variables/pGrb2']                  
 
 #Number of samples to generate for each parameter
-num_samples = 50
+num_samples = 5
 
 #Number of results to retain, if we store too many in high res parameter sweeps we can have memory issues
 num_retain = 10
