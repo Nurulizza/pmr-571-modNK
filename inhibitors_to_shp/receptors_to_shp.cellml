@@ -1,0 +1,80 @@
+<?xml version='1.0'?>
+<model name="receptors_to_shp" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="../receptor_activation/inhibition_receptor.cellml">
+        <component component_ref="inhibition_receptor" name="hE_NKG2A"/>
+    </import>
+    <!--
+        *******************************************************
+        ***         U   N   I   T   S                       ***
+        *******************************************************
+        -->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--*********************-->
+    <component name="environment">
+        <variable name="time" public_interface="out" units="s"/>
+    </component>
+    <component name="free_parameters">
+        <variable initial_value="1.0" name="hE_NKG2A_k_f1" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="1.0" name="hE_NKG2A_k_r1" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="1.0" name="hE_NKG2A_k_f2" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="1.0" name="hE_NKG2A_k_r2" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="1.0" name="hE_NKG2A_k_f3" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="1.0" name="hE_NKG2A_k_f4" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="1.0" name="hE_NKG2A_k_r4" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="1.0" name="hE_NKG2A_k_f5" public_interface="out" units="first_order_rate_constant"/>
+    </component>
+    <component name="variables">
+        <variable initial_value="1" name="shp" public_interface="out" units="nM"/>
+        <variable initial_value="1" name="plck" public_interface="out" units="nM"/>
+        <variable initial_value="1" name="hE" public_interface="out" units="nM"/>
+        <variable initial_value="1" name="NKG2A" public_interface="out" units="nM"/>
+        <!--set plck as a constant in this model-->
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>plck</ci>
+                </apply>
+                <cn cellml:units="flux">0</cn>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>shp</ci>
+                </apply>
+                <cn cellml:units="flux">0</cn>
+            </apply>
+        </math>
+    </component>
+    <component name="geometry">
+        <variable name="time" private_interface="out" public_interface="in" units="s"/>
+        <!-- ****************
+ 'Free' parameters
+ ****************-->
+    </component>
+</model>
