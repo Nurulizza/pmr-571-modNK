@@ -1,0 +1,705 @@
+<?xml version='1.0'?>
+<model name="vav" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="uM">
+        <unit prefix="micro" units="mole"/>
+        <unit exponent="-1" units="liter"/>
+    </units>
+    <units name="per_s">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="uM_per_s">
+        <unit units="uM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="per_uM_per_s">
+        <unit exponent="-1" units="uM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--
+*********************************************************
+***       C   O   M   P   O   N   E   N   T   S       ***
+*********************************************************
+-->
+    <component name="environment">
+        <variable name="t" public_interface="out" units="s"/>
+    </component>
+    <component name="vav_activation">
+        <variable name="t" public_interface="in" units="s"/>
+        <variable name="J1" units="uM_per_s"/>
+        <variable name="J2" units="uM_per_s"/>
+        <variable name="J3" units="uM_per_s"/>
+        <variable name="J4" units="uM_per_s"/>
+        <variable name="J5" units="uM_per_s"/>
+        <variable name="J6" units="uM_per_s"/>
+        <variable name="J7" units="uM_per_s"/>
+        <variable name="J8" units="uM_per_s"/>
+        <variable name="J12" public_interface="in" units="uM_per_s"/>
+        <variable name="J13" public_interface="in" units="uM_per_s"/>
+        <variable name="J19" public_interface="in" units="uM_per_s"/>
+        <variable initial_value="0.042743" name="k_f1" public_interface="out" units="per_uM_per_s"/>
+        <variable initial_value="0.0061" name="k_r1" public_interface="out" units="per_s"/>
+        <variable initial_value="252.742" name="k_f2" public_interface="out" units="per_uM_per_s"/>
+        <variable initial_value="568.74" name="k_r2" public_interface="out" units="per_s"/>
+        <variable initial_value="1.847" name="k_f3" public_interface="out" units="per_s"/>
+        <variable initial_value="0.01891" name="k_r3" public_interface="out" units="per_s"/>
+        <variable initial_value="0.0045" name="k_f4" public_interface="out" units="per_s"/>
+        <variable initial_value="0.290275" name="k_f5" public_interface="out" units="per_uM_per_s"/>
+        <variable initial_value="0.419156" name="k_r5" public_interface="out" units="per_s"/>
+        <variable initial_value="1.35418" name="k_f6" public_interface="out" units="per_s"/>
+        <variable initial_value="42.3945" name="k_f7" public_interface="out" units="per_uM_per_s"/>
+        <variable initial_value="5.55059" name="k_r7" public_interface="out" units="per_s"/>
+        <variable initial_value="0.9742" name="k_f8" public_interface="out" units="per_s"/>
+        <variable name="mica" public_interface="in" units="uM"/>
+        <!--0.0286-->
+        <variable name="nkg2d" public_interface="in" units="uM"/>
+        <!--0.6-->
+        <variable initial_value="0" name="mica2d" units="uM"/>
+        <variable initial_value="10.97" name="D10" units="uM"/>
+        <variable initial_value="0" name="mica2dD10" units="uM"/>
+        <variable initial_value="237.79" name="plck" public_interface="out" units="uM"/>
+        <variable initial_value="0" name="lck" public_interface="out" units="uM"/>
+        <variable initial_value="39.18" name="cd45" public_interface="out" units="uM"/>
+        <variable initial_value="0" name="mica2dpD10" units="uM"/>
+        <variable initial_value="0.19" name="vav" public_interface="out" units="uM"/>
+        <variable initial_value="0" name="mica2dpD10vav" units="uM"/>
+        <variable name="pvav" public_interface="in" units="uM"/>
+        <variable initial_value="0" name="mica2dD10pLck" units="uM"/>
+        <variable initial_value="0" name="mica2dpD10cd45" units="uM"/>
+        <variable name="J_vav" public_interface="out" units="uM_per_s"/>
+        <variable name="J_pvav" public_interface="out" units="uM_per_s"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J1</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f1</ci>
+                        <ci>mica</ci>
+                        <ci>nkg2d</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r1</ci>
+                        <ci>mica2d</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J2</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f2</ci>
+                        <ci>mica2d</ci>
+                        <ci>D10</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r2</ci>
+                        <ci>mica2dD10</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J3</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f3</ci>
+                        <ci>mica2dD10</ci>
+                        <ci>plck</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r3</ci>
+                        <ci>mica2dD10pLck</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J4</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f4</ci>
+                    <ci>mica2dD10pLck</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J5</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f5</ci>
+                        <ci>mica2dpD10</ci>
+                        <ci>cd45</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r5</ci>
+                        <ci>mica2dpD10cd45</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J6</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f6</ci>
+                    <ci>mica2dpD10cd45</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J7</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f7</ci>
+                        <ci>mica2dpD10</ci>
+                        <ci>vav</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r7</ci>
+                        <ci>mica2dpD10vav</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J8</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f8</ci>
+                    <ci>mica2dpD10vav</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J_vav</ci>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <ci>J7</ci>
+                    </apply>
+                    <ci>J19</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J_pvav</ci>
+                <apply>
+                    <minus/>
+                    <ci>J8</ci>
+                    <ci>J19</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>mica</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>nkg2d</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>mica2d</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J1</ci>
+                    <ci>J2</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>D10</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J2</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>plck</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci>J3</ci>
+                    </apply>
+                    <ci>J12</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>lck</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <ci>J3</ci>
+                    <ci>J13</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>mica2dD10</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <ci>J2</ci>
+                        <ci>J3</ci>
+                    </apply>
+                    <ci>J6</ci>
+                    <ci>J8</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>mica2dD10pLck</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J3</ci>
+                    <ci>J4</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>mica2dpD10</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci>J4</ci>
+                        <ci>J5</ci>
+                    </apply>
+                    <ci>J7</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>mica2dpD10cd45</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J5</ci>
+                    <ci>J6</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>mica2dpD10vav</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J7</ci>
+                    <ci>J8</ci>
+                </apply>
+            </apply>
+        </math>
+        <!--ode(vav, t) = -J7+J19;
+ode(pvav, t) = J8-J19;-->
+    </component>
+    <component name="vav_inhibition">
+        <variable name="t" public_interface="in" units="s"/>
+        <variable name="J11" units="uM_per_s"/>
+        <variable name="J12" public_interface="out" units="uM_per_s"/>
+        <variable name="J13" public_interface="out" units="uM_per_s"/>
+        <variable name="J14" units="uM_per_s"/>
+        <variable name="J15" units="uM_per_s"/>
+        <variable name="J16" units="uM_per_s"/>
+        <variable name="J17" units="uM_per_s"/>
+        <variable name="J19" public_interface="out" units="uM_per_s"/>
+        <variable name="J_hEinhibition" public_interface="out" units="uM_per_s"/>
+        <variable initial_value="612.38" name="k_f11" public_interface="out" units="per_uM_per_s"/>
+        <variable initial_value="1.8" name="k_r11" public_interface="out" units="per_s"/>
+        <variable initial_value="47.2605" name="k_f12" public_interface="out" units="per_uM_per_s"/>
+        <variable initial_value="0.005935" name="k_r12" public_interface="out" units="uM"/>
+        <variable initial_value="0.003178" name="k_f13" public_interface="out" units="per_s"/>
+        <variable initial_value="0.0304" name="k_f14" public_interface="out" units="per_uM_per_s"/>
+        <variable initial_value="0.04682" name="k_r14" public_interface="out" units="per_s"/>
+        <variable initial_value="50.0013" name="k_f15" public_interface="out" units="per_s"/>
+        <variable initial_value="110" name="k_f16" public_interface="out" units="per_uM_per_s"/>
+        <variable initial_value="0.6" name="k_r16" public_interface="out" units="per_s"/>
+        <variable initial_value="0.0340776" name="k_f17" public_interface="out" units="per_s"/>
+        <variable initial_value="85.6147" name="k_f19" public_interface="out" units="per_s"/>
+        <variable initial_value="1185.74" name="K19" public_interface="out" units="uM"/>
+        <variable name="hE" public_interface="in" units="uM"/>
+        <!--0.2-->
+        <variable name="nkg2a" public_interface="in" units="uM"/>
+        <!--17.96-->
+        <variable initial_value="0" name="hE2a" units="uM"/>
+        <variable name="plck" public_interface="in" units="uM"/>
+        <variable name="cd45" public_interface="in" units="uM"/>
+        <variable initial_value="0" name="hEp2a" units="uM"/>
+        <variable initial_value="0" name="hE2aplck" units="uM"/>
+        <variable initial_value="0" name="hEp2acd45" units="uM"/>
+        <variable initial_value="3.47" name="shp" units="uM"/>
+        <variable initial_value="0" name="hEp2ashp" units="uM"/>
+        <variable initial_value="0" name="pshp_cd94" public_interface="out" units="uM"/>
+        <variable name="pvav" public_interface="in" units="uM"/>
+        <variable name="lck" public_interface="in" units="uM"/>
+        <variable name="pshp" public_interface="in" units="uM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J11</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f11</ci>
+                        <ci>hE</ci>
+                        <ci>nkg2a</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r11</ci>
+                        <ci>hE2a</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J12</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f12</ci>
+                        <ci>hE2a</ci>
+                        <ci>plck</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r12</ci>
+                        <ci>hE2aplck</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J13</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f13</ci>
+                    <ci>hE2aplck</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J14</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f14</ci>
+                        <ci>hEp2a</ci>
+                        <ci>cd45</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r14</ci>
+                        <ci>hEp2acd45</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J15</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f15</ci>
+                    <ci>hEp2acd45</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J16</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f16</ci>
+                        <ci>hEp2a</ci>
+                        <ci>shp</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r16</ci>
+                        <ci>hEp2ashp</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J17</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f17</ci>
+                    <ci>hEp2ashp</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J19</ci>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <times/>
+                        <ci>k_f19</ci>
+                        <ci>pshp</ci>
+                        <ci>pvav</ci>
+                    </apply>
+                    <apply>
+                        <plus/>
+                        <ci>K19</ci>
+                        <ci>pvav</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J_hEinhibition</ci>
+                <apply>
+                    <minus/>
+                    <ci>J11</ci>
+                </apply>
+            </apply>
+            <!--ode(hE, t) = -J11;-->
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>nkg2a</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J11</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>hE2a</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <ci>J11</ci>
+                        <ci>J12</ci>
+                    </apply>
+                    <ci>J15</ci>
+                    <ci>J17</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>hEp2a</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci>J13</ci>
+                        <ci>J14</ci>
+                    </apply>
+                    <ci>J16</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>hE2aplck</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J12</ci>
+                    <ci>J13</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>hEp2acd45</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J14</ci>
+                    <ci>J15</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>hEp2ashp</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J16</ci>
+                    <ci>J17</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>shp</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J16</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>pshp_cd94</ci>
+                </apply>
+                <ci>J17</ci>
+            </apply>
+        </math>
+    </component>
+    <connection>
+        <map_components component_1="vav_activation" component_2="environment"/>
+        <map_variables variable_1="t" variable_2="t"/>
+    </connection>
+    <connection>
+        <map_components component_1="vav_inhibition" component_2="environment"/>
+        <map_variables variable_1="t" variable_2="t"/>
+    </connection>
+    <connection>
+        <map_components component_1="vav_activation" component_2="vav_inhibition"/>
+        <map_variables variable_1="J19" variable_2="J19"/>
+        <map_variables variable_1="J12" variable_2="J12"/>
+        <map_variables variable_1="J13" variable_2="J13"/>
+        <map_variables variable_1="plck" variable_2="plck"/>
+        <map_variables variable_1="lck" variable_2="lck"/>
+        <map_variables variable_1="cd45" variable_2="cd45"/>
+        <map_variables variable_1="pvav" variable_2="pvav"/>
+    </connection>
+</model>
