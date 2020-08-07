@@ -8,19 +8,34 @@
     <units name="s">
         <unit units="second"/>
     </units>
-    <units name="uM">
-        <unit prefix="micro" units="mole"/>
-        <unit exponent="-1" units="liter"/>
+    <!--def unit uM as
+ unit mole {pref: micro};
+  unit liter {expo: -1};
+enddef;-->
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
     </units>
-    <units name="per_s">
+    <!--def unit per_s as
+unit s {expo: -1};
+enddef;-->
+    <units name="first_order_rate_constant">
         <unit exponent="-1" units="s"/>
     </units>
-    <units name="uM_per_s">
-        <unit units="uM"/>
+    <!--def unit uM_per_s as
+unit uM;
+unit s {expo: -1};
+enddef;-->
+    <units name="flux">
+        <unit units="nM"/>
         <unit exponent="-1" units="s"/>
     </units>
-    <units name="per_uM_per_s">
-        <unit exponent="-1" units="uM"/>
+    <!--def unit per_uM_per_s as
+unit uM {expo: -1};
+unit s {expo: -1};
+enddef;-->
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
         <unit exponent="-1" units="s"/>
     </units>
     <!--
@@ -33,48 +48,47 @@
     </component>
     <component name="vav_activation">
         <variable name="t" public_interface="in" units="s"/>
-        <variable name="J1" units="uM_per_s"/>
-        <variable name="J2" units="uM_per_s"/>
-        <variable name="J3" units="uM_per_s"/>
-        <variable name="J4" units="uM_per_s"/>
-        <variable name="J5" units="uM_per_s"/>
-        <variable name="J6" units="uM_per_s"/>
-        <variable name="J7" units="uM_per_s"/>
-        <variable name="J8" units="uM_per_s"/>
-        <variable name="J12" public_interface="in" units="uM_per_s"/>
-        <variable name="J13" public_interface="in" units="uM_per_s"/>
-        <variable name="J19" public_interface="in" units="uM_per_s"/>
-        <variable initial_value="0.042743" name="k_f1" public_interface="out" units="per_uM_per_s"/>
-        <variable initial_value="0.0061" name="k_r1" public_interface="out" units="per_s"/>
-        <variable initial_value="252.742" name="k_f2" public_interface="out" units="per_uM_per_s"/>
-        <variable initial_value="568.74" name="k_r2" public_interface="out" units="per_s"/>
-        <variable initial_value="1.847" name="k_f3" public_interface="out" units="per_s"/>
-        <variable initial_value="0.01891" name="k_r3" public_interface="out" units="per_s"/>
-        <variable initial_value="0.0045" name="k_f4" public_interface="out" units="per_s"/>
-        <variable initial_value="0.290275" name="k_f5" public_interface="out" units="per_uM_per_s"/>
-        <variable initial_value="0.419156" name="k_r5" public_interface="out" units="per_s"/>
-        <variable initial_value="1.35418" name="k_f6" public_interface="out" units="per_s"/>
-        <variable initial_value="42.3945" name="k_f7" public_interface="out" units="per_uM_per_s"/>
-        <variable initial_value="5.55059" name="k_r7" public_interface="out" units="per_s"/>
-        <variable initial_value="0.9742" name="k_f8" public_interface="out" units="per_s"/>
-        <variable name="mica" public_interface="in" units="uM"/>
-        <!--0.0286-->
-        <variable name="nkg2d" public_interface="in" units="uM"/>
-        <!--0.6-->
-        <variable initial_value="0" name="mica2d" units="uM"/>
-        <variable initial_value="10.97" name="D10" units="uM"/>
-        <variable initial_value="0" name="mica2dD10" units="uM"/>
-        <variable initial_value="237.79" name="plck" public_interface="out" units="uM"/>
-        <variable initial_value="0" name="lck" public_interface="out" units="uM"/>
-        <variable initial_value="39.18" name="cd45" public_interface="out" units="uM"/>
-        <variable initial_value="0" name="mica2dpD10" units="uM"/>
-        <variable initial_value="0.19" name="vav" public_interface="out" units="uM"/>
-        <variable initial_value="0" name="mica2dpD10vav" units="uM"/>
-        <variable name="pvav" public_interface="in" units="uM"/>
-        <variable initial_value="0" name="mica2dD10pLck" units="uM"/>
-        <variable initial_value="0" name="mica2dpD10cd45" units="uM"/>
-        <variable name="J_vav" public_interface="out" units="uM_per_s"/>
-        <variable name="J_pvav" public_interface="out" units="uM_per_s"/>
+        <variable name="J1" units="flux"/>
+        <variable name="J2" units="flux"/>
+        <variable name="J3" units="flux"/>
+        <variable name="J4" units="flux"/>
+        <variable name="J5" units="flux"/>
+        <variable name="J6" units="flux"/>
+        <variable name="J7" units="flux"/>
+        <variable name="J8" units="flux"/>
+        <variable name="J12" public_interface="in" units="flux"/>
+        <variable name="J13" public_interface="in" units="flux"/>
+        <variable name="J19" public_interface="in" units="flux"/>
+        <variable initial_value="42.743" name="k_f1" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="6.1" name="k_r1" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="252742" name="k_f2" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="568740" name="k_r2" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="1847" name="k_f3" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="18.91" name="k_r3" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="4.5" name="k_f4" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="290.275" name="k_f5" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="419.156" name="k_r5" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="354.18" name="k_f6" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="42394.5" name="k_f7" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="5550.59" name="k_r7" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="974.2" name="k_f8" public_interface="out" units="first_order_rate_constant"/>
+        <variable name="mica" public_interface="in" units="nM"/>
+        <variable name="nkg2d" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="mica2d" units="nM"/>
+        <variable initial_value="10970" name="D10" units="nM"/>
+        <variable initial_value="0" name="mica2dD10" units="nM"/>
+        <variable initial_value="237790" name="plck" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="lck" public_interface="out" units="nM"/>
+        <variable initial_value="39180" name="cd45" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="mica2dpD10" units="nM"/>
+        <variable initial_value="190" name="vav" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="mica2dpD10vav" units="nM"/>
+        <variable name="pvav" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="mica2dD10pLck" units="nM"/>
+        <variable initial_value="0" name="mica2dpD10cd45" units="nM"/>
+        <variable name="J_vav" public_interface="out" units="flux"/>
+        <variable name="J_pvav" public_interface="out" units="flux"/>
+        <!--Flux-->
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
                 <eq/>
@@ -205,6 +219,7 @@
                     <ci>J19</ci>
                 </apply>
             </apply>
+            <!--rate of vav phosphorylation-->
             <apply>
                 <eq/>
                 <ci>J_pvav</ci>
@@ -389,49 +404,46 @@
                 </apply>
             </apply>
         </math>
-        <!--ode(vav, t) = -J7+J19;
-ode(pvav, t) = J8-J19;-->
     </component>
     <component name="vav_inhibition">
         <variable name="t" public_interface="in" units="s"/>
-        <variable name="J11" units="uM_per_s"/>
-        <variable name="J12" public_interface="out" units="uM_per_s"/>
-        <variable name="J13" public_interface="out" units="uM_per_s"/>
-        <variable name="J14" units="uM_per_s"/>
-        <variable name="J15" units="uM_per_s"/>
-        <variable name="J16" units="uM_per_s"/>
-        <variable name="J17" units="uM_per_s"/>
-        <variable name="J19" public_interface="out" units="uM_per_s"/>
-        <variable name="J_hEinhibition" public_interface="out" units="uM_per_s"/>
-        <variable initial_value="612.38" name="k_f11" public_interface="out" units="per_uM_per_s"/>
-        <variable initial_value="1.8" name="k_r11" public_interface="out" units="per_s"/>
-        <variable initial_value="47.2605" name="k_f12" public_interface="out" units="per_uM_per_s"/>
-        <variable initial_value="0.005935" name="k_r12" public_interface="out" units="uM"/>
-        <variable initial_value="0.003178" name="k_f13" public_interface="out" units="per_s"/>
-        <variable initial_value="0.0304" name="k_f14" public_interface="out" units="per_uM_per_s"/>
-        <variable initial_value="0.04682" name="k_r14" public_interface="out" units="per_s"/>
-        <variable initial_value="50.0013" name="k_f15" public_interface="out" units="per_s"/>
-        <variable initial_value="110" name="k_f16" public_interface="out" units="per_uM_per_s"/>
-        <variable initial_value="0.6" name="k_r16" public_interface="out" units="per_s"/>
-        <variable initial_value="0.0340776" name="k_f17" public_interface="out" units="per_s"/>
-        <variable initial_value="85.6147" name="k_f19" public_interface="out" units="per_s"/>
-        <variable initial_value="1185.74" name="K19" public_interface="out" units="uM"/>
-        <variable name="hE" public_interface="in" units="uM"/>
-        <!--0.2-->
-        <variable name="nkg2a" public_interface="in" units="uM"/>
-        <!--17.96-->
-        <variable initial_value="0" name="hE2a" units="uM"/>
-        <variable name="plck" public_interface="in" units="uM"/>
-        <variable name="cd45" public_interface="in" units="uM"/>
-        <variable initial_value="0" name="hEp2a" units="uM"/>
-        <variable initial_value="0" name="hE2aplck" units="uM"/>
-        <variable initial_value="0" name="hEp2acd45" units="uM"/>
-        <variable initial_value="3.47" name="shp" units="uM"/>
-        <variable initial_value="0" name="hEp2ashp" units="uM"/>
-        <variable initial_value="0" name="pshp_cd94" public_interface="out" units="uM"/>
-        <variable name="pvav" public_interface="in" units="uM"/>
-        <variable name="lck" public_interface="in" units="uM"/>
-        <variable name="pshp" public_interface="in" units="uM"/>
+        <variable name="J11" units="flux"/>
+        <variable name="J12" public_interface="out" units="flux"/>
+        <variable name="J13" public_interface="out" units="flux"/>
+        <variable name="J14" units="flux"/>
+        <variable name="J15" units="flux"/>
+        <variable name="J16" units="flux"/>
+        <variable name="J17" units="flux"/>
+        <variable name="J19" public_interface="out" units="flux"/>
+        <variable name="J_hEinhibition" public_interface="out" units="flux"/>
+        <variable initial_value="612380" name="k_f11" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="1800" name="k_r11" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="47260.5" name="k_f12" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="5.935" name="k_r12" public_interface="out" units="flux"/>
+        <variable initial_value="3.178" name="k_f13" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="30.4" name="k_f14" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="46.82" name="k_r14" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="50001.3" name="k_f15" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="110000" name="k_f16" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0600" name="k_r16" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="34.0776" name="k_f17" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="85614.7" name="k_f19" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="1185.74" name="K19" public_interface="out" units="nM"/>
+        <variable name="hE" public_interface="in" units="nM"/>
+        <variable name="nkg2a" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="hE2a" units="nM"/>
+        <variable name="plck" public_interface="in" units="nM"/>
+        <variable name="cd45" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="hEp2a" units="nM"/>
+        <variable initial_value="0" name="hE2aplck" units="nM"/>
+        <variable initial_value="0" name="hEp2acd45" units="nM"/>
+        <variable initial_value="3470" name="shp" units="nM"/>
+        <variable initial_value="0" name="hEp2ashp" units="nM"/>
+        <variable initial_value="0" name="pshp_cd94" public_interface="out" units="nM"/>
+        <variable name="pvav" public_interface="in" units="nM"/>
+        <variable name="lck" public_interface="in" units="nM"/>
+        <variable name="pshp" public_interface="in" units="nM"/>
+        <!--Flux-->
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
                 <eq/>
@@ -532,6 +544,7 @@ ode(pvav, t) = J8-J19;-->
                     <ci>hEp2ashp</ci>
                 </apply>
             </apply>
+            <!-- rate of vav dephosphorylation-->
             <apply>
                 <eq/>
                 <ci>J19</ci>
@@ -558,7 +571,6 @@ ode(pvav, t) = J8-J19;-->
                     <ci>J11</ci>
                 </apply>
             </apply>
-            <!--ode(hE, t) = -J11;-->
             <apply>
                 <eq/>
                 <apply>
