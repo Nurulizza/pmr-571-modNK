@@ -44,10 +44,10 @@ enddef;-->
 *********************************************************
 -->
     <component name="environment">
-        <variable name="t" public_interface="out" units="s"/>
+        <variable name="time" public_interface="out" units="s"/>
     </component>
     <component name="vav_activation">
-        <variable name="t" public_interface="in" units="s"/>
+        <variable name="time" public_interface="in" units="s"/>
         <variable name="J1" units="flux"/>
         <variable name="J2" units="flux"/>
         <variable name="J3" units="flux"/>
@@ -234,7 +234,7 @@ enddef;-->
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>mica</ci>
                 </apply>
@@ -248,7 +248,7 @@ enddef;-->
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>nkg2d</ci>
                 </apply>
@@ -262,7 +262,7 @@ enddef;-->
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>mica2d</ci>
                 </apply>
@@ -277,7 +277,7 @@ enddef;-->
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>D10</ci>
                 </apply>
@@ -291,7 +291,7 @@ enddef;-->
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>plck</ci>
                 </apply>
@@ -309,7 +309,7 @@ enddef;-->
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>lck</ci>
                 </apply>
@@ -324,7 +324,7 @@ enddef;-->
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>mica2dD10</ci>
                 </apply>
@@ -344,7 +344,7 @@ enddef;-->
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>mica2dD10pLck</ci>
                 </apply>
@@ -359,7 +359,7 @@ enddef;-->
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>mica2dpD10</ci>
                 </apply>
@@ -378,7 +378,7 @@ enddef;-->
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>mica2dpD10cd45</ci>
                 </apply>
@@ -393,7 +393,7 @@ enddef;-->
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>mica2dpD10vav</ci>
                 </apply>
@@ -406,7 +406,7 @@ enddef;-->
         </math>
     </component>
     <component name="vav_inhibition">
-        <variable name="t" public_interface="in" units="s"/>
+        <variable name="time" public_interface="in" units="s"/>
         <variable name="J11" units="flux"/>
         <variable name="J12" public_interface="out" units="flux"/>
         <variable name="J13" public_interface="out" units="flux"/>
@@ -419,7 +419,7 @@ enddef;-->
         <variable initial_value="612380" name="k_f11" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="1800" name="k_r11" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="47260.5" name="k_f12" public_interface="out" units="second_order_rate_constant"/>
-        <variable initial_value="5.935" name="k_r12" public_interface="out" units="flux"/>
+        <variable initial_value="5.935" name="k_r12" public_interface="out" units="nM"/>
         <variable initial_value="3.178" name="k_f13" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="30.4" name="k_f14" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="46.82" name="k_r14" public_interface="out" units="first_order_rate_constant"/>
@@ -576,7 +576,7 @@ enddef;-->
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>nkg2a</ci>
                 </apply>
@@ -590,7 +590,7 @@ enddef;-->
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>hE2a</ci>
                 </apply>
@@ -610,7 +610,7 @@ enddef;-->
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>hEp2a</ci>
                 </apply>
@@ -629,7 +629,7 @@ enddef;-->
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>hE2aplck</ci>
                 </apply>
@@ -644,7 +644,7 @@ enddef;-->
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>hEp2acd45</ci>
                 </apply>
@@ -659,7 +659,7 @@ enddef;-->
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>hEp2ashp</ci>
                 </apply>
@@ -674,7 +674,7 @@ enddef;-->
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>shp</ci>
                 </apply>
@@ -688,7 +688,7 @@ enddef;-->
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>pshp_cd94</ci>
                 </apply>
@@ -698,11 +698,11 @@ enddef;-->
     </component>
     <connection>
         <map_components component_1="vav_activation" component_2="environment"/>
-        <map_variables variable_1="t" variable_2="t"/>
+        <map_variables variable_1="time" variable_2="time"/>
     </connection>
     <connection>
         <map_components component_1="vav_inhibition" component_2="environment"/>
-        <map_variables variable_1="t" variable_2="t"/>
+        <map_variables variable_1="time" variable_2="time"/>
     </connection>
     <connection>
         <map_components component_1="vav_activation" component_2="vav_inhibition"/>
