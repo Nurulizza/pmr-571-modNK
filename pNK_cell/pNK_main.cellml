@@ -52,6 +52,9 @@
         <component component_ref="vav_activation" name="vav_activation"/>
         <component component_ref="vav_inhibition" name="vav_inhibition"/>
     </import>
+    <import xlink:href="../Rac_PAK/Rac_PAK.cellml">
+        <component component_ref="RacPAK" name="RacPAK"/>
+    </import>
     <!--
         *******************************************************
         ***         U   N   I   T   S                       ***
@@ -322,7 +325,8 @@
             <!--Vav-->
             <component_ref component="vav_activation"/>
             <component_ref component="vav_inhibition"/>
-            <!--comp vav_parameters;-->
+            <!--Rac_PAK-->
+            <component_ref component="RacPAK"/>
         </component_ref>
     </group>
     <component name="geometry">
@@ -475,6 +479,8 @@
         <variable initial_value="516" name="hE" private_interface="out" units="nM"/>
         <variable initial_value="17960" name="nkg2a" private_interface="out" units="nM"/>
         <variable initial_value="0" name="pshp" private_interface="out" units="nM"/>
+        <!--Rac_PAK-->
+        <variable initial_value="4000" name="RacGDP" private_interface="out" units="nM"/>
         <!--other-->
         <variable name="J_hGdl4" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J_hGdl4FC" private_interface="out" public_interface="out" units="flux"/>
@@ -888,6 +894,7 @@ Dupont 1997-->
     </connection>
     <connection>
         <map_components component_1="vav_activation" component_2="geometry"/>
+        <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="k_f1" variable_2="vav_k_f1"/>
         <map_variables variable_1="k_r1" variable_2="vav_k_r1"/>
         <map_variables variable_1="k_f2" variable_2="vav_k_f2"/>
@@ -907,6 +914,7 @@ Dupont 1997-->
     </connection>
     <connection>
         <map_components component_1="vav_inhibition" component_2="geometry"/>
+        <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="k_f11" variable_2="vav_k_f11"/>
         <map_variables variable_1="k_r11" variable_2="vav_k_r11"/>
         <map_variables variable_1="k_f12" variable_2="vav_k_f12"/>
@@ -926,12 +934,10 @@ Dupont 1997-->
         <map_variables variable_1="pshp" variable_2="pshp"/>
     </connection>
     <connection>
-        <map_components component_1="geometry" component_2="vav_activation"/>
+        <map_components component_1="geometry" component_2="RacPAK"/>
         <map_variables variable_1="time" variable_2="time"/>
-    </connection>
-    <connection>
-        <map_components component_1="geometry" component_2="vav_inhibition"/>
-        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="vav_pvav" variable_2="pvav"/>
+        <map_variables variable_1="RacGDP" variable_2="RacGDP"/>
     </connection>
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">
