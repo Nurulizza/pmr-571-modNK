@@ -56,6 +56,8 @@
         <variable name="kb25" public_interface="in" units="second_order_rate_constant"/>
         <variable name="V26" public_interface="in" units="flux"/>
         <variable name="k26" public_interface="in" units="nM"/>
+        <variable name="J25" public_interface="in" units="flux"/>
+        <variable name="J26" public_interface="in" units="flux"/>
         <!-- Variables-->
         <variable name="R" public_interface="in" units="nM"/>
         <variable name="HRG" public_interface="in" units="nM"/>

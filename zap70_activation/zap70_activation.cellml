@@ -5,20 +5,23 @@
 ***         U   N   I   T   S                       ***
 *******************************************************
 -->
-    <units name="uM">
-        <unit prefix="micro" units="mole"/>
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
         <unit exponent="-1" units="litre"/>
     </units>
-    <units name="per_second">
-        <unit exponent="-1" units="second"/>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
     </units>
-    <units name="per_uM_per_second">
-        <unit exponent="-1" units="uM"/>
-        <unit exponent="-1" units="second"/>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
     </units>
-    <units name="uM_per_second">
-        <unit units="uM"/>
-        <unit exponent="-1" units="second"/>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
     </units>
     <!--
 *********************************************************
@@ -26,33 +29,35 @@
 *********************************************************
 -->
     <component name="environment">
-        <variable name="t" public_interface="out" units="second"/>
+        <variable name="time" public_interface="out" units="second"/>
     </component>
     <component name="zap70">
-        <variable name="t" public_interface="in" units="second"/>
-        <variable name="J1" units="uM_per_second"/>
-        <variable name="J2" units="uM_per_second"/>
-        <variable name="J3" units="uM_per_second"/>
-        <variable name="J4" units="uM_per_second"/>
-        <variable name="J5" units="uM_per_second"/>
-        <variable initial_value="0.00195" name="k_f1" units="per_uM_per_second"/>
-        <variable initial_value="11.6167" name="k_r1" units="per_uM_per_second"/>
-        <variable initial_value="7.6167" name="k_f2" units="per_uM_per_second"/>
-        <variable initial_value="0.0007" name="k_r2" units="per_second"/>
-        <variable initial_value="9.5e-5" name="k_f3" units="per_uM_per_second"/>
-        <variable initial_value="0.0006" name="k_r3" units="per_uM_per_second"/>
-        <variable initial_value="0.0007" name="k_f4" units="per_second"/>
-        <variable initial_value="7.6167" name="k_r4" units="per_uM_per_second"/>
-        <variable initial_value="0.002" name="k_f5" units="per_second"/>
-        <variable initial_value="0.6" name="itam" units="uM"/>
-        <variable initial_value="2.00615" name="plck" units="uM"/>
-        <variable initial_value="1" name="zap70" units="uM"/>
-        <variable initial_value="0" name="pitam" units="uM"/>
-        <variable initial_value="0" name="lck" units="uM"/>
-        <variable initial_value="0" name="pitamzap70" units="uM"/>
-        <variable initial_value="0" name="pitampzap70" units="uM"/>
-        <variable initial_value="0" name="pzap70" units="uM"/>
-        <variable initial_value="0" name="pitamp2zap70" units="uM"/>
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="J1" units="flux"/>
+        <variable name="J2" units="flux"/>
+        <variable name="J3" units="flux"/>
+        <variable name="J4" public_interface="out" units="flux"/>
+        <variable name="J5" units="flux"/>
+        <variable name="J21" public_interface="in" units="flux"/>
+        <variable name="k_f1" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r1" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_f2" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r2" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f3" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r3" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_f4" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_r4" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_f5" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="itam" public_interface="in" units="nM"/>
+        <!--}{init: 0.6};-->
+        <variable name="plck" public_interface="in" units="nM"/>
+        <variable name="zap70" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="pitam" units="nM"/>
+        <variable name="lck" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="pitamzap70" units="nM"/>
+        <variable initial_value="0" name="pitampzap70" units="nM"/>
+        <variable name="pzap70" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="pitamp2zap70" units="nM"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
                 <eq/>
@@ -137,17 +142,19 @@
                     <ci>pitampzap70</ci>
                 </apply>
             </apply>
+            <!--ode(zap70, t) = -J2;-->
             <apply>
                 <eq/>
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>itam</ci>
                 </apply>
                 <apply>
                     <minus/>
+                    <ci>J21</ci>
                     <ci>J1</ci>
                 </apply>
             </apply>
@@ -156,7 +163,7 @@
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>pitam</ci>
                 </apply>
@@ -175,7 +182,7 @@
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>pitamzap70</ci>
                 </apply>
@@ -190,7 +197,7 @@
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>pitampzap70</ci>
                 </apply>
@@ -204,23 +211,13 @@
                     <ci>J5</ci>
                 </apply>
             </apply>
+            <!--ode(pzap70, t) = J4;-->
             <apply>
                 <eq/>
                 <apply>
                     <diff/>
                     <bvar>
-                        <ci>t</ci>
-                    </bvar>
-                    <ci>pzap70</ci>
-                </apply>
-                <ci>J4</ci>
-            </apply>
-            <apply>
-                <eq/>
-                <apply>
-                    <diff/>
-                    <bvar>
-                        <ci>t</ci>
+                        <ci>time</ci>
                     </bvar>
                     <ci>pitamp2zap70</ci>
                 </apply>
@@ -230,6 +227,6 @@
     </component>
     <connection>
         <map_components component_1="zap70" component_2="environment"/>
-        <map_variables variable_1="t" variable_2="t"/>
+        <map_variables variable_1="time" variable_2="time"/>
     </connection>
 </model>
