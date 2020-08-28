@@ -49,7 +49,6 @@
         <variable name="k_r4" public_interface="in" units="second_order_rate_constant"/>
         <variable name="k_f5" public_interface="in" units="first_order_rate_constant"/>
         <variable name="itam" public_interface="in" units="nM"/>
-        <!--}{init: 0.6};-->
         <variable name="plck" public_interface="in" units="nM"/>
         <variable name="zap70" public_interface="in" units="nM"/>
         <variable initial_value="0" name="pitam" units="nM"/>
@@ -142,7 +141,6 @@
                     <ci>pitampzap70</ci>
                 </apply>
             </apply>
-            <!--ode(zap70, t) = -J2;-->
             <apply>
                 <eq/>
                 <apply>
@@ -211,7 +209,6 @@
                     <ci>J5</ci>
                 </apply>
             </apply>
-            <!--ode(pzap70, t) = J4;-->
             <apply>
                 <eq/>
                 <apply>
