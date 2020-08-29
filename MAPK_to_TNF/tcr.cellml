@@ -1,0 +1,88 @@
+<?xml version='1.0'?>
+<model name="tcr" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--
+*********************************************************
+***       C   O   M   P   O   N   E   N   T   S       ***
+*********************************************************
+-->
+    <component name="tcr">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="J21" public_interface="out" units="flux"/>
+        <variable name="k_f21" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r21" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="tpa" public_interface="in" units="nM"/>
+        <variable name="tcr" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="tpatcr" public_interface="out" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J21</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f21</ci>
+                        <ci>tpa</ci>
+                        <ci>tcr</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r21</ci>
+                        <ci>tpatcr</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>tpa</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J21</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>tcr</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J21</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

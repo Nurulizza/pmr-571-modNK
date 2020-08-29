@@ -42,7 +42,67 @@
         <variable name="ERKPP" public_interface="in" units="nM"/>
         <!--Constants-->
         <variable initial_value="1" name="one" units="dimensionless"/>
+        <variable name="J_ERKPP" public_interface="out" units="flux"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J_ERKPP</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>kf21</ci>
+                            <ci>MEKPP</ci>
+                            <ci>ERKP</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <apply>
+                                <times/>
+                                <ci>k21</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>one</ci>
+                                    <apply>
+                                        <divide/>
+                                        <ci>ERK</ci>
+                                        <ci>k19</ci>
+                                    </apply>
+                                </apply>
+                            </apply>
+                            <ci>ERKP</ci>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>kf22</ci>
+                            <ci>MKP3</ci>
+                            <ci>ERKPP</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <apply>
+                                <times/>
+                                <ci>k22</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>one</ci>
+                                    <apply>
+                                        <divide/>
+                                        <ci>ERKP</ci>
+                                        <ci>k20</ci>
+                                    </apply>
+                                </apply>
+                            </apply>
+                            <ci>ERKPP</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
             <apply>
                 <eq/>
                 <apply>
@@ -111,71 +171,7 @@
                     </apply>
                 </apply>
             </apply>
-            <apply>
-                <eq/>
-                <apply>
-                    <diff/>
-                    <bvar>
-                        <ci>time</ci>
-                    </bvar>
-                    <ci>ERKPP</ci>
-                </apply>
-                <apply>
-                    <minus/>
-                    <apply>
-                        <divide/>
-                        <apply>
-                            <times/>
-                            <ci>kf21</ci>
-                            <ci>MEKPP</ci>
-                            <ci>ERKP</ci>
-                        </apply>
-                        <apply>
-                            <plus/>
-                            <apply>
-                                <times/>
-                                <ci>k21</ci>
-                                <apply>
-                                    <plus/>
-                                    <ci>one</ci>
-                                    <apply>
-                                        <divide/>
-                                        <ci>ERK</ci>
-                                        <ci>k19</ci>
-                                    </apply>
-                                </apply>
-                            </apply>
-                            <ci>ERKP</ci>
-                        </apply>
-                    </apply>
-                    <apply>
-                        <divide/>
-                        <apply>
-                            <times/>
-                            <ci>kf22</ci>
-                            <ci>MKP3</ci>
-                            <ci>ERKPP</ci>
-                        </apply>
-                        <apply>
-                            <plus/>
-                            <apply>
-                                <times/>
-                                <ci>k22</ci>
-                                <apply>
-                                    <plus/>
-                                    <ci>one</ci>
-                                    <apply>
-                                        <divide/>
-                                        <ci>ERKP</ci>
-                                        <ci>k20</ci>
-                                    </apply>
-                                </apply>
-                            </apply>
-                            <ci>ERKPP</ci>
-                        </apply>
-                    </apply>
-                </apply>
-            </apply>
+            <!--ode(ERKPP, time) = kf21*MEKPP*ERKP/(k21*(one+ERK/k19)+ERKP)-kf22*MKP3*ERKPP/(k22*(one+ERKP/k20)+ERKPP);-->
             <apply>
                 <eq/>
                 <apply>

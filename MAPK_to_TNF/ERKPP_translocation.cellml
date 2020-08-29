@@ -1,0 +1,76 @@
+<?xml version='1.0'?>
+<model name="ERKPP_translocation" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--
+*********************************************************
+***       C   O   M   P   O   N   E   N   T   S       ***
+*********************************************************
+-->
+    <component name="ERKPPtranslocation">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="J30" units="flux"/>
+        <variable name="J31" public_interface="in" units="flux"/>
+        <variable name="k_f30" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="J_ERKPP" public_interface="in" units="flux"/>
+        <variable name="ERKPP" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="ERKPP_n" public_interface="out" units="nM"/>
+        <variable name="J_ERKPP_n" public_interface="out" units="flux"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J_ERKPP_n</ci>
+                <apply>
+                    <minus/>
+                    <ci>J30</ci>
+                    <ci>J31</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J30</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f30</ci>
+                    <ci>ERKPP</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>ERKPP</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J_ERKPP</ci>
+                    <ci>J30</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

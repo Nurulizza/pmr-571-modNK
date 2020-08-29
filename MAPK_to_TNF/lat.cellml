@@ -1,0 +1,131 @@
+<?xml version='1.0'?>
+<model name="lat" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--
+*********************************************************
+***       C   O   M   P   O   N   E   N   T   S       ***
+*********************************************************
+-->
+    <component name="lat">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="J27" public_interface="out" units="flux"/>
+        <variable name="J28" units="flux"/>
+        <variable name="J29" public_interface="out" units="flux"/>
+        <variable name="k_f27" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r27" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f28" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f29" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r29" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="pzap70" public_interface="in" units="nM"/>
+        <variable name="lat" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="pzap70lat" units="nM"/>
+        <variable initial_value="0" name="plat" units="nM"/>
+        <variable name="gs" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="platgs" units="nM"/>
+        <variable name="J_plat" public_interface="out" units="flux"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J27</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f27</ci>
+                        <ci>pzap70</ci>
+                        <ci>lat</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r27</ci>
+                        <ci>pzap70lat</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J28</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f28</ci>
+                    <ci>pzap70lat</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J29</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f29</ci>
+                        <ci>plat</ci>
+                        <ci>gs</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r29</ci>
+                        <ci>platgs</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J_plat</ci>
+                <apply>
+                    <minus/>
+                    <ci>J28</ci>
+                    <ci>J29</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>pzap70lat</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J27</ci>
+                    <ci>J28</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>platgs</ci>
+                </apply>
+                <ci>J29</ci>
+            </apply>
+        </math>
+    </component>
+</model>

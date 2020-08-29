@@ -1,0 +1,142 @@
+<?xml version='1.0'?>
+<model name="plc" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--
+*********************************************************
+***       C   O   M   P   O   N   E   N   T   S       ***
+*********************************************************
+-->
+    <component name="plc">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="J23" public_interface="out" units="flux"/>
+        <variable name="J24" units="flux"/>
+        <variable name="J25" public_interface="out" units="flux"/>
+        <variable name="J26" public_interface="in" units="flux"/>
+        <variable name="J27" public_interface="in" units="flux"/>
+        <variable name="J_plc" public_interface="out" units="flux"/>
+        <variable name="k_f23" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r23" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f24" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f25" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r25" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="pzap70" public_interface="in" units="nM"/>
+        <variable name="plc" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="pzap70plc" units="nM"/>
+        <variable initial_value="0" name="pplc" units="nM"/>
+        <variable name="gs" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="pplcgs" units="nM"/>
+        <variable name="J_pplc" public_interface="out" units="flux"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J23</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f23</ci>
+                        <ci>pzap70</ci>
+                        <ci>plc</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r23</ci>
+                        <ci>pzap70plc</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J24</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f24</ci>
+                    <ci>pzap70plc</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J25</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f25</ci>
+                        <ci>pplc</ci>
+                        <ci>gs</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r25</ci>
+                        <ci>pplcgs</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J_pplc</ci>
+                <apply>
+                    <minus/>
+                    <ci>J24</ci>
+                    <ci>J25</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J_plc</ci>
+                <apply>
+                    <minus/>
+                    <ci>J23</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>pzap70plc</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J23</ci>
+                    <ci>J24</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>pplcgs</ci>
+                </apply>
+                <ci>J25</ci>
+            </apply>
+        </math>
+    </component>
+</model>

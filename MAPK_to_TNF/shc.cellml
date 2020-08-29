@@ -1,0 +1,71 @@
+<?xml version='1.0'?>
+<model name="shc" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--
+*********************************************************
+***       C   O   M   P   O   N   E   N   T   S       ***
+*********************************************************
+-->
+    <component name="shc">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="J26" public_interface="out" units="flux"/>
+        <variable name="k_f26" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r26" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="pzap70" public_interface="in" units="nM"/>
+        <variable name="shc" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="pzap70shc" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J26</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f26</ci>
+                        <ci>pzap70</ci>
+                        <ci>shc</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r26</ci>
+                        <ci>pzap70shc</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>pzap70shc</ci>
+                </apply>
+                <ci>J26</ci>
+            </apply>
+        </math>
+    </component>
+</model>

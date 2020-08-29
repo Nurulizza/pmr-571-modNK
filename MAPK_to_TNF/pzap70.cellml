@@ -1,0 +1,64 @@
+<?xml version='1.0'?>
+<model name="tcr" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--
+*********************************************************
+***       C   O   M   P   O   N   E   N   T   S       ***
+*********************************************************
+-->
+    <component name="pzap70">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="J4" public_interface="in" units="flux"/>
+        <variable name="J23" public_interface="in" units="flux"/>
+        <variable name="J26" public_interface="in" units="flux"/>
+        <variable name="J27" public_interface="in" units="flux"/>
+        <variable initial_value="0" name="pzap70" public_interface="out" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>pzap70</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <minus/>
+                            <ci>J4</ci>
+                            <ci>J23</ci>
+                        </apply>
+                        <ci>J26</ci>
+                    </apply>
+                    <ci>J27</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>
