@@ -97,6 +97,9 @@
     <import xlink:href="../MAPK_to_TNF/ERKPP_to_TNF.cellml">
         <component component_ref="ERKPP_TNF" name="ERKPP_TNF"/>
     </import>
+    <import xlink:href="../receptor_activation/itg_receptor.cellml">
+        <component component_ref="icam_activating_itg" name="icam_activating_itg"/>
+    </import>
     <!--
         *******************************************************
         ***         U   N   I   T   S                       ***
@@ -309,6 +312,9 @@
         <variable initial_value="0.00261975" name="ERKPP_k_f30" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="6.53271e-5" name="ERKPP_k_f31" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="1.31083e-5" name="ERKPP_k_f32" public_interface="out" units="first_order_rate_constant"/>
+        <!-- ITG-->
+        <variable initial_value="0.0000184965" name="ITG_k_f1" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.123663" name="ITG_k_r1" public_interface="out" units="first_order_rate_constant"/>
     </component>
     <component name="variables">
         <variable initial_value="6.92406045126492e-7" name="NFATN_c" public_interface="out" units="nM"/>
@@ -393,6 +399,10 @@
         <variable initial_value="8" name="tcr" public_interface="out" units="nM"/>
         <variable initial_value="1000" name="plc" public_interface="out" units="nM"/>
         <variable initial_value="1000" name="lat" public_interface="out" units="nM"/>
+        <!-- ITG-->
+        <variable initial_value="516" name="icam" public_interface="out" units="nM"/>
+        <variable initial_value="8" name="itg" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="icamitg" public_interface="out" units="nM"/>
     </component>
     <component name="NFATcyc_interface">
         <variable name="nuclearNFATpercent" public_interface="in" units="dimensionless"/>
@@ -527,6 +537,8 @@
             <component_ref component="lat"/>
             <component_ref component="ERKPPtranslocation"/>
             <component_ref component="ERKPP_TNF"/>
+            <!-- ITG-->
+            <component_ref component="icam_activating_itg"/>
         </component_ref>
     </group>
     <component name="geometry">
@@ -823,6 +835,12 @@
         <variable name="plck" private_interface="out" public_interface="in" units="nM"/>
         <variable name="lck" private_interface="out" public_interface="in" units="nM"/>
         <variable name="zap70" private_interface="out" public_interface="in" units="nM"/>
+        <!-- ITG-->
+        <variable name="icam" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="itg" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="icamitg" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="ITG_k_f1" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="ITG_k_r1" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <!--other-->
         <variable name="J_hGdl4" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J_hGdl4FC" private_interface="out" public_interface="out" units="flux"/>
@@ -1689,6 +1707,26 @@ Dupont 1997-->
     <connection>
         <map_components component_1="lat" component_2="PI3K_hatakeyama"/>
         <map_variables variable_1="J27" variable_2="J27"/>
+    </connection>
+    <connection>
+        <map_components component_1="variables" component_2="geometry"/>
+        <map_variables variable_1="icam" variable_2="icam"/>
+        <map_variables variable_1="itg" variable_2="itg"/>
+        <map_variables variable_1="icamitg" variable_2="icamitg"/>
+    </connection>
+    <connection>
+        <map_components component_1="fixed_parameters" component_2="geometry"/>
+        <map_variables variable_1="ITG_k_f1" variable_2="ITG_k_f1"/>
+        <map_variables variable_1="ITG_k_r1" variable_2="ITG_k_r1"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="icam_activating_itg"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="icam" variable_2="icam"/>
+        <map_variables variable_1="icamitg" variable_2="icamitg"/>
+        <map_variables variable_1="itg" variable_2="itg"/>
+        <map_variables variable_1="ITG_k_f1" variable_2="k_f1"/>
+        <map_variables variable_1="ITG_k_r1" variable_2="k_r1"/>
     </connection>
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">

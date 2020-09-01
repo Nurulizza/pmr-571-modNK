@@ -1,0 +1,121 @@
+<?xml version='1.0'?>
+<model name="itg_receptor" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="per_nM">
+        <unit exponent="-1" units="nM"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="third_order_rate_constant">
+        <unit exponent="-2" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="fourth_order_rate_constant">
+        <unit exponent="-3" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="fifth_order_rate_constant">
+        <unit exponent="-4" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--
+*********************************************************
+***       C   O   M   P   O   N   E   N   T   S       ***
+*********************************************************
+-->
+    <component name="environment">
+        <variable name="time" public_interface="out" units="second"/>
+    </component>
+    <component name="icam_activating_itg">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="J1" public_interface="out" units="flux"/>
+        <variable name="k_f1" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r1" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="icamitg" public_interface="in" units="nM"/>
+        <variable name="icam" public_interface="in" units="nM"/>
+        <variable name="itg" public_interface="in" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J1</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f1</ci>
+                        <ci>icam</ci>
+                        <ci>itg</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r1</ci>
+                        <ci>icamitg</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>icam</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>itg</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>icamitg</ci>
+                </apply>
+                <ci>J1</ci>
+            </apply>
+        </math>
+    </component>
+    <connection>
+        <map_components component_1="icam_activating_itg" component_2="environment"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+</model>
