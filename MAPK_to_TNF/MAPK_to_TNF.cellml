@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 <model name="MAPKtnf" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
     <import xlink:href="../hatakeyama_2003_decomposed/PI3K_hatakeyama.cellml">
-        <component component_ref="PI3K" name="PI3K"/>
+        <component component_ref="PI3K_hatakeyama" name="PI3K_hatakeyama"/>
     </import>
     <import xlink:href="../hatakeyama_2003_decomposed/RasGDPtoRasGTP_hatakeyama.cellml">
         <component component_ref="RasGDPtoRasGTP" name="RasGDPtoRasGTP"/>
@@ -158,7 +158,6 @@
         <variable initial_value="0.0571" name="RasGDPtoRasGTP_k12" public_interface="out" units="nM"/>
         <variable initial_value="11.4" name="PP2A" public_interface="out" units="nM"/>
         <variable initial_value="7" name="Raf_E" public_interface="out" units="nM"/>
-        <!-- -->
         <variable initial_value="1.84965e-5" name="tcr_k_f21" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="0.123663" name="tcr_k_r21" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.000698868" name="plc_k_f23" public_interface="out" units="second_order_rate_constant"/>
@@ -207,9 +206,9 @@
         <variable initial_value="0" name="R_ShGS" public_interface="out" units="nM"/>
         <variable initial_value="0" name="ShGS" public_interface="out" units="nM"/>
         <variable initial_value="0" name="R_PI3K" public_interface="out" units="nM"/>
-        <variable initial_value="10" name="PI3K" public_interface="out" units="nM"/>
+        <variable initial_value="10" name="PI3K_hatakeyama" public_interface="out" units="nM"/>
         <variable initial_value="0" name="R_PI3Kstar" public_interface="out" units="nM"/>
-        <variable initial_value="0" name="PI3Kstar" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="PI3Kstar_hatakeyama" public_interface="out" units="nM"/>
         <variable initial_value="0" name="RasGTP" public_interface="out" units="nM"/>
         <variable initial_value="120" name="RasGDP" public_interface="out" units="nM"/>
         <variable initial_value="0" name="RAF" public_interface="out" units="nM"/>
@@ -217,7 +216,6 @@
         <variable initial_value="10006.15" name="plck" public_interface="out" units="nM"/>
         <variable initial_value="0" name="lck" public_interface="out" units="nM"/>
         <variable initial_value="1000" name="zap70" public_interface="out" units="nM"/>
-        <!-- -->
         <variable initial_value="516" name="tpa" public_interface="out" units="nM"/>
         <variable initial_value="8" name="tcr" public_interface="out" units="nM"/>
         <variable initial_value="1000" name="plc" public_interface="out" units="nM"/>
@@ -326,9 +324,9 @@
         <variable name="R_ShGS" private_interface="out" public_interface="in" units="nM"/>
         <variable name="ShGS" private_interface="out" public_interface="in" units="nM"/>
         <variable name="R_PI3K" private_interface="out" public_interface="in" units="nM"/>
-        <variable name="PI3K" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="PI3K_hatakeyama" private_interface="out" public_interface="in" units="nM"/>
         <variable name="R_PI3Kstar" private_interface="out" public_interface="in" units="nM"/>
-        <variable name="PI3Kstar" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="PI3Kstar_hatakeyama" private_interface="out" public_interface="in" units="nM"/>
         <variable name="RasGTP" private_interface="out" public_interface="in" units="nM"/>
         <variable name="RasGDP" private_interface="out" public_interface="in" units="nM"/>
         <variable name="RAF" private_interface="out" public_interface="in" units="nM"/>
@@ -374,7 +372,7 @@
             <component_ref component="ERK"/>
             <component_ref component="MEK"/>
             <component_ref component="RAF"/>
-            <component_ref component="PI3K"/>
+            <component_ref component="PI3K_hatakeyama"/>
             <component_ref component="RasGDPtoRasGTP"/>
             <component_ref component="zap70"/>
             <component_ref component="tcr"/>
@@ -522,9 +520,9 @@
         <map_variables variable_1="R_ShGS" variable_2="R_ShGS"/>
         <map_variables variable_1="ShGS" variable_2="ShGS"/>
         <map_variables variable_1="R_PI3K" variable_2="R_PI3K"/>
-        <map_variables variable_1="PI3K" variable_2="PI3K"/>
+        <map_variables variable_1="PI3K_hatakeyama" variable_2="PI3K_hatakeyama"/>
         <map_variables variable_1="R_PI3Kstar" variable_2="R_PI3Kstar"/>
-        <map_variables variable_1="PI3Kstar" variable_2="PI3Kstar"/>
+        <map_variables variable_1="PI3Kstar_hatakeyama" variable_2="PI3Kstar_hatakeyama"/>
         <map_variables variable_1="RasGTP" variable_2="RasGTP"/>
         <map_variables variable_1="RasGDP" variable_2="RasGDP"/>
         <map_variables variable_1="RAF" variable_2="RAF"/>
@@ -536,18 +534,6 @@
         <map_variables variable_1="plck" variable_2="plck"/>
         <map_variables variable_1="lck" variable_2="lck"/>
         <map_variables variable_1="zap70" variable_2="zap70"/>
-    </connection>
-    <connection>
-        <map_components component_1="geometry" component_2="tcr"/>
-        <map_variables variable_1="time" variable_2="time"/>
-        <map_variables variable_1="tcr_k_f21" variable_2="k_f21"/>
-        <map_variables variable_1="tcr_k_r21" variable_2="k_r21"/>
-        <map_variables variable_1="tpa" variable_2="tpa"/>
-        <map_variables variable_1="tcr" variable_2="tcr"/>
-    </connection>
-    <connection>
-        <map_components component_1="plc" component_2="PI3K"/>
-        <map_variables variable_1="J25" variable_2="J25"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="Akt"/>
@@ -577,7 +563,7 @@
         <map_variables variable_1="Akt_PIPP" variable_2="Akt_PIPP"/>
         <map_variables variable_1="MEKP" variable_2="MEKP"/>
         <map_variables variable_1="MEKPP" variable_2="MEKPP"/>
-        <map_variables variable_1="PI3Kstar" variable_2="PI3Kstar"/>
+        <map_variables variable_1="PI3Kstar_hatakeyama" variable_2="PI3Kstar_hatakeyama"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="ERK"/>
@@ -618,7 +604,7 @@
         <map_variables variable_1="RAFstar" variable_2="RAFstar"/>
     </connection>
     <connection>
-        <map_components component_1="geometry" component_2="PI3K"/>
+        <map_components component_1="geometry" component_2="PI3K_hatakeyama"/>
         <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="PI3k_kf1" variable_2="kf1"/>
         <map_variables variable_1="PI3k_kb1" variable_2="kb1"/>
@@ -652,7 +638,7 @@
         <map_variables variable_1="PI3k_k26" variable_2="k26"/>
         <map_variables variable_1="R" variable_2="R"/>
         <map_variables variable_1="Shc" variable_2="Shc"/>
-        <map_variables variable_1="PI3K" variable_2="PI3K"/>
+        <map_variables variable_1="PI3K_hatakeyama" variable_2="PI3K_hatakeyama"/>
         <map_variables variable_1="HRG" variable_2="HRG"/>
         <map_variables variable_1="R_HRG" variable_2="R_HRG"/>
         <map_variables variable_1="R_HRG2" variable_2="R_HRG2"/>
@@ -666,7 +652,7 @@
         <map_variables variable_1="GS" variable_2="GS"/>
         <map_variables variable_1="R_PI3K" variable_2="R_PI3K"/>
         <map_variables variable_1="R_PI3Kstar" variable_2="R_PI3Kstar"/>
-        <map_variables variable_1="PI3Kstar" variable_2="PI3Kstar"/>
+        <map_variables variable_1="PI3Kstar_hatakeyama" variable_2="PI3Kstar_hatakeyama"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="RAF"/>
@@ -693,12 +679,12 @@
         <map_variables variable_1="RasGDP" variable_2="RasGDP"/>
     </connection>
     <connection>
-        <map_components component_1="geometry" component_2="zap70"/>
-        <map_variables variable_1="time" variable_2="time"/>
-    </connection>
-    <connection>
         <map_components component_1="geometry" component_2="tcr"/>
         <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="tcr_k_f21" variable_2="k_f21"/>
+        <map_variables variable_1="tcr_k_r21" variable_2="k_r21"/>
+        <map_variables variable_1="tpa" variable_2="tpa"/>
+        <map_variables variable_1="tcr" variable_2="tcr"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="pzap70"/>
@@ -746,6 +732,22 @@
         <map_variables variable_1="ERKPP_k_f32" variable_2="k_f32"/>
     </connection>
     <connection>
+        <map_components component_1="zap70" component_2="geometry"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="plck" variable_2="plck"/>
+        <map_variables variable_1="lck" variable_2="lck"/>
+        <map_variables variable_1="zap70" variable_2="zap70"/>
+        <map_variables variable_1="k_f1" variable_2="Zap70_k_f1"/>
+        <map_variables variable_1="k_r1" variable_2="Zap70_k_r1"/>
+        <map_variables variable_1="k_f2" variable_2="Zap70_k_f2"/>
+        <map_variables variable_1="k_r2" variable_2="Zap70_k_r2"/>
+        <map_variables variable_1="k_f3" variable_2="Zap70_k_f3"/>
+        <map_variables variable_1="k_r3" variable_2="Zap70_k_r3"/>
+        <map_variables variable_1="k_f4" variable_2="Zap70_k_f4"/>
+        <map_variables variable_1="k_r4" variable_2="Zap70_k_r4"/>
+        <map_variables variable_1="k_f5" variable_2="Zap70_k_f5"/>
+    </connection>
+    <connection>
         <map_components component_1="ERK" component_2="ERKPPtranslocation"/>
         <map_variables variable_1="J_ERKPP" variable_2="J_ERKPP"/>
     </connection>
@@ -780,10 +782,6 @@
         <map_variables variable_1="J21" variable_2="J21"/>
     </connection>
     <connection>
-        <map_components component_1="variables" component_2="ERKPPtranslocation"/>
-        <map_variables variable_1="ERKPP" variable_2="ERKPP"/>
-    </connection>
-    <connection>
         <map_components component_1="plc" component_2="shc"/>
         <map_variables variable_1="J26" variable_2="J26"/>
     </connection>
@@ -792,24 +790,15 @@
         <map_variables variable_1="J27" variable_2="J27"/>
     </connection>
     <connection>
-        <map_components component_1="shc" component_2="PI3K"/>
-        <map_variables variable_1="shc" variable_2="Shc"/>
+        <map_components component_1="plc" component_2="PI3K_hatakeyama"/>
+        <map_variables variable_1="J25" variable_2="J25"/>
+    </connection>
+    <connection>
+        <map_components component_1="shc" component_2="PI3K_hatakeyama"/>
         <map_variables variable_1="J26" variable_2="J26"/>
     </connection>
     <connection>
-        <map_components component_1="zap70" component_2="geometry"/>
-        <map_variables variable_1="time" variable_2="time"/>
-        <map_variables variable_1="plck" variable_2="plck"/>
-        <map_variables variable_1="lck" variable_2="lck"/>
-        <map_variables variable_1="zap70" variable_2="zap70"/>
-        <map_variables variable_1="k_f1" variable_2="Zap70_k_f1"/>
-        <map_variables variable_1="k_r1" variable_2="Zap70_k_r1"/>
-        <map_variables variable_1="k_f2" variable_2="Zap70_k_f2"/>
-        <map_variables variable_1="k_r2" variable_2="Zap70_k_r2"/>
-        <map_variables variable_1="k_f3" variable_2="Zap70_k_f3"/>
-        <map_variables variable_1="k_r3" variable_2="Zap70_k_r3"/>
-        <map_variables variable_1="k_f4" variable_2="Zap70_k_f4"/>
-        <map_variables variable_1="k_r4" variable_2="Zap70_k_r4"/>
-        <map_variables variable_1="k_f5" variable_2="Zap70_k_f5"/>
+        <map_components component_1="lat" component_2="PI3K_hatakeyama"/>
+        <map_variables variable_1="J27" variable_2="J27"/>
     </connection>
 </model>

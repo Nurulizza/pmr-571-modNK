@@ -23,7 +23,7 @@
     <units name="first_order_rate_constant">
         <unit exponent="-1" units="s"/>
     </units>
-    <component name="PI3K">
+    <component name="PI3K_hatakeyama">
         <variable name="time" public_interface="in" units="s"/>
         <!-- Parameters-->
         <variable name="kf1" public_interface="in" units="second_order_rate_constant"/>
@@ -58,6 +58,7 @@
         <variable name="k26" public_interface="in" units="nM"/>
         <variable name="J25" public_interface="in" units="flux"/>
         <variable name="J26" public_interface="in" units="flux"/>
+        <variable name="J27" public_interface="in" units="flux"/>
         <!-- Variables-->
         <variable name="R" public_interface="in" units="nM"/>
         <variable name="HRG" public_interface="in" units="nM"/>
@@ -73,9 +74,9 @@
         <variable name="R_ShGS" public_interface="in" units="nM"/>
         <variable name="ShGS" public_interface="in" units="nM"/>
         <variable name="R_PI3K" public_interface="in" units="nM"/>
-        <variable name="PI3K" public_interface="in" units="nM"/>
+        <variable name="PI3K_hatakeyama" public_interface="in" units="nM"/>
         <variable name="R_PI3Kstar" public_interface="in" units="nM"/>
-        <variable name="PI3Kstar" public_interface="in" units="nM"/>
+        <variable name="PI3Kstar_hatakeyama" public_interface="in" units="nM"/>
         <variable initial_value="2" name="two" units="dimensionless"/>
         <!-- Equations-->
         <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -320,7 +321,7 @@
                                         <times/>
                                         <ci>kf23</ci>
                                         <ci>RP</ci>
-                                        <ci>PI3K</ci>
+                                        <ci>PI3K_hatakeyama</ci>
                                     </apply>
                                     <apply>
                                         <times/>
@@ -339,7 +340,7 @@
                             <times/>
                             <ci>kb25</ci>
                             <ci>RP</ci>
-                            <ci>PI3Kstar</ci>
+                            <ci>PI3Kstar_hatakeyama</ci>
                         </apply>
                     </apply>
                     <apply>
@@ -435,6 +436,10 @@
                         <minus/>
                         <apply>
                             <minus/>
+                            <ci>J26</ci>
+                        </apply>
+                        <apply>
+                            <minus/>
                             <apply>
                                 <times/>
                                 <ci>kf5</ci>
@@ -517,6 +522,14 @@
                         <plus/>
                         <apply>
                             <minus/>
+                            <apply>
+                                <minus/>
+                                <apply>
+                                    <minus/>
+                                    <ci>J25</ci>
+                                </apply>
+                                <ci>J27</ci>
+                            </apply>
                             <apply>
                                 <minus/>
                                 <apply>
@@ -683,7 +696,7 @@
                             <times/>
                             <ci>kf23</ci>
                             <ci>RP</ci>
-                            <ci>PI3K</ci>
+                            <ci>PI3K_hatakeyama</ci>
                         </apply>
                         <apply>
                             <times/>
@@ -713,7 +726,7 @@
                     <bvar>
                         <ci>time</ci>
                     </bvar>
-                    <ci>PI3K</ci>
+                    <ci>PI3K_hatakeyama</ci>
                 </apply>
                 <apply>
                     <plus/>
@@ -725,7 +738,7 @@
                                 <times/>
                                 <ci>kf23</ci>
                                 <ci>RP</ci>
-                                <ci>PI3K</ci>
+                                <ci>PI3K_hatakeyama</ci>
                             </apply>
                             <apply>
                                 <times/>
@@ -739,12 +752,12 @@
                         <apply>
                             <times/>
                             <ci>V26</ci>
-                            <ci>PI3Kstar</ci>
+                            <ci>PI3Kstar_hatakeyama</ci>
                         </apply>
                         <apply>
                             <plus/>
                             <ci>k26</ci>
-                            <ci>PI3Kstar</ci>
+                            <ci>PI3Kstar_hatakeyama</ci>
                         </apply>
                     </apply>
                 </apply>
@@ -784,7 +797,7 @@
                             <times/>
                             <ci>kb25</ci>
                             <ci>RP</ci>
-                            <ci>PI3Kstar</ci>
+                            <ci>PI3Kstar_hatakeyama</ci>
                         </apply>
                     </apply>
                 </apply>
@@ -796,7 +809,7 @@
                     <bvar>
                         <ci>time</ci>
                     </bvar>
-                    <ci>PI3Kstar</ci>
+                    <ci>PI3Kstar_hatakeyama</ci>
                 </apply>
                 <apply>
                     <minus/>
@@ -811,7 +824,7 @@
                             <times/>
                             <ci>kb25</ci>
                             <ci>RP</ci>
-                            <ci>PI3Kstar</ci>
+                            <ci>PI3Kstar_hatakeyama</ci>
                         </apply>
                     </apply>
                     <apply>
@@ -819,12 +832,12 @@
                         <apply>
                             <times/>
                             <ci>V26</ci>
-                            <ci>PI3Kstar</ci>
+                            <ci>PI3Kstar_hatakeyama</ci>
                         </apply>
                         <apply>
                             <plus/>
                             <ci>k26</ci>
-                            <ci>PI3Kstar</ci>
+                            <ci>PI3Kstar_hatakeyama</ci>
                         </apply>
                     </apply>
                 </apply>

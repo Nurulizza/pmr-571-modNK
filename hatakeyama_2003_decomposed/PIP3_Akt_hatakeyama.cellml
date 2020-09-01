@@ -50,7 +50,7 @@
         <variable name="Akt_PIP" public_interface="in" units="nM"/>
         <variable name="Akt_PIPP" public_interface="in" units="nM"/>
         <variable name="PP2A" public_interface="in" units="nM"/>
-        <variable name="PI3Kstar" public_interface="in" units="nM"/>
+        <variable name="PI3Kstar_hatakeyama" public_interface="in" units="nM"/>
         <variable name="MEKP" public_interface="in" units="nM"/>
         <variable name="MEKPP" public_interface="in" units="nM"/>
         <!-- Constants-->
@@ -85,7 +85,7 @@
                         <apply>
                             <times/>
                             <ci>kf27</ci>
-                            <ci>PI3Kstar</ci>
+                            <ci>PI3Kstar_hatakeyama</ci>
                             <ci>P</ci>
                         </apply>
                         <apply>
@@ -130,7 +130,7 @@
                             <apply>
                                 <times/>
                                 <ci>kf27</ci>
-                                <ci>PI3Kstar</ci>
+                                <ci>PI3Kstar_hatakeyama</ci>
                                 <ci>P</ci>
                             </apply>
                             <apply>
