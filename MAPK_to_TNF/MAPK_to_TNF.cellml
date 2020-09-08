@@ -220,6 +220,7 @@
         <variable initial_value="8" name="tcr" public_interface="out" units="nM"/>
         <variable initial_value="1000" name="plc" public_interface="out" units="nM"/>
         <variable initial_value="1000" name="lat" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="ERKPP_TNF_c" public_interface="out" units="nM"/>
     </component>
     <component name="geometry">
         <variable name="time" private_interface="out" public_interface="in" units="second"/>
@@ -364,6 +365,7 @@
         <variable name="plck" private_interface="out" public_interface="in" units="nM"/>
         <variable name="lck" private_interface="out" public_interface="in" units="nM"/>
         <variable name="zap70" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="ERKPP_TNF_c" private_interface="out" public_interface="in" units="nM"/>
     </component>
     <group>
         <relationship_ref relationship="encapsulation"/>
@@ -534,6 +536,7 @@
         <map_variables variable_1="plck" variable_2="plck"/>
         <map_variables variable_1="lck" variable_2="lck"/>
         <map_variables variable_1="zap70" variable_2="zap70"/>
+        <map_variables variable_1="ERKPP_TNF_c" variable_2="ERKPP_TNF_c"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="Akt"/>
@@ -730,6 +733,7 @@
         <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="ERKPP_k_f31" variable_2="k_f31"/>
         <map_variables variable_1="ERKPP_k_f32" variable_2="k_f32"/>
+        <map_variables variable_1="ERKPP_TNF_c" variable_2="ERKPP_TNF_c"/>
     </connection>
     <connection>
         <map_components component_1="zap70" component_2="geometry"/>

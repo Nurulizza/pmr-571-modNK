@@ -31,7 +31,6 @@
     <component name="NFAT_to_IFN">
         <variable name="time" public_interface="in" units="s"/>
         <variable name="NFATN_n" public_interface="in" units="nM"/>
-        <variable name="IFN_c" public_interface="in" units="nM"/>
         <variable name="JNFAT_n_IFN" public_interface="in" units="flux"/>
         <variable name="k_f1" public_interface="in" units="first_order_rate_constant"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -49,7 +48,6 @@
     <component name="NFAT_to_TNF">
         <variable name="time" public_interface="in" units="s"/>
         <variable name="NFATN_n" public_interface="in" units="nM"/>
-        <variable name="TNF_c" public_interface="in" units="nM"/>
         <variable name="JNFAT_n_TNF" public_interface="in" units="flux"/>
         <variable name="k_f2" public_interface="in" units="first_order_rate_constant"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -67,7 +65,6 @@
     <component name="NFAT_to_GSMCSF">
         <variable name="time" public_interface="in" units="s"/>
         <variable name="NFATN_n" public_interface="in" units="nM"/>
-        <variable name="GSMCSF_c" public_interface="in" units="nM"/>
         <variable name="JNFAT_n_GSMCSF" public_interface="in" units="flux"/>
         <variable name="k_f3" public_interface="in" units="first_order_rate_constant"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">

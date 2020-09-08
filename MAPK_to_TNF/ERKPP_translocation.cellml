@@ -35,7 +35,7 @@
         <variable name="k_f30" public_interface="in" units="first_order_rate_constant"/>
         <variable name="J_ERKPP" public_interface="in" units="flux"/>
         <variable name="ERKPP" public_interface="in" units="nM"/>
-        <variable initial_value="0" name="ERKPP_n" public_interface="out" units="nM"/>
+        <variable initial_value="70" name="ERKPP_n" public_interface="out" units="nM"/>
         <variable name="J_ERKPP_n" public_interface="out" units="flux"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>

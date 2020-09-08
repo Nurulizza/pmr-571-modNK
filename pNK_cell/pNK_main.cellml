@@ -28,15 +28,24 @@
         <component component_ref="NFAT_to_TNF" name="NFAT_to_TNF"/>
         <component component_ref="NFAT_to_GSMCSF" name="NFAT_to_GSMCSF"/>
     </import>
+    <import xlink:href="../cytokine_release/ERKPP_to_cytokines.cellml">
+        <component component_ref="ERKPP_to_IFN" name="ERKPP_to_IFN"/>
+        <component component_ref="ERKPP_to_GMCSF" name="ERKPP_to_GMCSF"/>
+    </import>
     <import xlink:href="../cytokine_release/cytokine_release.cellml">
         <component component_ref="IFN_release" name="IFN_release"/>
         <component component_ref="TNF_release" name="TNF_release"/>
         <component component_ref="GSMCSF_release" name="GSMCSF_release"/>
     </import>
     <import xlink:href="../cytokine_release/intracellular_cytokines.cellml">
-        <component component_ref="intracellular_IFN" name="intracellular_IFN"/>
-        <component component_ref="intracellular_TNF" name="intracellular_TNF"/>
-        <component component_ref="intracellular_GSMCSF" name="intracellular_GSMCSF"/>
+        <component component_ref="intracellular_NFAT_to_IFN" name="intracellular_NFAT_to_IFN"/>
+        <component component_ref="intracellular_NFAT_to_TNF" name="intracellular_NFAT_to_TNF"/>
+        <component component_ref="intracellular_NFAT_to_GSMCSF" name="intracellular_NFAT_to_GSMCSF"/>
+        <component component_ref="intracellular_ERKPP_to_IFN" name="intracellular_ERKPP_to_IFN"/>
+        <component component_ref="intracellular_ERKPP_to_GMCSF" name="intracellular_ERKPP_to_GMCSF"/>
+        <component component_ref="IFN_c" name="IFN_c"/>
+        <component component_ref="TNF_c" name="TNF_c"/>
+        <component component_ref="GMCSF_c" name="GMCSF_c"/>
     </import>
     <import xlink:href="../HLAG_to_PI3K/PI3K_activation.cellml">
         <component component_ref="PI3K" name="PI3K"/>
@@ -150,10 +159,14 @@
         <variable initial_value="0.01" name="NFAT2cyt_k_f1" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="1" name="NFAT2cyt_k_f2" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="1" name="NFAT2cyt_k_f3" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0001" name="ERKPP2cyt_k_f41" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0001" name="ERKPP2cyt_k_f43" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="1871.7" name="vm_vcw" public_interface="out" units="dimensionless"/>
         <variable initial_value="0.5" name="CytRel_k_f4" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.5" name="CytRel_k_f5" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.5" name="CytRel_k_f6" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0001" name="CytRel_k_f42" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0001" name="CytRel_k_f44" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.00891653" name="PI3K_k_f2" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="0.00611373" name="PI3K_k_r2" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="14.6231" name="PI3K_k_f3" public_interface="out" units="first_order_rate_constant"/>
@@ -321,12 +334,14 @@
         <variable initial_value="2.4831951301443e-8" name="NFATN_n" public_interface="out" units="nM"/>
         <variable initial_value="0.00101339805201531" name="NFATp_c" public_interface="out" units="nM"/>
         <variable initial_value="1.69221943300304e-8" name="NFATp_n" public_interface="out" units="nM"/>
-        <variable initial_value="4.96640003787264e-10" name="IFN_c" public_interface="out" units="nM"/>
-        <variable initial_value="4.96640003787261e-8" name="TNF_c" public_interface="out" units="nM"/>
-        <variable initial_value="4.96640003787261e-8" name="GSMCSF_c" public_interface="out" units="nM"/>
+        <variable initial_value="4.96640003787264e-10" name="NFAT_IFN_c" public_interface="out" units="nM"/>
+        <variable initial_value="4.96640003787261e-8" name="NFAT_TNF_c" public_interface="out" units="nM"/>
+        <variable initial_value="4.96640003787261e-8" name="NFAT_GSMCSF_c" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="ERKPP_IFN_c" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="ERKPP_GMCSF_c" public_interface="out" units="nM"/>
         <variable initial_value="0.000132769117322817" name="IFN_released" public_interface="out" units="nM"/>
         <variable initial_value="0.0132769117322818" name="TNF_released" public_interface="out" units="nM"/>
-        <variable initial_value="0.0132769117322818" name="GSMCSF_released" public_interface="out" units="nM"/>
+        <variable initial_value="0.0132769117322818" name="GMCSF_released" public_interface="out" units="nM"/>
         <variable name="nuclearNFATpercent" public_interface="out" units="dimensionless"/>
         <variable name="nuclearNFAT" public_interface="out" units="nM"/>
         <variable name="NFATN_c_percent" public_interface="out" units="dimensionless"/>
@@ -399,10 +414,15 @@
         <variable initial_value="8" name="tcr" public_interface="out" units="nM"/>
         <variable initial_value="1000" name="plc" public_interface="out" units="nM"/>
         <variable initial_value="1000" name="lat" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="ERKPP_TNF_c" public_interface="out" units="nM"/>
         <!-- ITG-->
         <variable initial_value="516" name="icam" public_interface="out" units="nM"/>
         <variable initial_value="8" name="itg" public_interface="out" units="nM"/>
         <variable initial_value="0" name="icamitg" public_interface="out" units="nM"/>
+        <!-- cytokine-->
+        <variable initial_value="0" name="IFN_c" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="TNF_c" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="GMCSF_c" public_interface="out" units="nM"/>
     </component>
     <component name="NFATcyc_interface">
         <variable name="nuclearNFATpercent" public_interface="in" units="dimensionless"/>
@@ -495,12 +515,19 @@
             <component_ref component="NFAT_to_IFN"/>
             <component_ref component="NFAT_to_TNF"/>
             <component_ref component="NFAT_to_GSMCSF"/>
+            <component_ref component="ERKPP_to_IFN"/>
+            <component_ref component="ERKPP_to_GMCSF"/>
             <component_ref component="IFN_release"/>
             <component_ref component="TNF_release"/>
             <component_ref component="GSMCSF_release"/>
-            <component_ref component="intracellular_IFN"/>
-            <component_ref component="intracellular_TNF"/>
-            <component_ref component="intracellular_GSMCSF"/>
+            <component_ref component="intracellular_NFAT_to_IFN"/>
+            <component_ref component="intracellular_NFAT_to_TNF"/>
+            <component_ref component="intracellular_NFAT_to_GSMCSF"/>
+            <component_ref component="intracellular_ERKPP_to_IFN"/>
+            <component_ref component="intracellular_ERKPP_to_GMCSF"/>
+            <component_ref component="IFN_c"/>
+            <component_ref component="TNF_c"/>
+            <component_ref component="GMCSF_c"/>
             <!--Dupont 1997-->
             <component_ref component="IP4"/>
             <component_ref component="R_des"/>
@@ -549,10 +576,14 @@
         <variable name="NFAT2cyt_k_f1" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="NFAT2cyt_k_f2" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="NFAT2cyt_k_f3" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="ERKPP2cyt_k_f41" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="ERKPP2cyt_k_f43" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="vm_vcw" private_interface="out" public_interface="in" units="dimensionless"/>
         <variable name="CytRel_k_f4" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="CytRel_k_f5" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="CytRel_k_f6" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="CytRel_k_f42" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="CytRel_k_f44" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="PI3K_k_f2" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
         <variable name="PI3K_k_r2" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="PI3K_k_f3" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
@@ -650,12 +681,14 @@
         <variable name="nuclearNFAT" private_interface="out" public_interface="in" units="nM"/>
         <variable name="NFATN_c_percent" private_interface="out" public_interface="in" units="dimensionless"/>
         <variable name="act_N" private_interface="out" public_interface="in" units="dimensionless"/>
-        <variable name="IFN_c" private_interface="out" public_interface="in" units="nM"/>
-        <variable name="TNF_c" private_interface="out" public_interface="in" units="nM"/>
-        <variable name="GSMCSF_c" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="NFAT_IFN_c" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="NFAT_TNF_c" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="NFAT_GSMCSF_c" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="ERKPP_IFN_c" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="ERKPP_GMCSF_c" private_interface="out" public_interface="in" units="nM"/>
         <variable name="IFN_released" private_interface="out" public_interface="in" units="nM"/>
         <variable name="TNF_released" private_interface="out" public_interface="in" units="nM"/>
-        <variable name="GSMCSF_released" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="GMCSF_released" private_interface="out" public_interface="in" units="nM"/>
         <!--Dupont 1997-->
         <variable name="R_des" private_interface="out" public_interface="in" units="dimensionless"/>
         <variable name="Ca_cyto" private_interface="out" public_interface="in" units="nM"/>
@@ -835,6 +868,7 @@
         <variable name="plck" private_interface="out" public_interface="in" units="nM"/>
         <variable name="lck" private_interface="out" public_interface="in" units="nM"/>
         <variable name="zap70" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="ERKPP_TNF_c" private_interface="out" public_interface="in" units="nM"/>
         <!-- ITG-->
         <variable name="icam" private_interface="out" public_interface="in" units="nM"/>
         <variable name="itg" private_interface="out" public_interface="in" units="nM"/>
@@ -854,9 +888,17 @@
         <variable name="JNFAT_n_IFN" private_interface="out" public_interface="out" units="flux"/>
         <variable name="JNFAT_n_TNF" private_interface="out" public_interface="out" units="flux"/>
         <variable name="JNFAT_n_GSMCSF" private_interface="out" public_interface="out" units="flux"/>
-        <variable name="JIFN_rel" private_interface="out" public_interface="out" units="flux"/>
-        <variable name="JTNF_rel" private_interface="out" public_interface="out" units="flux"/>
-        <variable name="JGSMCSF_rel" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="JNFAT_IFN_rel" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="JNFAT_TNF_rel" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="JNFAT_GSMCSF_rel" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="JERKPP_IFN_rel" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="JERKPP_GMCSF_rel" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="JERKPP_n_IFN" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="JERKPP_n_GMCSF" private_interface="out" public_interface="out" units="flux"/>
+        <!-- cytokines-->
+        <variable name="IFN_c" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="TNF_c" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="GMCSF_c" private_interface="out" public_interface="in" units="nM"/>
     </component>
     <connection>
         <map_components component_1="environment" component_2="geometry"/>
@@ -867,10 +909,14 @@
         <map_variables variable_1="NFAT2cyt_k_f1" variable_2="NFAT2cyt_k_f1"/>
         <map_variables variable_1="NFAT2cyt_k_f2" variable_2="NFAT2cyt_k_f2"/>
         <map_variables variable_1="NFAT2cyt_k_f3" variable_2="NFAT2cyt_k_f3"/>
+        <map_variables variable_1="ERKPP2cyt_k_f41" variable_2="ERKPP2cyt_k_f41"/>
+        <map_variables variable_1="ERKPP2cyt_k_f43" variable_2="ERKPP2cyt_k_f43"/>
         <map_variables variable_1="vm_vcw" variable_2="vm_vcw"/>
         <map_variables variable_1="CytRel_k_f4" variable_2="CytRel_k_f4"/>
         <map_variables variable_1="CytRel_k_f5" variable_2="CytRel_k_f5"/>
         <map_variables variable_1="CytRel_k_f6" variable_2="CytRel_k_f6"/>
+        <map_variables variable_1="CytRel_k_f42" variable_2="CytRel_k_f42"/>
+        <map_variables variable_1="CytRel_k_f44" variable_2="CytRel_k_f44"/>
         <map_variables variable_1="PI3K_k_f2" variable_2="PI3K_k_f2"/>
         <map_variables variable_1="PI3K_k_r2" variable_2="PI3K_k_r2"/>
         <map_variables variable_1="PI3K_k_f3" variable_2="PI3K_k_f3"/>
@@ -1042,12 +1088,14 @@ Dupont 1997-->
         <map_variables variable_1="nuclearNFAT" variable_2="nuclearNFAT"/>
         <map_variables variable_1="NFATN_c_percent" variable_2="NFATN_c_percent"/>
         <map_variables variable_1="act_N" variable_2="act_N"/>
-        <map_variables variable_1="IFN_c" variable_2="IFN_c"/>
-        <map_variables variable_1="TNF_c" variable_2="TNF_c"/>
-        <map_variables variable_1="GSMCSF_c" variable_2="GSMCSF_c"/>
+        <map_variables variable_1="NFAT_IFN_c" variable_2="NFAT_IFN_c"/>
+        <map_variables variable_1="NFAT_TNF_c" variable_2="NFAT_TNF_c"/>
+        <map_variables variable_1="NFAT_GSMCSF_c" variable_2="NFAT_GSMCSF_c"/>
+        <map_variables variable_1="ERKPP_IFN_c" variable_2="ERKPP_IFN_c"/>
+        <map_variables variable_1="ERKPP_GMCSF_c" variable_2="ERKPP_GMCSF_c"/>
         <map_variables variable_1="IFN_released" variable_2="IFN_released"/>
         <map_variables variable_1="TNF_released" variable_2="TNF_released"/>
-        <map_variables variable_1="GSMCSF_released" variable_2="GSMCSF_released"/>
+        <map_variables variable_1="GMCSF_released" variable_2="GMCSF_released"/>
         <!-- Dupont 1997-->
         <map_variables variable_1="R_des" variable_2="R_des"/>
         <map_variables variable_1="Ca_cyto" variable_2="Ca_cyto"/>
@@ -1116,6 +1164,11 @@ Dupont 1997-->
         <map_variables variable_1="plck" variable_2="plck"/>
         <map_variables variable_1="lck" variable_2="lck"/>
         <map_variables variable_1="zap70" variable_2="zap70"/>
+        <map_variables variable_1="ERKPP_TNF_c" variable_2="ERKPP_TNF_c"/>
+        <!-- cytokine-->
+        <!--vars IFN_c and IFN_c;-->
+        <!--vars TNF_c and TNF_c;-->
+        <!--vars GMCSF_c and GMCSF_c;-->
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="calcineurin"/>
@@ -1161,7 +1214,6 @@ Dupont 1997-->
         <map_components component_1="geometry" component_2="NFAT_to_IFN"/>
         <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="NFATN_n" variable_2="NFATN_n"/>
-        <map_variables variable_1="IFN_c" variable_2="IFN_c"/>
         <map_variables variable_1="JNFAT_n_IFN" variable_2="JNFAT_n_IFN"/>
         <map_variables variable_1="NFAT2cyt_k_f1" variable_2="k_f1"/>
     </connection>
@@ -1169,7 +1221,6 @@ Dupont 1997-->
         <map_components component_1="geometry" component_2="NFAT_to_TNF"/>
         <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="NFATN_n" variable_2="NFATN_n"/>
-        <map_variables variable_1="TNF_c" variable_2="TNF_c"/>
         <map_variables variable_1="JNFAT_n_TNF" variable_2="JNFAT_n_TNF"/>
         <map_variables variable_1="NFAT2cyt_k_f2" variable_2="k_f2"/>
     </connection>
@@ -1177,7 +1228,6 @@ Dupont 1997-->
         <map_components component_1="geometry" component_2="NFAT_to_GSMCSF"/>
         <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="NFATN_n" variable_2="NFATN_n"/>
-        <map_variables variable_1="GSMCSF_c" variable_2="GSMCSF_c"/>
         <map_variables variable_1="JNFAT_n_GSMCSF" variable_2="JNFAT_n_GSMCSF"/>
         <map_variables variable_1="NFAT2cyt_k_f3" variable_2="k_f3"/>
     </connection>
@@ -1193,11 +1243,9 @@ Dupont 1997-->
     <connection>
         <map_components component_1="geometry" component_2="IFN_release"/>
         <map_variables variable_1="time" variable_2="time"/>
-        <map_variables variable_1="IFN_c" variable_2="IFN_c"/>
         <map_variables variable_1="IFN_released" variable_2="IFN_released"/>
         <map_variables variable_1="vm_vcw" variable_2="vm_vcw"/>
-        <map_variables variable_1="JIFN_rel" variable_2="JIFN_rel"/>
-        <map_variables variable_1="CytRel_k_f4" variable_2="k_f4"/>
+        <map_variables variable_1="IFN_c" variable_2="IFN_c"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="TNF_release"/>
@@ -1205,38 +1253,37 @@ Dupont 1997-->
         <map_variables variable_1="TNF_c" variable_2="TNF_c"/>
         <map_variables variable_1="TNF_released" variable_2="TNF_released"/>
         <map_variables variable_1="vm_vcw" variable_2="vm_vcw"/>
-        <map_variables variable_1="JTNF_rel" variable_2="JTNF_rel"/>
-        <map_variables variable_1="CytRel_k_f5" variable_2="k_f5"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="GSMCSF_release"/>
         <map_variables variable_1="time" variable_2="time"/>
-        <map_variables variable_1="GSMCSF_c" variable_2="GSMCSF_c"/>
-        <map_variables variable_1="GSMCSF_released" variable_2="GSMCSF_released"/>
+        <map_variables variable_1="GMCSF_c" variable_2="GMCSF_c"/>
+        <map_variables variable_1="GMCSF_released" variable_2="GMCSF_released"/>
         <map_variables variable_1="vm_vcw" variable_2="vm_vcw"/>
-        <map_variables variable_1="JGSMCSF_rel" variable_2="JGSMCSF_rel"/>
-        <map_variables variable_1="CytRel_k_f6" variable_2="k_f6"/>
     </connection>
     <connection>
-        <map_components component_1="geometry" component_2="intracellular_IFN"/>
+        <map_components component_1="geometry" component_2="intracellular_NFAT_to_IFN"/>
         <map_variables variable_1="time" variable_2="time"/>
-        <map_variables variable_1="IFN_c" variable_2="IFN_c"/>
-        <map_variables variable_1="JIFN_rel" variable_2="JIFN_rel"/>
+        <map_variables variable_1="NFAT_IFN_c" variable_2="NFAT_IFN_c"/>
+        <map_variables variable_1="JNFAT_IFN_rel" variable_2="JNFAT_IFN_rel"/>
         <map_variables variable_1="JNFAT_n_IFN" variable_2="JNFAT_n_IFN"/>
+        <map_variables variable_1="CytRel_k_f4" variable_2="k_f4"/>
     </connection>
     <connection>
-        <map_components component_1="geometry" component_2="intracellular_TNF"/>
+        <map_components component_1="geometry" component_2="intracellular_NFAT_to_TNF"/>
         <map_variables variable_1="time" variable_2="time"/>
-        <map_variables variable_1="TNF_c" variable_2="TNF_c"/>
-        <map_variables variable_1="JTNF_rel" variable_2="JTNF_rel"/>
+        <map_variables variable_1="NFAT_TNF_c" variable_2="NFAT_TNF_c"/>
+        <map_variables variable_1="JNFAT_TNF_rel" variable_2="JNFAT_TNF_rel"/>
         <map_variables variable_1="JNFAT_n_TNF" variable_2="JNFAT_n_TNF"/>
+        <map_variables variable_1="CytRel_k_f5" variable_2="k_f5"/>
     </connection>
     <connection>
-        <map_components component_1="geometry" component_2="intracellular_GSMCSF"/>
+        <map_components component_1="geometry" component_2="intracellular_NFAT_to_GSMCSF"/>
         <map_variables variable_1="time" variable_2="time"/>
-        <map_variables variable_1="GSMCSF_c" variable_2="GSMCSF_c"/>
-        <map_variables variable_1="JGSMCSF_rel" variable_2="JGSMCSF_rel"/>
+        <map_variables variable_1="NFAT_GSMCSF_c" variable_2="NFAT_GSMCSF_c"/>
+        <map_variables variable_1="JNFAT_GSMCSF_rel" variable_2="JNFAT_GSMCSF_rel"/>
         <map_variables variable_1="JNFAT_n_GSMCSF" variable_2="JNFAT_n_GSMCSF"/>
+        <map_variables variable_1="CytRel_k_f6" variable_2="k_f6"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="R_des"/>
@@ -1637,6 +1684,7 @@ Dupont 1997-->
         <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="ERKPP_k_f31" variable_2="k_f31"/>
         <map_variables variable_1="ERKPP_k_f32" variable_2="k_f32"/>
+        <map_variables variable_1="ERKPP_TNF_c" variable_2="ERKPP_TNF_c"/>
     </connection>
     <connection>
         <map_components component_1="ERK" component_2="ERKPPtranslocation"/>
@@ -1727,6 +1775,58 @@ Dupont 1997-->
         <map_variables variable_1="itg" variable_2="itg"/>
         <map_variables variable_1="ITG_k_f1" variable_2="k_f1"/>
         <map_variables variable_1="ITG_k_r1" variable_2="k_r1"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="ERKPP_to_IFN"/>
+        <map_variables variable_1="ERKPP2cyt_k_f41" variable_2="k_f41"/>
+        <map_variables variable_1="JERKPP_n_IFN" variable_2="JERKPP_n_IFN"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="ERKPP_to_GMCSF"/>
+        <map_variables variable_1="ERKPP2cyt_k_f43" variable_2="k_f43"/>
+        <map_variables variable_1="JERKPP_n_GMCSF" variable_2="JERKPP_n_GMCSF"/>
+    </connection>
+    <connection>
+        <map_components component_1="ERKPPtranslocation" component_2="ERKPP_to_IFN"/>
+        <map_variables variable_1="ERKPP_n" variable_2="ERKPP_n"/>
+    </connection>
+    <connection>
+        <map_components component_1="ERKPPtranslocation" component_2="ERKPP_to_GMCSF"/>
+        <map_variables variable_1="ERKPP_n" variable_2="ERKPP_n"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="intracellular_ERKPP_to_IFN"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="CytRel_k_f42" variable_2="k_f42"/>
+        <map_variables variable_1="JERKPP_IFN_rel" variable_2="JERKPP_IFN_rel"/>
+        <map_variables variable_1="ERKPP_IFN_c" variable_2="ERKPP_IFN_c"/>
+        <map_variables variable_1="JERKPP_n_IFN" variable_2="JERKPP_n_IFN"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="intracellular_ERKPP_to_GMCSF"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="CytRel_k_f44" variable_2="k_f44"/>
+        <map_variables variable_1="JERKPP_GMCSF_rel" variable_2="JERKPP_GMCSF_rel"/>
+        <map_variables variable_1="ERKPP_GMCSF_c" variable_2="ERKPP_GMCSF_c"/>
+        <map_variables variable_1="JERKPP_n_GMCSF" variable_2="JERKPP_n_GMCSF"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="IFN_c"/>
+        <map_variables variable_1="NFAT_IFN_c" variable_2="NFAT_IFN_c"/>
+        <map_variables variable_1="ERKPP_IFN_c" variable_2="ERKPP_IFN_c"/>
+        <map_variables variable_1="IFN_c" variable_2="IFN_c"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="TNF_c"/>
+        <map_variables variable_1="NFAT_TNF_c" variable_2="NFAT_TNF_c"/>
+        <map_variables variable_1="ERKPP_TNF_c" variable_2="ERKPP_TNF_c"/>
+        <map_variables variable_1="TNF_c" variable_2="TNF_c"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="GMCSF_c"/>
+        <map_variables variable_1="GMCSF_c" variable_2="GMCSF_c"/>
+        <map_variables variable_1="NFAT_GSMCSF_c" variable_2="NFAT_GSMCSF_c"/>
+        <map_variables variable_1="ERKPP_GMCSF_c" variable_2="ERKPP_GMCSF_c"/>
     </connection>
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">

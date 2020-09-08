@@ -34,7 +34,7 @@
         <variable name="J32" public_interface="out" units="flux"/>
         <variable name="k_f31" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f32" public_interface="in" units="first_order_rate_constant"/>
-        <variable initial_value="0" name="ERKPP_TNF" units="nM"/>
+        <variable name="ERKPP_TNF_c" public_interface="in" units="nM"/>
         <variable name="ERKPP_n" public_interface="in" units="nM"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -52,7 +52,7 @@
                 <apply>
                     <times/>
                     <ci>k_f32</ci>
-                    <ci>ERKPP_TNF</ci>
+                    <ci>ERKPP_TNF_c</ci>
                 </apply>
             </apply>
             <apply>
@@ -62,7 +62,7 @@
                     <bvar>
                         <ci>time</ci>
                     </bvar>
-                    <ci>ERKPP_TNF</ci>
+                    <ci>ERKPP_TNF_c</ci>
                 </apply>
                 <apply>
                     <minus/>

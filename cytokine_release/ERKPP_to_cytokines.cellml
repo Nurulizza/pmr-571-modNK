@@ -1,0 +1,63 @@
+<?xml version='1.0'?>
+<model cmeta:id="ERKPP_to_cytokines" name="ERKPP_to_cytokine" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="../MAPK_to_TNF/ERKPP_translocation.cellml">
+        <component component_ref="ERKPPtranslocation" name="ERKPPtranslocation"/>
+    </import>
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="liter"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--
+*********************************************************
+***       C   O   M   P   O   N   E   N   T   S       ***
+*********************************************************
+-->
+    <component name="ERKPP_to_IFN">
+        <variable name="ERKPP_n" public_interface="in" units="nM"/>
+        <variable name="JERKPP_n_IFN" public_interface="in" units="flux"/>
+        <variable name="k_f41" public_interface="in" units="first_order_rate_constant"/>
+        <!--6.53271e-05-->
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>JERKPP_n_IFN</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f41</ci>
+                    <ci>ERKPP_n</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="ERKPP_to_GMCSF">
+        <variable name="JERKPP_n_GMCSF" public_interface="in" units="flux"/>
+        <variable name="k_f43" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="ERKPP_n" public_interface="in" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>JERKPP_n_GMCSF</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f43</ci>
+                    <ci>ERKPP_n</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

@@ -28,12 +28,22 @@
 ***       C   O   M   P   O   N   E   N   T   S       ***
 *********************************************************
 -->
-    <component name="intracellular_IFN">
+    <component name="intracellular_NFAT_to_IFN">
         <variable name="time" public_interface="in" units="s"/>
-        <variable name="IFN_c" public_interface="in" units="nM"/>
-        <variable name="JIFN_rel" public_interface="in" units="flux"/>
+        <variable name="NFAT_IFN_c" public_interface="in" units="nM"/>
+        <variable name="JNFAT_IFN_rel" public_interface="in" units="flux"/>
         <variable name="JNFAT_n_IFN" public_interface="in" units="flux"/>
+        <variable name="k_f4" public_interface="in" units="first_order_rate_constant"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>JNFAT_IFN_rel</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f4</ci>
+                    <ci>NFAT_IFN_c</ci>
+                </apply>
+            </apply>
             <apply>
                 <eq/>
                 <apply>
@@ -41,22 +51,32 @@
                     <bvar>
                         <ci>time</ci>
                     </bvar>
-                    <ci>IFN_c</ci>
+                    <ci>NFAT_IFN_c</ci>
                 </apply>
                 <apply>
                     <minus/>
                     <ci>JNFAT_n_IFN</ci>
-                    <ci>JIFN_rel</ci>
+                    <ci>JNFAT_IFN_rel</ci>
                 </apply>
             </apply>
         </math>
     </component>
-    <component name="intracellular_TNF">
+    <component name="intracellular_NFAT_to_TNF">
         <variable name="time" public_interface="in" units="s"/>
-        <variable name="TNF_c" public_interface="in" units="nM"/>
-        <variable name="JTNF_rel" public_interface="in" units="flux"/>
+        <variable name="NFAT_TNF_c" public_interface="in" units="nM"/>
+        <variable name="JNFAT_TNF_rel" public_interface="in" units="flux"/>
         <variable name="JNFAT_n_TNF" public_interface="in" units="flux"/>
+        <variable name="k_f5" public_interface="in" units="first_order_rate_constant"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>JNFAT_TNF_rel</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f5</ci>
+                    <ci>NFAT_TNF_c</ci>
+                </apply>
+            </apply>
             <apply>
                 <eq/>
                 <apply>
@@ -64,22 +84,32 @@
                     <bvar>
                         <ci>time</ci>
                     </bvar>
-                    <ci>TNF_c</ci>
+                    <ci>NFAT_TNF_c</ci>
                 </apply>
                 <apply>
                     <minus/>
                     <ci>JNFAT_n_TNF</ci>
-                    <ci>JTNF_rel</ci>
+                    <ci>JNFAT_TNF_rel</ci>
                 </apply>
             </apply>
         </math>
     </component>
-    <component name="intracellular_GSMCSF">
+    <component name="intracellular_NFAT_to_GSMCSF">
         <variable name="time" public_interface="in" units="s"/>
-        <variable name="GSMCSF_c" public_interface="in" units="nM"/>
-        <variable name="JGSMCSF_rel" public_interface="in" units="flux"/>
+        <variable name="NFAT_GSMCSF_c" public_interface="in" units="nM"/>
+        <variable name="JNFAT_GSMCSF_rel" public_interface="in" units="flux"/>
         <variable name="JNFAT_n_GSMCSF" public_interface="in" units="flux"/>
+        <variable name="k_f6" public_interface="in" units="first_order_rate_constant"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>JNFAT_GSMCSF_rel</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f6</ci>
+                    <ci>NFAT_GSMCSF_c</ci>
+                </apply>
+            </apply>
             <apply>
                 <eq/>
                 <apply>
@@ -87,12 +117,130 @@
                     <bvar>
                         <ci>time</ci>
                     </bvar>
-                    <ci>GSMCSF_c</ci>
+                    <ci>NFAT_GSMCSF_c</ci>
                 </apply>
                 <apply>
                     <minus/>
                     <ci>JNFAT_n_GSMCSF</ci>
-                    <ci>JGSMCSF_rel</ci>
+                    <ci>JNFAT_GSMCSF_rel</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="intracellular_ERKPP_to_IFN">
+        <variable name="time" public_interface="in" units="s"/>
+        <variable name="JERKPP_IFN_rel" public_interface="in" units="flux"/>
+        <variable name="k_f42" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="ERKPP_IFN_c" public_interface="in" units="nM"/>
+        <variable name="JERKPP_n_IFN" public_interface="in" units="flux"/>
+        <!--        var ERKPP_n: nM {init: 70, pub: out};-->
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>JERKPP_IFN_rel</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f42</ci>
+                    <ci>ERKPP_IFN_c</ci>
+                </apply>
+            </apply>
+            <!--        //ode(ERKPP_n, t) = -J41-J43;-->
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>ERKPP_IFN_c</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>JERKPP_n_IFN</ci>
+                    <ci>JERKPP_IFN_rel</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="intracellular_ERKPP_to_GMCSF">
+        <variable name="time" public_interface="in" units="s"/>
+        <variable name="JERKPP_GMCSF_rel" public_interface="in" units="flux"/>
+        <variable name="k_f44" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="ERKPP_GMCSF_c" public_interface="in" units="nM"/>
+        <variable name="JERKPP_n_GMCSF" public_interface="in" units="flux"/>
+        <!--        var ERKPP_n: nM {pub: in};-->
+        <!--        //ode(ERKPP_n, t) = -J43;-->
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>JERKPP_GMCSF_rel</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f44</ci>
+                    <ci>ERKPP_GMCSF_c</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>ERKPP_GMCSF_c</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>JERKPP_n_GMCSF</ci>
+                    <ci>JERKPP_GMCSF_rel</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="IFN_c">
+        <variable name="IFN_c" public_interface="in" units="nM"/>
+        <variable name="NFAT_IFN_c" public_interface="in" units="nM"/>
+        <variable name="ERKPP_IFN_c" public_interface="in" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>IFN_c</ci>
+                <apply>
+                    <plus/>
+                    <ci>NFAT_IFN_c</ci>
+                    <ci>ERKPP_IFN_c</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="TNF_c">
+        <variable name="TNF_c" public_interface="in" units="nM"/>
+        <variable name="NFAT_TNF_c" public_interface="in" units="nM"/>
+        <variable name="ERKPP_TNF_c" public_interface="in" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>TNF_c</ci>
+                <apply>
+                    <plus/>
+                    <ci>NFAT_TNF_c</ci>
+                    <ci>ERKPP_TNF_c</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="GMCSF_c">
+        <variable name="GMCSF_c" public_interface="in" units="nM"/>
+        <variable name="NFAT_GSMCSF_c" public_interface="in" units="nM"/>
+        <variable name="ERKPP_GMCSF_c" public_interface="in" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>GMCSF_c</ci>
+                <apply>
+                    <plus/>
+                    <ci>NFAT_GSMCSF_c</ci>
+                    <ci>ERKPP_GMCSF_c</ci>
                 </apply>
             </apply>
         </math>

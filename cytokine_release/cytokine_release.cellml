@@ -33,18 +33,7 @@
         <variable name="IFN_c" public_interface="in" units="nM"/>
         <variable name="IFN_released" public_interface="in" units="nM"/>
         <variable name="vm_vcw" public_interface="in" units="dimensionless"/>
-        <variable name="JIFN_rel" public_interface="in" units="flux"/>
-        <variable name="k_f4" public_interface="in" units="first_order_rate_constant"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-                <eq/>
-                <ci>JIFN_rel</ci>
-                <apply>
-                    <times/>
-                    <ci>k_f4</ci>
-                    <ci>IFN_c</ci>
-                </apply>
-            </apply>
             <apply>
                 <eq/>
                 <apply>
@@ -56,7 +45,7 @@
                 </apply>
                 <apply>
                     <divide/>
-                    <ci>JIFN_rel</ci>
+                    <ci>IFN_c</ci>
                     <ci>vm_vcw</ci>
                 </apply>
             </apply>
@@ -67,18 +56,7 @@
         <variable name="TNF_c" public_interface="in" units="nM"/>
         <variable name="TNF_released" public_interface="in" units="nM"/>
         <variable name="vm_vcw" public_interface="in" units="dimensionless"/>
-        <variable name="JTNF_rel" public_interface="in" units="flux"/>
-        <variable name="k_f5" public_interface="in" units="first_order_rate_constant"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-                <eq/>
-                <ci>JTNF_rel</ci>
-                <apply>
-                    <times/>
-                    <ci>k_f5</ci>
-                    <ci>TNF_c</ci>
-                </apply>
-            </apply>
             <apply>
                 <eq/>
                 <apply>
@@ -90,7 +68,7 @@
                 </apply>
                 <apply>
                     <divide/>
-                    <ci>JTNF_rel</ci>
+                    <ci>TNF_c</ci>
                     <ci>vm_vcw</ci>
                 </apply>
             </apply>
@@ -98,21 +76,10 @@
     </component>
     <component name="GSMCSF_release">
         <variable name="time" public_interface="in" units="s"/>
-        <variable name="GSMCSF_c" public_interface="in" units="nM"/>
-        <variable name="GSMCSF_released" public_interface="in" units="nM"/>
+        <variable name="GMCSF_c" public_interface="in" units="nM"/>
+        <variable name="GMCSF_released" public_interface="in" units="nM"/>
         <variable name="vm_vcw" public_interface="in" units="dimensionless"/>
-        <variable name="JGSMCSF_rel" public_interface="in" units="flux"/>
-        <variable name="k_f6" public_interface="in" units="first_order_rate_constant"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-                <eq/>
-                <ci>JGSMCSF_rel</ci>
-                <apply>
-                    <times/>
-                    <ci>k_f6</ci>
-                    <ci>GSMCSF_c</ci>
-                </apply>
-            </apply>
             <apply>
                 <eq/>
                 <apply>
@@ -120,11 +87,11 @@
                     <bvar>
                         <ci>time</ci>
                     </bvar>
-                    <ci>GSMCSF_released</ci>
+                    <ci>GMCSF_released</ci>
                 </apply>
                 <apply>
                     <divide/>
-                    <ci>JGSMCSF_rel</ci>
+                    <ci>GMCSF_c</ci>
                     <ci>vm_vcw</ci>
                 </apply>
             </apply>
