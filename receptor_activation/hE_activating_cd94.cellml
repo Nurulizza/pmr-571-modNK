@@ -1,0 +1,190 @@
+<?xml version='1.0'?>
+<model name="HLAE_activating_CD94NKG2C" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <!--
+        *******************************************************
+        ***         U   N   I   T   S                       ***
+        *******************************************************
+        -->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <component name="hE_activating_cd94">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="J8" units="flux"/>
+        <variable name="J9" public_interface="in" units="flux"/>
+        <variable name="J10" units="flux"/>
+        <variable name="J11" units="flux"/>
+        <variable name="J_hEpd12" public_interface="in" units="flux"/>
+        <variable name="J_hEactivation" public_interface="in" units="flux"/>
+        <variable name="k_f8" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r8" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f9" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r9" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f10" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r10" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f11" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hE" public_interface="in" units="nM"/>
+        <variable name="nkg2c" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="hEnkg2c" units="nM"/>
+        <variable initial_value="0" name="hEd12" units="nM"/>
+        <variable name="hEpd12" public_interface="in" units="nM"/>
+        <variable name="hEd12plck" public_interface="in" units="nM"/>
+        <variable name="hEpd12cd45" public_interface="in" units="nM"/>
+        <variable name="d12" public_interface="in" units="nM"/>
+        <variable name="plck" public_interface="in" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J8</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f8</ci>
+                        <ci>hE</ci>
+                        <ci>nkg2c</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r8</ci>
+                        <ci>hEnkg2c</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J9</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f9</ci>
+                        <ci>hEnkg2c</ci>
+                        <ci>d12</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r9</ci>
+                        <ci>hEd12</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J10</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f10</ci>
+                        <ci>plck</ci>
+                        <ci>hEd12</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r10</ci>
+                        <ci>hEd12plck</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J11</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f11</ci>
+                    <ci>hEd12plck</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J_hEpd12</ci>
+                <ci>J11</ci>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J_hEactivation</ci>
+                <apply>
+                    <minus/>
+                    <ci>J8</ci>
+                </apply>
+            </apply>
+            <!--ode(hE, t) = -J8;-->
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>nkg2c</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J8</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hEnkg2c</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J8</ci>
+                    <ci>J9</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hEd12</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J9</ci>
+                    <ci>J10</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hEd12plck</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J10</ci>
+                    <ci>J11</ci>
+                </apply>
+            </apply>
+        </math>
+        <!--ode(hEpd12, t) = J11;-->
+    </component>
+</model>

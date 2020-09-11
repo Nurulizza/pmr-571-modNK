@@ -109,6 +109,9 @@
     <import xlink:href="../receptor_activation/itg_receptor.cellml">
         <component component_ref="icam_activating_itg" name="icam_activating_itg"/>
     </import>
+    <import xlink:href="../receptor_activation/hE_activating_cd94.cellml">
+        <component component_ref="hE_activating_cd94" name="hE_activating_cd94"/>
+    </import>
     <!--
         *******************************************************
         ***         U   N   I   T   S                       ***
@@ -176,6 +179,13 @@
         <variable initial_value="0.014043" name="hG_activating_dl4_k_r10" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="1.6521e-5" name="hgdl4_FC_k_f21" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="0.0517365" name="hgdl4_FC_k_r21" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0000184965" name="hE_activating_cd94_k_f8" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="1.8" name="hE_activating_cd94_k_r8" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0178629" name="hE_activating_cd94_k_f9" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="1.45902" name="hE_activating_cd94_k_r9" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.00000195" name="hE_activating_cd94_k_f10" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="11.6167" name="hE_activating_cd94_k_r10" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.002" name="hE_activating_cd94_k_f11" public_interface="out" units="first_order_rate_constant"/>
     </component>
     <component name="fixed_parameters">
         <variable initial_value="7.68934e-6" name="NFATcyc_k_f1" public_interface="out" units="second_order_rate_constant"/>
@@ -330,6 +340,14 @@
         <variable initial_value="0.123663" name="ITG_k_r1" public_interface="out" units="first_order_rate_constant"/>
     </component>
     <component name="variables">
+        <!-- receptors activation-->
+        <variable initial_value="8" name="nkg2c" public_interface="out" units="nM"/>
+        <variable initial_value="600" name="d12" public_interface="out" units="nM"/>
+        <variable initial_value="516" name="hE" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="hEpd12" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="hEd12plck" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="hEpd12cd45" public_interface="out" units="nM"/>
+        <!-- cytokine-->
         <variable initial_value="6.92406045126492e-7" name="NFATN_c" public_interface="out" units="nM"/>
         <variable initial_value="2.4831951301443e-8" name="NFATN_n" public_interface="out" units="nM"/>
         <variable initial_value="0.00101339805201531" name="NFATp_c" public_interface="out" units="nM"/>
@@ -508,6 +526,7 @@
     <group>
         <relationship_ref relationship="encapsulation"/>
         <component_ref component="geometry">
+            <component_ref component="hE_activating_cd94"/>
             <component_ref component="calcineurin"/>
             <component_ref component="NFAT_Cycling"/>
             <component_ref component="NFATcyc_interface"/>
@@ -573,6 +592,8 @@
         <!-- ****************
  'Free' parameters
  ****************-->
+        <!-- receptors activation-->
+        <variable name="nkg2c" private_interface="out" public_interface="in" units="nM"/>
         <variable name="NFAT2cyt_k_f1" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="NFAT2cyt_k_f2" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="NFAT2cyt_k_f3" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
@@ -593,6 +614,16 @@
         <variable name="hG_activating_dl4_k_r10" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hgdl4_FC_k_f21" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
         <variable name="hgdl4_FC_k_r21" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hE_activating_cd94_k_f8" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hE_activating_cd94_k_r8" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hE_activating_cd94_k_f9" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hE_activating_cd94_k_r9" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hE_activating_cd94_k_f10" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hE_activating_cd94_k_r10" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hE_activating_cd94_k_f11" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hEpd12" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hEd12plck" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hEpd12cd45" private_interface="out" public_interface="in" units="nM"/>
         <!-- ****************
  Fixed parameters
  ****************-->
@@ -673,6 +704,9 @@
         <!-- *********
  Variables
  *********-->
+        <!--hE activating cd94-->
+        <variable name="d12" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hE" private_interface="out" public_interface="in" units="nM"/>
         <variable name="NFATN_c" private_interface="out" public_interface="in" units="nM"/>
         <variable name="NFATN_n" private_interface="out" public_interface="in" units="nM"/>
         <variable name="NFATp_c" private_interface="out" public_interface="in" units="nM"/>
@@ -895,6 +929,9 @@
         <variable name="JERKPP_GMCSF_rel" private_interface="out" public_interface="out" units="flux"/>
         <variable name="JERKPP_n_IFN" private_interface="out" public_interface="out" units="flux"/>
         <variable name="JERKPP_n_GMCSF" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_hEpd12" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_hEactivation" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J9" private_interface="out" public_interface="out" units="flux"/>
         <!-- cytokines-->
         <variable name="IFN_c" private_interface="out" public_interface="in" units="nM"/>
         <variable name="TNF_c" private_interface="out" public_interface="in" units="nM"/>
@@ -926,6 +963,13 @@
         <map_variables variable_1="hG_activating_dl4_k_r10" variable_2="hG_activating_dl4_k_r10"/>
         <map_variables variable_1="hgdl4_FC_k_f21" variable_2="hgdl4_FC_k_f21"/>
         <map_variables variable_1="hgdl4_FC_k_r21" variable_2="hgdl4_FC_k_r21"/>
+        <map_variables variable_1="hE_activating_cd94_k_f8" variable_2="hE_activating_cd94_k_f8"/>
+        <map_variables variable_1="hE_activating_cd94_k_r8" variable_2="hE_activating_cd94_k_r8"/>
+        <map_variables variable_1="hE_activating_cd94_k_f9" variable_2="hE_activating_cd94_k_f9"/>
+        <map_variables variable_1="hE_activating_cd94_k_r9" variable_2="hE_activating_cd94_k_r9"/>
+        <map_variables variable_1="hE_activating_cd94_k_f10" variable_2="hE_activating_cd94_k_f10"/>
+        <map_variables variable_1="hE_activating_cd94_k_r10" variable_2="hE_activating_cd94_k_r10"/>
+        <map_variables variable_1="hE_activating_cd94_k_f11" variable_2="hE_activating_cd94_k_f11"/>
     </connection>
     <connection>
         <map_components component_1="fixed_parameters" component_2="geometry"/>
@@ -1079,6 +1123,13 @@ Dupont 1997-->
     </connection>
     <connection>
         <map_components component_1="variables" component_2="geometry"/>
+        <!-- receptors activation-->
+        <map_variables variable_1="nkg2c" variable_2="nkg2c"/>
+        <map_variables variable_1="d12" variable_2="d12"/>
+        <map_variables variable_1="hE" variable_2="hE"/>
+        <map_variables variable_1="hEpd12" variable_2="hEpd12"/>
+        <map_variables variable_1="hEd12plck" variable_2="hEd12plck"/>
+        <map_variables variable_1="hEpd12cd45" variable_2="hEpd12cd45"/>
         <map_variables variable_1="NFATN_c" variable_2="NFATN_c"/>
         <map_variables variable_1="NFATN_n" variable_2="NFATN_n"/>
         <map_variables variable_1="NFATp_c" variable_2="NFATp_c"/>
@@ -1827,6 +1878,27 @@ Dupont 1997-->
         <map_variables variable_1="GMCSF_c" variable_2="GMCSF_c"/>
         <map_variables variable_1="NFAT_GSMCSF_c" variable_2="NFAT_GSMCSF_c"/>
         <map_variables variable_1="ERKPP_GMCSF_c" variable_2="ERKPP_GMCSF_c"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="hE_activating_cd94"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="nkg2c" variable_2="nkg2c"/>
+        <map_variables variable_1="plck" variable_2="plck"/>
+        <map_variables variable_1="d12" variable_2="d12"/>
+        <map_variables variable_1="hE" variable_2="hE"/>
+        <map_variables variable_1="hE_activating_cd94_k_f8" variable_2="k_f8"/>
+        <map_variables variable_1="hE_activating_cd94_k_r8" variable_2="k_r8"/>
+        <map_variables variable_1="hE_activating_cd94_k_f9" variable_2="k_f9"/>
+        <map_variables variable_1="hE_activating_cd94_k_r9" variable_2="k_r9"/>
+        <map_variables variable_1="hE_activating_cd94_k_f10" variable_2="k_f10"/>
+        <map_variables variable_1="hE_activating_cd94_k_r10" variable_2="k_r10"/>
+        <map_variables variable_1="hE_activating_cd94_k_f11" variable_2="k_f11"/>
+        <map_variables variable_1="J_hEpd12" variable_2="J_hEpd12"/>
+        <map_variables variable_1="J_hEactivation" variable_2="J_hEactivation"/>
+        <map_variables variable_1="J9" variable_2="J9"/>
+        <map_variables variable_1="hEpd12" variable_2="hEpd12"/>
+        <map_variables variable_1="hEd12plck" variable_2="hEd12plck"/>
+        <map_variables variable_1="hEpd12cd45" variable_2="hEpd12cd45"/>
     </connection>
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">
