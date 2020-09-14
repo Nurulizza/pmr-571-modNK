@@ -1,0 +1,299 @@
+<?xml version='1.0'?>
+<model name="hC_activating_kir2dl" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <!--
+        *******************************************************
+        ***         U   N   I   T   S                       ***
+        *******************************************************
+        -->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="per_nM">
+        <unit exponent="-1" units="nM"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--
+     *********************************************************
+     ***       C   O   M   P   O   N   E   N   T   S       ***
+     *********************************************************
+     -->
+    <component name="environment">
+        <variable name="time" public_interface="out" units="s"/>
+    </component>
+    <component name="kir2dl">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="J1" units="flux"/>
+        <variable name="J2" units="flux"/>
+        <variable name="J3" units="flux"/>
+        <variable name="J4" units="flux"/>
+        <variable name="J5" units="flux"/>
+        <variable name="J6" public_interface="out" units="flux"/>
+        <variable name="J7" units="flux"/>
+        <variable name="J_hCinhibition" public_interface="out" units="flux"/>
+        <variable initial_value="2.1e14" name="k_f1" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="1.9e11" name="k_r1" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0472605" name="k_f2" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="5.935" name="k_r2" public_interface="out" units="nM"/>
+        <variable initial_value="0.00023" name="k_f3" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0000304" name="k_f4" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.04682" name="k_r4" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="1.33" name="k_f5" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="110" name="k_f6" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0006" name="k_r6" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0340776" name="k_f7" public_interface="out" units="flux"/>
+        <variable name="hC" public_interface="in" units="nM"/>
+        <!--        var kir2dl: nM {pub: in};-->
+        <!--        //1-->
+        <!--        var shp: nM {pub: in};
+        var plck: nM {pub: in};
+        var cd45: nM {pub: in};-->
+        <variable initial_value="110" name="kir2dl" public_interface="out" units="nM"/>
+        <variable initial_value="110" name="shp" public_interface="out" units="nM"/>
+        <variable initial_value="110" name="plck" public_interface="out" units="nM"/>
+        <variable initial_value="110" name="cd45" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="hCkir2dl" units="nM"/>
+        <variable initial_value="0" name="hCpkir2dl" units="nM"/>
+        <variable initial_value="0" name="hCkir2dlplck" units="nM"/>
+        <variable initial_value="0" name="hCpkir2dlcd45" units="nM"/>
+        <variable initial_value="0" name="pshp_kir2dl" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="hCpkir2dlshp" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J1</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f1</ci>
+                        <ci>hC</ci>
+                        <ci>kir2dl</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r1</ci>
+                        <ci>hCkir2dl</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J2</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f2</ci>
+                        <ci>hCkir2dl</ci>
+                        <ci>plck</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r2</ci>
+                        <ci>hCkir2dlplck</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J3</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f3</ci>
+                    <ci>hCkir2dlplck</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J4</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f4</ci>
+                        <ci>hCpkir2dl</ci>
+                        <ci>cd45</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r4</ci>
+                        <ci>hCpkir2dlcd45</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J5</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f5</ci>
+                    <ci>hCpkir2dlcd45</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J6</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f6</ci>
+                        <ci>hCpkir2dl</ci>
+                        <ci>shp</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r6</ci>
+                        <ci>hCpkir2dlshp</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J7</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f7</ci>
+                    <ci>hCpkir2dlshp</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J_hCinhibition</ci>
+                <apply>
+                    <minus/>
+                    <ci>J1</ci>
+                </apply>
+            </apply>
+            <!--de(hC, time) = -J1;-->
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>kir2dl</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hCkir2dl</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <ci>J1</ci>
+                        <ci>J2</ci>
+                    </apply>
+                    <ci>J5</ci>
+                    <ci>J7</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hCkir2dlplck</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J2</ci>
+                    <ci>J3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hCpkir2dl</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci>J3</ci>
+                        <ci>J4</ci>
+                    </apply>
+                    <ci>J6</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hCpkir2dlcd45</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J4</ci>
+                    <ci>J5</ci>
+                </apply>
+            </apply>
+            <!--        ode(shp, time) = -J6;-->
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hCpkir2dlshp</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J6</ci>
+                    <ci>J7</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>pshp_kir2dl</ci>
+                </apply>
+                <ci>J7</ci>
+            </apply>
+        </math>
+    </component>
+    <connection>
+        <map_components component_1="kir2dl" component_2="environment"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+</model>

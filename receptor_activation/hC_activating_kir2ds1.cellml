@@ -1,0 +1,214 @@
+<?xml version='1.0'?>
+<model name="hC_activating_kir2ds1" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <!--
+        *******************************************************
+        ***         U   N   I   T   S                       ***
+        *******************************************************
+        -->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--
+*********************************************************
+***       C   O   M   P   O   N   E   N   T   S       ***
+*********************************************************
+-->
+    <component name="hC_activating_kir2ds1">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="J1" units="flux"/>
+        <variable name="J2" units="flux"/>
+        <variable name="J3" units="flux"/>
+        <variable name="J4" units="flux"/>
+        <variable name="J_hCactivation" public_interface="in" units="flux"/>
+        <variable name="J_hCpd12" public_interface="in" units="flux"/>
+        <variable name="k_f1" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r1" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f2" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r2" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f3" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r3" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f4" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hC" public_interface="in" units="nM"/>
+        <variable name="kir2ds1" public_interface="in" units="nM"/>
+        <variable name="d12" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="hCds1" units="nM"/>
+        <variable initial_value="0" name="hCd12" units="nM"/>
+        <variable name="hCpd12" public_interface="in" units="nM"/>
+        <variable name="plck" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="hCd12plck" units="nM"/>
+        <variable name="hCpd12cd45" public_interface="in" units="nM"/>
+        <variable name="J9" public_interface="in" units="flux"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J1</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f1</ci>
+                        <ci>hC</ci>
+                        <ci>kir2ds1</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r1</ci>
+                        <ci>hCds1</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J2</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f2</ci>
+                        <ci>hCds1</ci>
+                        <ci>d12</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r2</ci>
+                        <ci>hCd12</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J3</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f3</ci>
+                        <ci>plck</ci>
+                        <ci>hCd12</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r3</ci>
+                        <ci>hCd12plck</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J4</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f4</ci>
+                    <ci>hCd12plck</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J_hCpd12</ci>
+                <ci>J4</ci>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J_hCactivation</ci>
+                <apply>
+                    <minus/>
+                    <ci>J1</ci>
+                </apply>
+            </apply>
+            <!--ode(hC, time) = -J1;-->
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>kir2ds1</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hCds1</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J1</ci>
+                    <ci>J2</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>d12</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci>J2</ci>
+                    </apply>
+                    <ci>J9</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hCd12</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J2</ci>
+                    <ci>J3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hCd12plck</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J3</ci>
+                    <ci>J4</ci>
+                </apply>
+            </apply>
+        </math>
+        <!--ode(hCpd12, time) = J4;-->
+    </component>
+</model>
