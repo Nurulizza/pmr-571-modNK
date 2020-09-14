@@ -44,32 +44,27 @@
         <variable name="J6" public_interface="out" units="flux"/>
         <variable name="J7" units="flux"/>
         <variable name="J_hCinhibition" public_interface="out" units="flux"/>
-        <variable initial_value="2.1e14" name="k_f1" public_interface="out" units="second_order_rate_constant"/>
-        <variable initial_value="1.9e11" name="k_r1" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="0.0472605" name="k_f2" public_interface="out" units="second_order_rate_constant"/>
-        <variable initial_value="5.935" name="k_r2" public_interface="out" units="nM"/>
-        <variable initial_value="0.00023" name="k_f3" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="0.0000304" name="k_f4" public_interface="out" units="second_order_rate_constant"/>
-        <variable initial_value="0.04682" name="k_r4" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="1.33" name="k_f5" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="110" name="k_f6" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="0.0006" name="k_r6" public_interface="out" units="second_order_rate_constant"/>
-        <variable initial_value="0.0340776" name="k_f7" public_interface="out" units="flux"/>
+        <variable name="k_f1" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r1" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f2" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r2" public_interface="in" units="nM"/>
+        <variable name="k_f3" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f4" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r4" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f5" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f6" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_r6" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_f7" public_interface="in" units="flux"/>
         <variable name="hC" public_interface="in" units="nM"/>
-        <!--        var kir2dl: nM {pub: in};-->
-        <!--        //1-->
-        <!--        var shp: nM {pub: in};
-        var plck: nM {pub: in};
-        var cd45: nM {pub: in};-->
-        <variable initial_value="110" name="kir2dl" public_interface="out" units="nM"/>
-        <variable initial_value="110" name="shp" public_interface="out" units="nM"/>
-        <variable initial_value="110" name="plck" public_interface="out" units="nM"/>
-        <variable initial_value="110" name="cd45" public_interface="out" units="nM"/>
+        <variable name="kir2dl" public_interface="in" units="nM"/>
+        <variable name="shp" public_interface="in" units="nM"/>
+        <variable name="plck" public_interface="in" units="nM"/>
+        <variable name="cd45" public_interface="in" units="nM"/>
         <variable initial_value="0" name="hCkir2dl" units="nM"/>
         <variable initial_value="0" name="hCpkir2dl" units="nM"/>
         <variable initial_value="0" name="hCkir2dlplck" units="nM"/>
         <variable initial_value="0" name="hCpkir2dlcd45" units="nM"/>
-        <variable initial_value="0" name="pshp_kir2dl" public_interface="out" units="nM"/>
+        <variable name="pshp_kir2dl" public_interface="in" units="nM"/>
         <variable initial_value="0" name="hCpkir2dlshp" units="nM"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>

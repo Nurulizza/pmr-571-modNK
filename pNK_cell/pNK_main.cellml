@@ -199,6 +199,17 @@
         <variable initial_value="0.00000195" name="hC_activating_kir2ds1_k_f3" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="11.6167" name="hC_activating_kir2ds1_k_r3" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.002" name="hC_activating_kir2ds1_k_f4" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="2.1e14" name="hC_activating_kir2dl_k_f1" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="1.9e11" name="hC_activating_kir2dl_k_r1" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0472605" name="hC_activating_kir2dl_k_f2" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="5.935" name="hC_activating_kir2dl_k_r2" public_interface="out" units="nM"/>
+        <variable initial_value="0.00023" name="hC_activating_kir2dl_k_f3" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0000304" name="hC_activating_kir2dl_k_f4" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.04682" name="hC_activating_kir2dl_k_r4" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="1.33" name="hC_activating_kir2dl_k_f5" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="110" name="hC_activating_kir2dl_k_f6" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0006" name="hC_activating_kir2dl_k_r6" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0340776" name="hC_activating_kir2dl_k_f7" public_interface="out" units="flux"/>
     </component>
     <component name="fixed_parameters">
         <variable initial_value="7.68934e-6" name="NFATcyc_k_f1" public_interface="out" units="second_order_rate_constant"/>
@@ -353,7 +364,7 @@
         <variable initial_value="0.123663" name="ITG_k_r1" public_interface="out" units="first_order_rate_constant"/>
     </component>
     <component name="variables">
-        <!-- receptors activation-->
+        <!-- activation receptors -->
         <variable initial_value="8" name="nkg2c" public_interface="out" units="nM"/>
         <variable initial_value="600" name="d12" public_interface="out" units="nM"/>
         <variable initial_value="516" name="hE" public_interface="out" units="nM"/>
@@ -365,6 +376,12 @@
         <variable initial_value="2006.15" name="hC_plck" public_interface="out" units="nM"/>
         <variable initial_value="0" name="hCpd12" public_interface="out" units="nM"/>
         <variable initial_value="0" name="hCpd12cd45" public_interface="out" units="nM"/>
+        <!-- inhibition receptors-->
+        <variable initial_value="1000" name="kir2dl" public_interface="out" units="nM"/>
+        <variable initial_value="1000000" name="inhibition_shp" public_interface="out" units="nM"/>
+        <variable initial_value="1000" name="inhibition_plck" public_interface="out" units="nM"/>
+        <variable initial_value="1000" name="cd45" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pshp_kir2dl" public_interface="out" units="nM"/>
         <!-- cytokine-->
         <variable initial_value="6.92406045126492e-7" name="NFATN_c" public_interface="out" units="nM"/>
         <variable initial_value="2.4831951301443e-8" name="NFATN_n" public_interface="out" units="nM"/>
@@ -653,6 +670,17 @@
         <variable name="hC_activating_kir2ds1_k_f3" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
         <variable name="hC_activating_kir2ds1_k_r3" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hC_activating_kir2ds1_k_f4" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hC_activating_kir2dl_k_f1" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hC_activating_kir2dl_k_r1" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hC_activating_kir2dl_k_f2" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hC_activating_kir2dl_k_r2" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hC_activating_kir2dl_k_f3" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hC_activating_kir2dl_k_f4" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hC_activating_kir2dl_k_r4" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hC_activating_kir2dl_k_f5" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hC_activating_kir2dl_k_f6" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hC_activating_kir2dl_k_r6" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hC_activating_kir2dl_k_f7" private_interface="out" public_interface="in" units="flux"/>
         <!-- ****************
  Fixed parameters
  ****************-->
@@ -741,6 +769,12 @@
         <variable name="hC_plck" private_interface="out" public_interface="in" units="nM"/>
         <variable name="hCpd12" private_interface="out" public_interface="in" units="nM"/>
         <variable name="hCpd12cd45" private_interface="out" public_interface="in" units="nM"/>
+        <!-- inhibition receptors-->
+        <variable name="kir2dl" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="inhibition_shp" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="inhibition_plck" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="cd45" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pshp_kir2dl" private_interface="out" public_interface="in" units="nM"/>
         <!-- cytokines-->
         <variable name="NFATN_c" private_interface="out" public_interface="in" units="nM"/>
         <variable name="NFATN_n" private_interface="out" public_interface="in" units="nM"/>
@@ -1014,6 +1048,17 @@
         <map_variables variable_1="hC_activating_kir2ds1_k_f3" variable_2="hC_activating_kir2ds1_k_f3"/>
         <map_variables variable_1="hC_activating_kir2ds1_k_r3" variable_2="hC_activating_kir2ds1_k_r3"/>
         <map_variables variable_1="hC_activating_kir2ds1_k_f4" variable_2="hC_activating_kir2ds1_k_f4"/>
+        <map_variables variable_1="hC_activating_kir2dl_k_f1" variable_2="hC_activating_kir2dl_k_f1"/>
+        <map_variables variable_1="hC_activating_kir2dl_k_r1" variable_2="hC_activating_kir2dl_k_r1"/>
+        <map_variables variable_1="hC_activating_kir2dl_k_f2" variable_2="hC_activating_kir2dl_k_f2"/>
+        <map_variables variable_1="hC_activating_kir2dl_k_r2" variable_2="hC_activating_kir2dl_k_r2"/>
+        <map_variables variable_1="hC_activating_kir2dl_k_f3" variable_2="hC_activating_kir2dl_k_f3"/>
+        <map_variables variable_1="hC_activating_kir2dl_k_f4" variable_2="hC_activating_kir2dl_k_f4"/>
+        <map_variables variable_1="hC_activating_kir2dl_k_r4" variable_2="hC_activating_kir2dl_k_r4"/>
+        <map_variables variable_1="hC_activating_kir2dl_k_f5" variable_2="hC_activating_kir2dl_k_f5"/>
+        <map_variables variable_1="hC_activating_kir2dl_k_f6" variable_2="hC_activating_kir2dl_k_f6"/>
+        <map_variables variable_1="hC_activating_kir2dl_k_r6" variable_2="hC_activating_kir2dl_k_r6"/>
+        <map_variables variable_1="hC_activating_kir2dl_k_f7" variable_2="hC_activating_kir2dl_k_f7"/>
     </connection>
     <connection>
         <map_components component_1="fixed_parameters" component_2="geometry"/>
@@ -1167,7 +1212,7 @@ Dupont 1997-->
     </connection>
     <connection>
         <map_components component_1="variables" component_2="geometry"/>
-        <!-- receptors activation-->
+        <!-- activation receptors-->
         <map_variables variable_1="nkg2c" variable_2="nkg2c"/>
         <map_variables variable_1="d12" variable_2="d12"/>
         <map_variables variable_1="hE" variable_2="hE"/>
@@ -1180,6 +1225,12 @@ Dupont 1997-->
         <map_variables variable_1="hC_plck" variable_2="hC_plck"/>
         <map_variables variable_1="hCpd12" variable_2="hCpd12"/>
         <map_variables variable_1="hCpd12cd45" variable_2="hCpd12cd45"/>
+        <!-- inhibition receptors-->
+        <map_variables variable_1="kir2dl" variable_2="kir2dl"/>
+        <map_variables variable_1="inhibition_shp" variable_2="inhibition_shp"/>
+        <map_variables variable_1="inhibition_plck" variable_2="inhibition_plck"/>
+        <map_variables variable_1="cd45" variable_2="cd45"/>
+        <map_variables variable_1="pshp_kir2dl" variable_2="pshp_kir2dl"/>
         <!-- NFAT-->
         <map_variables variable_1="NFATN_c" variable_2="NFATN_c"/>
         <map_variables variable_1="NFATN_n" variable_2="NFATN_n"/>
@@ -1975,6 +2026,22 @@ Dupont 1997-->
         <map_components component_1="geometry" component_2="kir2dl"/>
         <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="hC" variable_2="hC"/>
+        <map_variables variable_1="kir2dl" variable_2="kir2dl"/>
+        <map_variables variable_1="inhibition_shp" variable_2="shp"/>
+        <map_variables variable_1="inhibition_plck" variable_2="plck"/>
+        <map_variables variable_1="cd45" variable_2="cd45"/>
+        <map_variables variable_1="pshp_kir2dl" variable_2="pshp_kir2dl"/>
+        <map_variables variable_1="hC_activating_kir2dl_k_f1" variable_2="k_f1"/>
+        <map_variables variable_1="hC_activating_kir2dl_k_r1" variable_2="k_r1"/>
+        <map_variables variable_1="hC_activating_kir2dl_k_f2" variable_2="k_f2"/>
+        <map_variables variable_1="hC_activating_kir2dl_k_r2" variable_2="k_r2"/>
+        <map_variables variable_1="hC_activating_kir2dl_k_f3" variable_2="k_f3"/>
+        <map_variables variable_1="hC_activating_kir2dl_k_f4" variable_2="k_f4"/>
+        <map_variables variable_1="hC_activating_kir2dl_k_r4" variable_2="k_r4"/>
+        <map_variables variable_1="hC_activating_kir2dl_k_f5" variable_2="k_f5"/>
+        <map_variables variable_1="hC_activating_kir2dl_k_f6" variable_2="k_f6"/>
+        <map_variables variable_1="hC_activating_kir2dl_k_r6" variable_2="k_r6"/>
+        <map_variables variable_1="hC_activating_kir2dl_k_f7" variable_2="k_f7"/>
     </connection>
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">
