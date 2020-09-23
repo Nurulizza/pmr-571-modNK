@@ -48,7 +48,8 @@
     </component>
     <component name="icam_activating_itg">
         <variable name="time" public_interface="in" units="second"/>
-        <variable name="J1" public_interface="out" units="flux"/>
+        <variable name="J1" units="flux"/>
+        <variable name="J11" public_interface="in" units="flux"/>
         <variable name="k_f1" public_interface="in" units="second_order_rate_constant"/>
         <variable name="k_r1" public_interface="in" units="first_order_rate_constant"/>
         <variable name="icamitg" public_interface="in" units="nM"/>
@@ -110,7 +111,11 @@
                     </bvar>
                     <ci>icamitg</ci>
                 </apply>
-                <ci>J1</ci>
+                <apply>
+                    <minus/>
+                    <ci>J1</ci>
+                    <ci>J11</ci>
+                </apply>
             </apply>
         </math>
     </component>

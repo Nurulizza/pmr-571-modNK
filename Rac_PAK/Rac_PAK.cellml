@@ -29,10 +29,10 @@
     </component>
     <component name="RacPAK">
         <variable name="time" public_interface="in" units="second"/>
-        <variable name="J31" public_interface="out" units="flux"/>
-        <variable name="J32" public_interface="out" units="flux"/>
-        <variable name="J33" units="flux"/>
-        <variable name="J34" units="flux"/>
+        <variable name="RacPAK_J31" public_interface="out" units="flux"/>
+        <variable name="RacPAK_J32" public_interface="out" units="flux"/>
+        <variable name="RacPAK_J33" units="flux"/>
+        <variable name="RacPAK_J34" units="flux"/>
         <variable initial_value="41.7342" name="k_f31" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="17266.9" name="K_31" public_interface="out" units="nM"/>
         <variable initial_value="0.283667" name="k_f32" public_interface="out" units="first_order_rate_constant"/>
@@ -45,11 +45,11 @@
         <variable initial_value="1" name="GAP" units="nM"/>
         <variable initial_value="0" name="RacGTP" public_interface="out" units="nM"/>
         <variable name="pvav" public_interface="in" units="nM"/>
-        <variable initial_value="0" name="PAKa" public_interface="out" units="nM"/>
+        <variable name="PAKa" public_interface="in" units="nM"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
                 <eq/>
-                <ci>J31</ci>
+                <ci>RacPAK_J31</ci>
                 <apply>
                     <divide/>
                     <apply>
@@ -67,7 +67,7 @@
             </apply>
             <apply>
                 <eq/>
-                <ci>J32</ci>
+                <ci>RacPAK_J32</ci>
                 <apply>
                     <divide/>
                     <apply>
@@ -85,7 +85,7 @@
             </apply>
             <apply>
                 <eq/>
-                <ci>J33</ci>
+                <ci>RacPAK_J33</ci>
                 <apply>
                     <divide/>
                     <apply>
@@ -103,7 +103,7 @@
             </apply>
             <apply>
                 <eq/>
-                <ci>J34</ci>
+                <ci>RacPAK_J34</ci>
                 <apply>
                     <times/>
                     <ci>k_f34</ci>
@@ -121,8 +121,8 @@
                 </apply>
                 <apply>
                     <minus/>
-                    <ci>J31</ci>
-                    <ci>J32</ci>
+                    <ci>RacPAK_J31</ci>
+                    <ci>RacPAK_J32</ci>
                 </apply>
             </apply>
             <apply>
@@ -136,7 +136,7 @@
                 </apply>
                 <apply>
                     <minus/>
-                    <ci>J32</ci>
+                    <ci>RacPAK_J32</ci>
                 </apply>
             </apply>
             <apply>
@@ -150,7 +150,7 @@
                 </apply>
                 <apply>
                     <minus/>
-                    <ci>J33</ci>
+                    <ci>RacPAK_J33</ci>
                 </apply>
             </apply>
             <apply>
@@ -164,8 +164,8 @@
                 </apply>
                 <apply>
                     <minus/>
-                    <ci>J33</ci>
-                    <ci>J34</ci>
+                    <ci>RacPAK_J33</ci>
+                    <ci>RacPAK_J34</ci>
                 </apply>
             </apply>
         </math>

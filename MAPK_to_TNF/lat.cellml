@@ -41,10 +41,10 @@
         <variable name="pzap70" public_interface="in" units="nM"/>
         <variable name="lat" public_interface="in" units="nM"/>
         <variable initial_value="0" name="pzap70lat" units="nM"/>
-        <variable initial_value="0" name="plat" units="nM"/>
+        <variable name="plat" public_interface="in" units="nM"/>
         <variable name="gs" public_interface="in" units="nM"/>
         <variable initial_value="0" name="platgs" units="nM"/>
-        <variable name="J_plat" public_interface="out" units="flux"/>
+        <variable name="J_plat" public_interface="in" units="flux"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
                 <eq/>

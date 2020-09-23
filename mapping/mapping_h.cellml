@@ -1,0 +1,109 @@
+<?xml version='1.0'?>
+<model name="mapping_h" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <!--
+        *******************************************************
+        ***         U   N   I   T   S                       ***
+        *******************************************************
+        -->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--********************
+***   pi3k_vav   ***
+********************-->
+    <component name="environment">
+        <variable name="time" public_interface="out" units="second"/>
+    </component>
+    <component name="pi3k_vav">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="PI3K_J3" public_interface="in" units="flux"/>
+        <variable name="J61" public_interface="out" units="flux"/>
+        <variable name="J62" public_interface="out" units="flux"/>
+        <variable initial_value="0.0423945" name="k_f61" units="second_order_rate_constant"/>
+        <variable initial_value="5.55059" name="k_r61" units="first_order_rate_constant"/>
+        <variable initial_value="0.9742" name="k_f62" units="first_order_rate_constant"/>
+        <variable initial_value="0" name="PI3Kstarvav" units="nM"/>
+        <variable name="PI3Kstar" public_interface="in" units="nM"/>
+        <variable name="vav" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="PI3Kstar" units="nM"/>
+        <variable initial_value="0" name="vav" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J61</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f61</ci>
+                        <ci>PI3Kstar</ci>
+                        <ci>vav</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r61</ci>
+                        <ci>PI3Kstarvav</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J62</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f62</ci>
+                    <ci>PI3Kstarvav</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>PI3Kstarvav</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J61</ci>
+                    <ci>J62</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>PI3Kstar</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>PI3K_J3</ci>
+                    <ci>J61</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <connection>
+        <map_components component_1="environment" component_2="pi3k_vav"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+</model>

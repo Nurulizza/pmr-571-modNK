@@ -1,0 +1,93 @@
+<?xml version='1.0'?>
+<model name="mapping_b" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <!--
+        *******************************************************
+        ***         U   N   I   T   S                       ***
+        *******************************************************
+        -->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--*********************
+***   icam_mapk   ***
+*********************-->
+    <component name="environment">
+        <variable name="time" public_interface="out" units="second"/>
+    </component>
+    <component name="icam_mapk">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="J11" public_interface="in" units="flux"/>
+        <variable name="J12" public_interface="in" units="flux"/>
+        <variable initial_value="0.0076167" name="k_f11" units="second_order_rate_constant"/>
+        <variable initial_value="0.0007" name="k_r11" units="first_order_rate_constant"/>
+        <variable initial_value="0.0007" name="k_f12" units="first_order_rate_constant"/>
+        <variable name="icamitg" public_interface="in" units="nM"/>
+        <variable name="zap70" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="icamitgzap70" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J11</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f11</ci>
+                        <ci>icamitg</ci>
+                        <ci>zap70</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r11</ci>
+                        <ci>icamitgzap70</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J12</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f12</ci>
+                    <ci>icamitgzap70</ci>
+                </apply>
+            </apply>
+            <!--ode(icamitg, time) = J1-J11;-->
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>icamitgzap70</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J11</ci>
+                    <ci>J12</ci>
+                </apply>
+            </apply>
+        </math>
+        <!--ode(pzap70, t) = J12;-->
+    </component>
+    <connection>
+        <map_components component_1="environment" component_2="icam_mapk"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+</model>

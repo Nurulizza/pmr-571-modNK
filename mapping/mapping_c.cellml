@@ -1,0 +1,359 @@
+<?xml version='1.0'?>
+<model name="mapping_c" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <!--
+        *******************************************************
+        ***         U   N   I   T   S                       ***
+        *******************************************************
+        -->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--********************
+***   mapk_vav   ***
+********************-->
+    <component name="environment">
+        <variable name="time" public_interface="out" units="second"/>
+    </component>
+    <component name="mapk_vav">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="J21" units="flux"/>
+        <variable name="J22" units="flux"/>
+        <variable name="J23" units="flux"/>
+        <variable name="J24" units="flux"/>
+        <variable name="J25" public_interface="out" units="flux"/>
+        <variable name="J26" units="flux"/>
+        <variable initial_value="0" name="J27" units="flux"/>
+        <variable name="J_vav" public_interface="in" units="flux"/>
+        <variable name="J_plc" public_interface="in" units="flux"/>
+        <variable name="J_pplc" public_interface="in" units="flux"/>
+        <variable name="J_plat" public_interface="in" units="flux"/>
+        <variable name="J_pvav" public_interface="in" units="flux"/>
+        <variable initial_value="0.0423945" name="k_f21" units="second_order_rate_constant"/>
+        <variable initial_value="5.55059" name="k_r21" units="first_order_rate_constant"/>
+        <variable initial_value="0.9742" name="k_f22" units="first_order_rate_constant"/>
+        <variable initial_value="0.0423945" name="k_f23" units="second_order_rate_constant"/>
+        <variable initial_value="5.55059" name="k_r23" units="first_order_rate_constant"/>
+        <variable initial_value="0.9742" name="k_f24" units="first_order_rate_constant"/>
+        <variable initial_value="0.0423945" name="k_f25" units="second_order_rate_constant"/>
+        <variable initial_value="5.55059" name="k_r25" units="first_order_rate_constant"/>
+        <variable initial_value="0.9742" name="k_f26" units="first_order_rate_constant"/>
+        <variable name="pplc" public_interface="in" units="nM"/>
+        <variable name="vav" public_interface="in" units="nM"/>
+        <variable name="lat" public_interface="in" units="nM"/>
+        <variable name="plc" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="pplcvav" units="nM"/>
+        <variable name="plat" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="plat" units="nM"/>
+        <variable initial_value="0" name="platvav" units="nM"/>
+        <variable name="pzap70" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="pzap70vav" units="nM"/>
+        <variable initial_value="0" name="pvav" public_interface="out" units="nM"/>
+        <variable name="RacPAK_J31" public_interface="in" units="flux"/>
+        <variable name="J61" public_interface="in" units="flux"/>
+        <variable name="J62" public_interface="in" units="flux"/>
+        <!--        var J81: flux {pub: in};
+        var J82: flux {pub: in};-->
+        <variable initial_value="0" name="J81" units="flux"/>
+        <variable initial_value="0" name="J82" units="flux"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J21</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f21</ci>
+                        <ci>pplc</ci>
+                        <ci>vav</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r21</ci>
+                        <ci>pplcvav</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J22</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f22</ci>
+                    <ci>pplcvav</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J23</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f23</ci>
+                        <ci>plat</ci>
+                        <ci>vav</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r21</ci>
+                        <ci>platvav</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J24</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f24</ci>
+                    <ci>platvav</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J25</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f25</ci>
+                        <ci>pzap70</ci>
+                        <ci>vav</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r25</ci>
+                        <ci>pzap70vav</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J26</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f26</ci>
+                    <ci>pzap70vav</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>pplc</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci>J_pplc</ci>
+                        <ci>J21</ci>
+                    </apply>
+                    <ci>J81</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>pplcvav</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J21</ci>
+                    <ci>J22</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>plc</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <ci>J_plc</ci>
+                    <ci>J22</ci>
+                    <ci>J82</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>lat</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <ci>J27</ci>
+                    </apply>
+                    <ci>J24</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>plat</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J_plat</ci>
+                    <ci>J23</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>platvav</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J23</ci>
+                    <ci>J24</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>vav</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <minus/>
+                            <apply>
+                                <minus/>
+                                <ci>J_vav</ci>
+                                <ci>J21</ci>
+                            </apply>
+                            <ci>J23</ci>
+                        </apply>
+                        <ci>J25</ci>
+                    </apply>
+                    <ci>J61</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>pvav</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <plus/>
+                            <ci>J_pvav</ci>
+                            <ci>J22</ci>
+                            <ci>J24</ci>
+                            <ci>J26</ci>
+                        </apply>
+                        <ci>RacPAK_J31</ci>
+                    </apply>
+                    <ci>J62</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>pzap70vav</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J25</ci>
+                    <ci>J26</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <!--************************
+***   pvav_Rac_PAK   ***
+************************-->
+    <component name="pvav_RacPAK">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="RacPAK_J31" public_interface="in" units="flux"/>
+        <variable name="RacPAK_J32" public_interface="in" units="flux"/>
+        <variable name="RacGDP" public_interface="in" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>RacGDP</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <ci>RacPAK_J31</ci>
+                    </apply>
+                    <ci>RacPAK_J32</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <connection>
+        <map_components component_1="environment" component_2="pvav_RacPAK"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="environment" component_2="mapk_vav"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+</model>

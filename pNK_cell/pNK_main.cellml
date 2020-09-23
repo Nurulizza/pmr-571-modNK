@@ -118,6 +118,44 @@
     <import xlink:href="../inhibitors_to_shp/hC_activating_kir2dl.cellml">
         <component component_ref="kir2dl" name="kir2dl"/>
     </import>
+    <import xlink:href="../inhibitors_to_shp/hG_activating_kir2dl4.cellml">
+        <component component_ref="hG_activating_kir2dl4" name="hG_activating_kir2dl4"/>
+    </import>
+    <import xlink:href="../inhibitors_to_shp/hG_activating_lilrb.cellml">
+        <component component_ref="hG_activating_lilrb" name="hG_activating_lilrb"/>
+    </import>
+    <import xlink:href="../inhibitors_to_shp/hA_activating_kir3dl1.cellml">
+        <component component_ref="hA_activating_kir3dl1" name="hA_activating_kir3dl1"/>
+    </import>
+    <import xlink:href="../inhibitors_to_shp/hB_activating_kir3dl2.cellml">
+        <component component_ref="hB_activating_kir3dl2" name="hB_activating_kir3dl2"/>
+    </import>
+    <import xlink:href="../inhibitors_to_shp/shp.cellml">
+        <component component_ref="shp" name="shp"/>
+    </import>
+    <import xlink:href="../mapping/mapping_a.cellml">
+        <component component_ref="hC_mapk" name="hC_mapk"/>
+        <component component_ref="hE_mapk" name="hE_mapk"/>
+    </import>
+    <import xlink:href="../mapping/mapping_b.cellml">
+        <component component_ref="icam_mapk" name="icam_mapk"/>
+    </import>
+    <import xlink:href="../mapping/mapping_c.cellml">
+        <component component_ref="mapk_vav" name="mapk_vav"/>
+        <component component_ref="pvav_RacPAK" name="pvav_RacPAK"/>
+    </import>
+    <import xlink:href="../mapping/mapping_d.cellml">
+        <component component_ref="PAK_MEK" name="PAK_MEK"/>
+    </import>
+    <import xlink:href="../mapping/mapping_h.cellml">
+        <component component_ref="pi3k_vav" name="pi3k_vav"/>
+    </import>
+    <import xlink:href="../mapping/mapping_i.cellml">
+        <component component_ref="dephospho_pzap_bySHP" name="dephospho_pzap_bySHP"/>
+    </import>
+    <import xlink:href="../mapping/mapping_i.cellml">
+        <component component_ref="dephospho_pplc_bySHP" name="dephospho_pplc_bySHP"/>
+    </import>
     <!--
         *******************************************************
         ***         U   N   I   T   S                       ***
@@ -210,6 +248,50 @@
         <variable initial_value="110" name="hC_activating_kir2dl_k_f6" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.0006" name="hC_activating_kir2dl_k_r6" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="0.0340776" name="hC_activating_kir2dl_k_f7" public_interface="out" units="flux"/>
+        <variable initial_value="0.00019" name="hG_activating_kir2dl4_k_f11" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="1.1" name="hG_activating_kir2dl4_k_r11" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0472605" name="hG_activating_kir2dl4_k_f12" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="5.935" name="hG_activating_kir2dl4_k_r12" public_interface="out" units="nM"/>
+        <variable initial_value="0.00023" name="hG_activating_kir2dl4_k_f13" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0000304" name="hG_activating_kir2dl4_k_f14" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.04682" name="hG_activating_kir2dl4_k_r14" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="1.33" name="hG_activating_kir2dl4_k_f15" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="110" name="hG_activating_kir2dl4_k_f16" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0006" name="hG_activating_kir2dl4_k_r16" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0340776" name="hG_activating_kir2dl4_k_f17" public_interface="out" units="flux"/>
+        <variable initial_value="0.0000067" name="hG_activating_lilrb_k_f21" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.11" name="hG_activating_lilrb_k_r21" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0472605" name="hG_activating_lilrb_k_f22" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.005935" name="hG_activating_lilrb_k_r22" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.00023" name="hG_activating_lilrb_k_f23" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0000304" name="hG_activating_lilrb_k_f24" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.04682" name="hG_activating_lilrb_k_r24" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="1.33" name="hG_activating_lilrb_k_f25" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.000064" name="hG_activating_lilrb_k_f26" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0067" name="hG_activating_lilrb_k_r26" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0340776" name="hG_activating_lilrb_k_f27" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.00019" name="hA_activating_kir3dl1_k_f31" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="1.1" name="hA_activating_kir3dl1_k_r31" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0472605" name="hA_activating_kir3dl1_k_f32" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="5.935" name="hA_activating_kir3dl1_k_r32" public_interface="out" units="nM"/>
+        <variable initial_value="0.00023" name="hA_activating_kir3dl1_k_f33" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0000304" name="hA_activating_kir3dl1_k_f34" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.04682" name="hA_activating_kir3dl1_k_r34" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="1.33" name="hA_activating_kir3dl1_k_f35" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="110" name="hA_activating_kir3dl1_k_f36" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0006" name="hA_activating_kir3dl1_k_r36" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0340776" name="hA_activating_kir3dl1_k_f37" public_interface="out" units="flux"/>
+        <variable initial_value="0.00019" name="hB_activating_kir3dl2_k_f41" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="1.1" name="hB_activating_kir3dl2_k_r41" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0001" name="hB_activating_kir3dl2_k_f42" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.005935" name="hB_activating_kir3dl2_k_r42" public_interface="out" units="nM"/>
+        <variable initial_value="0.00023" name="hB_activating_kir3dl2_k_f43" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0001" name="hB_activating_kir3dl2_k_f44" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.04682" name="hB_activating_kir3dl2_k_r44" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="1.33" name="hB_activating_kir3dl2_k_f45" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="110" name="hB_activating_kir3dl2_k_f46" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0006" name="hB_activating_kir3dl2_k_r46" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0340776" name="hB_activating_kir3dl2_k_f47" public_interface="out" units="flux"/>
     </component>
     <component name="fixed_parameters">
         <variable initial_value="7.68934e-6" name="NFATcyc_k_f1" public_interface="out" units="second_order_rate_constant"/>
@@ -382,6 +464,16 @@
         <variable initial_value="1000" name="inhibition_plck" public_interface="out" units="nM"/>
         <variable initial_value="1000" name="cd45" public_interface="out" units="nM"/>
         <variable initial_value="0" name="pshp_kir2dl" public_interface="out" units="nM"/>
+        <variable initial_value="17960" name="inhibition_kir2dl4" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pshp_dl4" public_interface="out" units="nM"/>
+        <variable initial_value="17960" name="lilrb" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pshp_lil" public_interface="out" units="nM"/>
+        <variable initial_value="10.52" name="hA" public_interface="out" units="nM"/>
+        <variable initial_value="17960" name="kir3dl1" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pshp_dl1" public_interface="out" units="nM"/>
+        <variable initial_value="10.56" name="hB" public_interface="out" units="nM"/>
+        <variable initial_value="17960" name="kir3dl2" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pshp_dl2" public_interface="out" units="nM"/>
         <!-- cytokine-->
         <variable initial_value="6.92406045126492e-7" name="NFATN_c" public_interface="out" units="nM"/>
         <variable initial_value="2.4831951301443e-8" name="NFATN_n" public_interface="out" units="nM"/>
@@ -425,7 +517,7 @@
         <variable initial_value="902.000000000488" name="FC" public_interface="out" units="nM"/>
         <variable initial_value="-1.8829682277978e-14" name="dl4" public_interface="out" units="nM"/>
         <variable initial_value="-5.35482440522169e-17" name="hGdl4" public_interface="out" units="nM"/>
-        <variable initial_value="7.20000000000002" name="hG" public_interface="out" units="nM"/>
+        <variable initial_value="10.52" name="hG" public_interface="out" units="nM"/>
         <!--MAPK to TNF-->
         <variable initial_value="0" name="MEKPP" public_interface="out" units="nM"/>
         <variable initial_value="0" name="MEKP" public_interface="out" units="nM"/>
@@ -468,6 +560,13 @@
         <variable initial_value="1000" name="plc" public_interface="out" units="nM"/>
         <variable initial_value="1000" name="lat" public_interface="out" units="nM"/>
         <variable initial_value="0" name="ERKPP_TNF_c" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="plat" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pplc" public_interface="out" units="nM"/>
+        <!-- vav-->
+        <variable initial_value="190" name="vav" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pshp_cd94" public_interface="out" units="nM"/>
+        <!-- pZAP70-->
+        <variable initial_value="0" name="pzap70" public_interface="out" units="nM"/>
         <!-- ITG-->
         <variable initial_value="516" name="icam" public_interface="out" units="nM"/>
         <variable initial_value="8" name="itg" public_interface="out" units="nM"/>
@@ -476,6 +575,11 @@
         <variable initial_value="0" name="IFN_c" public_interface="out" units="nM"/>
         <variable initial_value="0" name="TNF_c" public_interface="out" units="nM"/>
         <variable initial_value="0" name="GMCSF_c" public_interface="out" units="nM"/>
+        <!--RacPAK-->
+        <variable initial_value="0" name="PAKa" public_interface="out" units="nM"/>
+        <!-- mapping-->
+        <variable initial_value="2000" name="pLck" public_interface="out" units="nM"/>
+        <variable initial_value="4000" name="RacGDP" public_interface="out" units="nM"/>
     </component>
     <component name="NFATcyc_interface">
         <variable name="nuclearNFATpercent" public_interface="in" units="dimensionless"/>
@@ -624,6 +728,21 @@
             <component_ref component="icam_activating_itg"/>
             <!--inhibitors-->
             <component_ref component="kir2dl"/>
+            <component_ref component="hG_activating_kir2dl4"/>
+            <component_ref component="hG_activating_lilrb"/>
+            <component_ref component="hA_activating_kir3dl1"/>
+            <component_ref component="hB_activating_kir3dl2"/>
+            <component_ref component="shp"/>
+            <!--mapping-->
+            <component_ref component="hC_mapk"/>
+            <component_ref component="hE_mapk"/>
+            <component_ref component="icam_mapk"/>
+            <component_ref component="mapk_vav"/>
+            <component_ref component="pvav_RacPAK"/>
+            <component_ref component="pi3k_vav"/>
+            <component_ref component="PAK_MEK"/>
+            <component_ref component="dephospho_pzap_bySHP"/>
+            <component_ref component="dephospho_pplc_bySHP"/>
         </component_ref>
     </group>
     <component name="geometry">
@@ -681,6 +800,50 @@
         <variable name="hC_activating_kir2dl_k_f6" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hC_activating_kir2dl_k_r6" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
         <variable name="hC_activating_kir2dl_k_f7" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="hG_activating_kir2dl4_k_f11" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hG_activating_kir2dl4_k_r11" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hG_activating_kir2dl4_k_f12" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hG_activating_kir2dl4_k_r12" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hG_activating_kir2dl4_k_f13" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hG_activating_kir2dl4_k_f14" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hG_activating_kir2dl4_k_r14" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hG_activating_kir2dl4_k_f15" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hG_activating_kir2dl4_k_f16" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hG_activating_kir2dl4_k_r16" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hG_activating_kir2dl4_k_f17" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="hG_activating_lilrb_k_f21" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hG_activating_lilrb_k_r21" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hG_activating_lilrb_k_f22" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hG_activating_lilrb_k_r22" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hG_activating_lilrb_k_f23" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hG_activating_lilrb_k_f24" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hG_activating_lilrb_k_r24" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hG_activating_lilrb_k_f25" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hG_activating_lilrb_k_f26" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hG_activating_lilrb_k_r26" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hG_activating_lilrb_k_f27" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hA_activating_kir3dl1_k_f31" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hA_activating_kir3dl1_k_r31" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hA_activating_kir3dl1_k_f32" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hA_activating_kir3dl1_k_r32" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hA_activating_kir3dl1_k_f33" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hA_activating_kir3dl1_k_f34" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hA_activating_kir3dl1_k_r34" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hA_activating_kir3dl1_k_f35" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hA_activating_kir3dl1_k_f36" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hA_activating_kir3dl1_k_r36" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hA_activating_kir3dl1_k_f37" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="hB_activating_kir3dl2_k_f41" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hB_activating_kir3dl2_k_r41" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hB_activating_kir3dl2_k_f42" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hB_activating_kir3dl2_k_r42" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hB_activating_kir3dl2_k_f43" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hB_activating_kir3dl2_k_f44" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hB_activating_kir3dl2_k_r44" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hB_activating_kir3dl2_k_f45" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hB_activating_kir3dl2_k_f46" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="hB_activating_kir3dl2_k_r46" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="hB_activating_kir3dl2_k_f47" private_interface="out" public_interface="in" units="flux"/>
         <!-- ****************
  Fixed parameters
  ****************-->
@@ -775,6 +938,16 @@
         <variable name="inhibition_plck" private_interface="out" public_interface="in" units="nM"/>
         <variable name="cd45" private_interface="out" public_interface="in" units="nM"/>
         <variable name="pshp_kir2dl" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="inhibition_kir2dl4" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pshp_dl4" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="lilrb" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pshp_lil" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hA" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="kir3dl1" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pshp_dl1" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hB" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="kir3dl2" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pshp_dl2" private_interface="out" public_interface="in" units="nM"/>
         <!-- cytokines-->
         <variable name="NFATN_c" private_interface="out" public_interface="in" units="nM"/>
         <variable name="NFATN_n" private_interface="out" public_interface="in" units="nM"/>
@@ -827,8 +1000,11 @@
         <variable initial_value="516" name="hE" private_interface="out" units="nM"/>
         <variable initial_value="17960" name="nkg2a" private_interface="out" units="nM"/>
         <variable initial_value="0" name="pshp" private_interface="out" units="nM"/>
+        <variable name="vav" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pshp_cd94" private_interface="out" public_interface="in" units="nM"/>
         <!--Rac_PAK-->
-        <variable initial_value="4000" name="RacGDP" private_interface="out" units="nM"/>
+        <variable name="RacGDP" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="PAKa" private_interface="out" public_interface="in" units="nM"/>
         <!--MAPK to TNF-->
         <variable name="Akt_kf27" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="Akt_k27" private_interface="out" public_interface="in" units="nM"/>
@@ -972,6 +1148,10 @@
         <variable name="lck" private_interface="out" public_interface="in" units="nM"/>
         <variable name="zap70" private_interface="out" public_interface="in" units="nM"/>
         <variable name="ERKPP_TNF_c" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="plat" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pplc" private_interface="out" public_interface="in" units="nM"/>
+        <!-- pZAP70-->
+        <variable name="pzap70" private_interface="out" public_interface="in" units="nM"/>
         <!-- ITG-->
         <variable name="icam" private_interface="out" public_interface="in" units="nM"/>
         <variable name="itg" private_interface="out" public_interface="in" units="nM"/>
@@ -1003,10 +1183,30 @@
         <variable name="J9" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J_hCactivation" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J_hCpd12" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J3" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J6" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J11" private_interface="out" public_interface="out" units="flux"/>
+        <!--        var J1: flux {pub: out, priv: out};-->
+        <variable name="J12" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_vav" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_pvav" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_plat" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_plc" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_pplc" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J31" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_MEK" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_MEKPP" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J71" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J72" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J81" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J82" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J19" private_interface="out" public_interface="out" units="flux"/>
         <!-- cytokines-->
         <variable name="IFN_c" private_interface="out" public_interface="in" units="nM"/>
         <variable name="TNF_c" private_interface="out" public_interface="in" units="nM"/>
         <variable name="GMCSF_c" private_interface="out" public_interface="in" units="nM"/>
+        <!--mapping-->
+        <variable name="pLck" private_interface="out" public_interface="in" units="nM"/>
     </component>
     <connection>
         <map_components component_1="environment" component_2="geometry"/>
@@ -1059,6 +1259,50 @@
         <map_variables variable_1="hC_activating_kir2dl_k_f6" variable_2="hC_activating_kir2dl_k_f6"/>
         <map_variables variable_1="hC_activating_kir2dl_k_r6" variable_2="hC_activating_kir2dl_k_r6"/>
         <map_variables variable_1="hC_activating_kir2dl_k_f7" variable_2="hC_activating_kir2dl_k_f7"/>
+        <map_variables variable_1="hG_activating_kir2dl4_k_f11" variable_2="hG_activating_kir2dl4_k_f11"/>
+        <map_variables variable_1="hG_activating_kir2dl4_k_r11" variable_2="hG_activating_kir2dl4_k_r11"/>
+        <map_variables variable_1="hG_activating_kir2dl4_k_f12" variable_2="hG_activating_kir2dl4_k_f12"/>
+        <map_variables variable_1="hG_activating_kir2dl4_k_r12" variable_2="hG_activating_kir2dl4_k_r12"/>
+        <map_variables variable_1="hG_activating_kir2dl4_k_f13" variable_2="hG_activating_kir2dl4_k_f13"/>
+        <map_variables variable_1="hG_activating_kir2dl4_k_f14" variable_2="hG_activating_kir2dl4_k_f14"/>
+        <map_variables variable_1="hG_activating_kir2dl4_k_r14" variable_2="hG_activating_kir2dl4_k_r14"/>
+        <map_variables variable_1="hG_activating_kir2dl4_k_f15" variable_2="hG_activating_kir2dl4_k_f15"/>
+        <map_variables variable_1="hG_activating_kir2dl4_k_f16" variable_2="hG_activating_kir2dl4_k_f16"/>
+        <map_variables variable_1="hG_activating_kir2dl4_k_r16" variable_2="hG_activating_kir2dl4_k_r16"/>
+        <map_variables variable_1="hG_activating_kir2dl4_k_f17" variable_2="hG_activating_kir2dl4_k_f17"/>
+        <map_variables variable_1="hG_activating_lilrb_k_f21" variable_2="hG_activating_lilrb_k_f21"/>
+        <map_variables variable_1="hG_activating_lilrb_k_r21" variable_2="hG_activating_lilrb_k_r21"/>
+        <map_variables variable_1="hG_activating_lilrb_k_f22" variable_2="hG_activating_lilrb_k_f22"/>
+        <map_variables variable_1="hG_activating_lilrb_k_r22" variable_2="hG_activating_lilrb_k_r22"/>
+        <map_variables variable_1="hG_activating_lilrb_k_f23" variable_2="hG_activating_lilrb_k_f23"/>
+        <map_variables variable_1="hG_activating_lilrb_k_f24" variable_2="hG_activating_lilrb_k_f24"/>
+        <map_variables variable_1="hG_activating_lilrb_k_r24" variable_2="hG_activating_lilrb_k_r24"/>
+        <map_variables variable_1="hG_activating_lilrb_k_f25" variable_2="hG_activating_lilrb_k_f25"/>
+        <map_variables variable_1="hG_activating_lilrb_k_f26" variable_2="hG_activating_lilrb_k_f26"/>
+        <map_variables variable_1="hG_activating_lilrb_k_r26" variable_2="hG_activating_lilrb_k_r26"/>
+        <map_variables variable_1="hG_activating_lilrb_k_f27" variable_2="hG_activating_lilrb_k_f27"/>
+        <map_variables variable_1="hA_activating_kir3dl1_k_f31" variable_2="hA_activating_kir3dl1_k_f31"/>
+        <map_variables variable_1="hA_activating_kir3dl1_k_r31" variable_2="hA_activating_kir3dl1_k_r31"/>
+        <map_variables variable_1="hA_activating_kir3dl1_k_f32" variable_2="hA_activating_kir3dl1_k_f32"/>
+        <map_variables variable_1="hA_activating_kir3dl1_k_r32" variable_2="hA_activating_kir3dl1_k_r32"/>
+        <map_variables variable_1="hA_activating_kir3dl1_k_f33" variable_2="hA_activating_kir3dl1_k_f33"/>
+        <map_variables variable_1="hA_activating_kir3dl1_k_f34" variable_2="hA_activating_kir3dl1_k_f34"/>
+        <map_variables variable_1="hA_activating_kir3dl1_k_r34" variable_2="hA_activating_kir3dl1_k_r34"/>
+        <map_variables variable_1="hA_activating_kir3dl1_k_f35" variable_2="hA_activating_kir3dl1_k_f35"/>
+        <map_variables variable_1="hA_activating_kir3dl1_k_f36" variable_2="hA_activating_kir3dl1_k_f36"/>
+        <map_variables variable_1="hA_activating_kir3dl1_k_r36" variable_2="hA_activating_kir3dl1_k_r36"/>
+        <map_variables variable_1="hA_activating_kir3dl1_k_f37" variable_2="hA_activating_kir3dl1_k_f37"/>
+        <map_variables variable_1="hB_activating_kir3dl2_k_f41" variable_2="hB_activating_kir3dl2_k_f41"/>
+        <map_variables variable_1="hB_activating_kir3dl2_k_r41" variable_2="hB_activating_kir3dl2_k_r41"/>
+        <map_variables variable_1="hB_activating_kir3dl2_k_f42" variable_2="hB_activating_kir3dl2_k_f42"/>
+        <map_variables variable_1="hB_activating_kir3dl2_k_r42" variable_2="hB_activating_kir3dl2_k_r42"/>
+        <map_variables variable_1="hB_activating_kir3dl2_k_f43" variable_2="hB_activating_kir3dl2_k_f43"/>
+        <map_variables variable_1="hB_activating_kir3dl2_k_f44" variable_2="hB_activating_kir3dl2_k_f44"/>
+        <map_variables variable_1="hB_activating_kir3dl2_k_r44" variable_2="hB_activating_kir3dl2_k_r44"/>
+        <map_variables variable_1="hB_activating_kir3dl2_k_f45" variable_2="hB_activating_kir3dl2_k_f45"/>
+        <map_variables variable_1="hB_activating_kir3dl2_k_f46" variable_2="hB_activating_kir3dl2_k_f46"/>
+        <map_variables variable_1="hB_activating_kir3dl2_k_r46" variable_2="hB_activating_kir3dl2_k_r46"/>
+        <map_variables variable_1="hB_activating_kir3dl2_k_f47" variable_2="hB_activating_kir3dl2_k_f47"/>
     </connection>
     <connection>
         <map_components component_1="fixed_parameters" component_2="geometry"/>
@@ -1231,6 +1475,16 @@ Dupont 1997-->
         <map_variables variable_1="inhibition_plck" variable_2="inhibition_plck"/>
         <map_variables variable_1="cd45" variable_2="cd45"/>
         <map_variables variable_1="pshp_kir2dl" variable_2="pshp_kir2dl"/>
+        <map_variables variable_1="inhibition_kir2dl4" variable_2="inhibition_kir2dl4"/>
+        <map_variables variable_1="pshp_dl4" variable_2="pshp_dl4"/>
+        <map_variables variable_1="lilrb" variable_2="lilrb"/>
+        <map_variables variable_1="pshp_lil" variable_2="pshp_lil"/>
+        <map_variables variable_1="hA" variable_2="hA"/>
+        <map_variables variable_1="kir3dl1" variable_2="kir3dl1"/>
+        <map_variables variable_1="pshp_dl1" variable_2="pshp_dl1"/>
+        <map_variables variable_1="hB" variable_2="hB"/>
+        <map_variables variable_1="kir3dl2" variable_2="kir3dl2"/>
+        <map_variables variable_1="pshp_dl2" variable_2="pshp_dl2"/>
         <!-- NFAT-->
         <map_variables variable_1="NFATN_c" variable_2="NFATN_c"/>
         <map_variables variable_1="NFATN_n" variable_2="NFATN_n"/>
@@ -1318,6 +1572,22 @@ Dupont 1997-->
         <map_variables variable_1="lck" variable_2="lck"/>
         <map_variables variable_1="zap70" variable_2="zap70"/>
         <map_variables variable_1="ERKPP_TNF_c" variable_2="ERKPP_TNF_c"/>
+        <map_variables variable_1="plat" variable_2="plat"/>
+        <map_variables variable_1="pplc" variable_2="pplc"/>
+        <!-- pZAP70-->
+        <map_variables variable_1="pzap70" variable_2="pzap70"/>
+        <!-- vav-->
+        <map_variables variable_1="vav" variable_2="vav"/>
+        <map_variables variable_1="pshp_cd94" variable_2="pshp_cd94"/>
+        <!-- Rac_PAK-->
+        <map_variables variable_1="PAKa" variable_2="PAKa"/>
+        <!-- itg-->
+        <map_variables variable_1="icam" variable_2="icam"/>
+        <map_variables variable_1="itg" variable_2="itg"/>
+        <map_variables variable_1="icamitg" variable_2="icamitg"/>
+        <!--mapping-->
+        <map_variables variable_1="pLck" variable_2="pLck"/>
+        <map_variables variable_1="RacGDP" variable_2="RacGDP"/>
         <!-- cytokine-->
         <!--vars IFN_c and IFN_c;-->
         <!--vars TNF_c and TNF_c;-->
@@ -1614,6 +1884,10 @@ Dupont 1997-->
         <map_variables variable_1="pvav" variable_2="vav_pvav"/>
         <map_variables variable_1="mica" variable_2="mica"/>
         <map_variables variable_1="nkg2d" variable_2="nkg2d"/>
+        <map_variables variable_1="J_vav" variable_2="J_vav"/>
+        <map_variables variable_1="J_pvav" variable_2="J_pvav"/>
+        <map_variables variable_1="vav" variable_2="vav"/>
+        <map_variables variable_1="J19" variable_2="J19"/>
     </connection>
     <connection>
         <map_components component_1="vav_inhibition" component_2="geometry"/>
@@ -1635,12 +1909,15 @@ Dupont 1997-->
         <map_variables variable_1="hE" variable_2="hE"/>
         <map_variables variable_1="nkg2a" variable_2="nkg2a"/>
         <map_variables variable_1="pshp" variable_2="pshp"/>
+        <map_variables variable_1="pshp_cd94" variable_2="pshp_cd94"/>
+        <map_variables variable_1="J19" variable_2="J19"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="RacPAK"/>
         <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="vav_pvav" variable_2="pvav"/>
         <map_variables variable_1="RacGDP" variable_2="RacGDP"/>
+        <map_variables variable_1="PAKa" variable_2="PAKa"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="Akt"/>
@@ -1709,6 +1986,8 @@ Dupont 1997-->
         <map_variables variable_1="Akt_PIP" variable_2="Akt_PIP"/>
         <map_variables variable_1="Akt_PIPP" variable_2="Akt_PIPP"/>
         <map_variables variable_1="RAFstar" variable_2="RAFstar"/>
+        <map_variables variable_1="J_MEK" variable_2="J_MEK"/>
+        <map_variables variable_1="J_MEKPP" variable_2="J_MEKPP"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="PI3K_hatakeyama"/>
@@ -1796,6 +2075,11 @@ Dupont 1997-->
     <connection>
         <map_components component_1="geometry" component_2="pzap70"/>
         <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="J3" variable_2="J3"/>
+        <map_variables variable_1="J6" variable_2="J6"/>
+        <map_variables variable_1="J12" variable_2="J12"/>
+        <map_variables variable_1="pzap70" variable_2="pzap70"/>
+        <map_variables variable_1="J71" variable_2="J71"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="plc"/>
@@ -1807,6 +2091,10 @@ Dupont 1997-->
         <map_variables variable_1="plc_k_r25" variable_2="k_r25"/>
         <map_variables variable_1="plc" variable_2="plc"/>
         <map_variables variable_1="GS" variable_2="gs"/>
+        <map_variables variable_1="J_plc" variable_2="J_plc"/>
+        <map_variables variable_1="J_pplc" variable_2="J_pplc"/>
+        <map_variables variable_1="pplc" variable_2="pplc"/>
+        <map_variables variable_1="pzap70" variable_2="pzap70"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="shc"/>
@@ -1814,6 +2102,7 @@ Dupont 1997-->
         <map_variables variable_1="shc_k_f26" variable_2="k_f26"/>
         <map_variables variable_1="shc_k_r26" variable_2="k_r26"/>
         <map_variables variable_1="Shc" variable_2="shc"/>
+        <map_variables variable_1="pzap70" variable_2="pzap70"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="lat"/>
@@ -1825,12 +2114,16 @@ Dupont 1997-->
         <map_variables variable_1="lat_k_r29" variable_2="k_r29"/>
         <map_variables variable_1="lat" variable_2="lat"/>
         <map_variables variable_1="GS" variable_2="gs"/>
+        <map_variables variable_1="J_plat" variable_2="J_plat"/>
+        <map_variables variable_1="plat" variable_2="plat"/>
+        <map_variables variable_1="pzap70" variable_2="pzap70"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="ERKPPtranslocation"/>
         <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="ERKPP_k_f30" variable_2="k_f30"/>
         <map_variables variable_1="ERKPP" variable_2="ERKPP"/>
+        <map_variables variable_1="J31" variable_2="J31"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="ERKPP_TNF"/>
@@ -1838,6 +2131,7 @@ Dupont 1997-->
         <map_variables variable_1="ERKPP_k_f31" variable_2="k_f31"/>
         <map_variables variable_1="ERKPP_k_f32" variable_2="k_f32"/>
         <map_variables variable_1="ERKPP_TNF_c" variable_2="ERKPP_TNF_c"/>
+        <map_variables variable_1="J31" variable_2="J31"/>
     </connection>
     <connection>
         <map_components component_1="ERK" component_2="ERKPPtranslocation"/>
@@ -1858,30 +2152,22 @@ Dupont 1997-->
         <map_variables variable_1="k_f4" variable_2="Zap70_k_f4"/>
         <map_variables variable_1="k_r4" variable_2="Zap70_k_r4"/>
         <map_variables variable_1="k_f5" variable_2="Zap70_k_f5"/>
-    </connection>
-    <connection>
-        <map_components component_1="zap70" component_2="pzap70"/>
         <map_variables variable_1="pzap70" variable_2="pzap70"/>
-        <map_variables variable_1="J4" variable_2="J4"/>
     </connection>
     <connection>
         <map_components component_1="lat" component_2="pzap70"/>
         <map_variables variable_1="J27" variable_2="J27"/>
-        <map_variables variable_1="pzap70" variable_2="pzap70"/>
     </connection>
     <connection>
         <map_components component_1="plc" component_2="pzap70"/>
         <map_variables variable_1="J23" variable_2="J23"/>
-        <map_variables variable_1="pzap70" variable_2="pzap70"/>
     </connection>
     <connection>
         <map_components component_1="shc" component_2="pzap70"/>
         <map_variables variable_1="J26" variable_2="J26"/>
-        <map_variables variable_1="pzap70" variable_2="pzap70"/>
     </connection>
     <connection>
         <map_components component_1="ERKPPtranslocation" component_2="ERKPP_TNF"/>
-        <map_variables variable_1="J31" variable_2="J31"/>
         <map_variables variable_1="ERKPP_n" variable_2="ERKPP_n"/>
     </connection>
     <connection>
@@ -1910,12 +2196,6 @@ Dupont 1997-->
         <map_variables variable_1="J27" variable_2="J27"/>
     </connection>
     <connection>
-        <map_components component_1="variables" component_2="geometry"/>
-        <map_variables variable_1="icam" variable_2="icam"/>
-        <map_variables variable_1="itg" variable_2="itg"/>
-        <map_variables variable_1="icamitg" variable_2="icamitg"/>
-    </connection>
-    <connection>
         <map_components component_1="fixed_parameters" component_2="geometry"/>
         <map_variables variable_1="ITG_k_f1" variable_2="ITG_k_f1"/>
         <map_variables variable_1="ITG_k_r1" variable_2="ITG_k_r1"/>
@@ -1928,6 +2208,7 @@ Dupont 1997-->
         <map_variables variable_1="itg" variable_2="itg"/>
         <map_variables variable_1="ITG_k_f1" variable_2="k_f1"/>
         <map_variables variable_1="ITG_k_r1" variable_2="k_r1"/>
+        <map_variables variable_1="J11" variable_2="J11"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="ERKPP_to_IFN"/>
@@ -2042,6 +2323,202 @@ Dupont 1997-->
         <map_variables variable_1="hC_activating_kir2dl_k_f6" variable_2="k_f6"/>
         <map_variables variable_1="hC_activating_kir2dl_k_r6" variable_2="k_r6"/>
         <map_variables variable_1="hC_activating_kir2dl_k_f7" variable_2="k_f7"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="hG_activating_kir2dl4"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="hG" variable_2="hG"/>
+        <map_variables variable_1="pshp_dl4" variable_2="pshp_dl4"/>
+        <map_variables variable_1="inhibition_kir2dl4" variable_2="kir2dl4"/>
+        <map_variables variable_1="inhibition_shp" variable_2="shp"/>
+        <map_variables variable_1="inhibition_plck" variable_2="plck"/>
+        <map_variables variable_1="cd45" variable_2="cd45"/>
+        <map_variables variable_1="hG_activating_kir2dl4_k_f11" variable_2="k_f11"/>
+        <map_variables variable_1="hG_activating_kir2dl4_k_r11" variable_2="k_r11"/>
+        <map_variables variable_1="hG_activating_kir2dl4_k_f12" variable_2="k_f12"/>
+        <map_variables variable_1="hG_activating_kir2dl4_k_r12" variable_2="k_r12"/>
+        <map_variables variable_1="hG_activating_kir2dl4_k_f13" variable_2="k_f13"/>
+        <map_variables variable_1="hG_activating_kir2dl4_k_f14" variable_2="k_f14"/>
+        <map_variables variable_1="hG_activating_kir2dl4_k_r14" variable_2="k_r14"/>
+        <map_variables variable_1="hG_activating_kir2dl4_k_f15" variable_2="k_f15"/>
+        <map_variables variable_1="hG_activating_kir2dl4_k_f16" variable_2="k_f16"/>
+        <map_variables variable_1="hG_activating_kir2dl4_k_r16" variable_2="k_r16"/>
+        <map_variables variable_1="hG_activating_kir2dl4_k_f17" variable_2="k_f17"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="hG_activating_lilrb"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="hG" variable_2="hG"/>
+        <map_variables variable_1="lilrb" variable_2="lilrb"/>
+        <map_variables variable_1="pshp_lil" variable_2="pshp_lil"/>
+        <map_variables variable_1="inhibition_shp" variable_2="shp"/>
+        <map_variables variable_1="inhibition_plck" variable_2="plck"/>
+        <map_variables variable_1="cd45" variable_2="cd45"/>
+        <map_variables variable_1="hG_activating_lilrb_k_f21" variable_2="k_f21"/>
+        <map_variables variable_1="hG_activating_lilrb_k_r21" variable_2="k_r21"/>
+        <map_variables variable_1="hG_activating_lilrb_k_f22" variable_2="k_f22"/>
+        <map_variables variable_1="hG_activating_lilrb_k_r22" variable_2="k_r22"/>
+        <map_variables variable_1="hG_activating_lilrb_k_f23" variable_2="k_f23"/>
+        <map_variables variable_1="hG_activating_lilrb_k_f24" variable_2="k_f24"/>
+        <map_variables variable_1="hG_activating_lilrb_k_r24" variable_2="k_r24"/>
+        <map_variables variable_1="hG_activating_lilrb_k_f25" variable_2="k_f25"/>
+        <map_variables variable_1="hG_activating_lilrb_k_f26" variable_2="k_f26"/>
+        <map_variables variable_1="hG_activating_lilrb_k_r26" variable_2="k_r26"/>
+        <map_variables variable_1="hG_activating_lilrb_k_f27" variable_2="k_f27"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="hA_activating_kir3dl1"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="hA" variable_2="hA"/>
+        <map_variables variable_1="kir3dl1" variable_2="kir3dl1"/>
+        <map_variables variable_1="pshp_dl1" variable_2="pshp_dl1"/>
+        <map_variables variable_1="inhibition_shp" variable_2="shp"/>
+        <map_variables variable_1="inhibition_plck" variable_2="plck"/>
+        <map_variables variable_1="cd45" variable_2="cd45"/>
+        <map_variables variable_1="hA_activating_kir3dl1_k_f31" variable_2="k_f31"/>
+        <map_variables variable_1="hA_activating_kir3dl1_k_r31" variable_2="k_r31"/>
+        <map_variables variable_1="hA_activating_kir3dl1_k_f32" variable_2="k_f32"/>
+        <map_variables variable_1="hA_activating_kir3dl1_k_r32" variable_2="k_r32"/>
+        <map_variables variable_1="hA_activating_kir3dl1_k_f33" variable_2="k_f33"/>
+        <map_variables variable_1="hA_activating_kir3dl1_k_f34" variable_2="k_f34"/>
+        <map_variables variable_1="hA_activating_kir3dl1_k_r34" variable_2="k_r34"/>
+        <map_variables variable_1="hA_activating_kir3dl1_k_f35" variable_2="k_f35"/>
+        <map_variables variable_1="hA_activating_kir3dl1_k_f36" variable_2="k_f36"/>
+        <map_variables variable_1="hA_activating_kir3dl1_k_r36" variable_2="k_r36"/>
+        <map_variables variable_1="hA_activating_kir3dl1_k_f37" variable_2="k_f37"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="hB_activating_kir3dl2"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="hB" variable_2="hB"/>
+        <map_variables variable_1="kir3dl2" variable_2="kir3dl2"/>
+        <map_variables variable_1="inhibition_shp" variable_2="shp"/>
+        <map_variables variable_1="inhibition_plck" variable_2="plck"/>
+        <map_variables variable_1="cd45" variable_2="cd45"/>
+        <map_variables variable_1="pshp_dl2" variable_2="pshp_dl2"/>
+        <map_variables variable_1="hB_activating_kir3dl2_k_f41" variable_2="k_f41"/>
+        <map_variables variable_1="hB_activating_kir3dl2_k_r41" variable_2="k_r41"/>
+        <map_variables variable_1="hB_activating_kir3dl2_k_f42" variable_2="k_f42"/>
+        <map_variables variable_1="hB_activating_kir3dl2_k_r42" variable_2="k_r42"/>
+        <map_variables variable_1="hB_activating_kir3dl2_k_f43" variable_2="k_f43"/>
+        <map_variables variable_1="hB_activating_kir3dl2_k_f44" variable_2="k_f44"/>
+        <map_variables variable_1="hB_activating_kir3dl2_k_r44" variable_2="k_r44"/>
+        <map_variables variable_1="hB_activating_kir3dl2_k_f45" variable_2="k_f45"/>
+        <map_variables variable_1="hB_activating_kir3dl2_k_f46" variable_2="k_f46"/>
+        <map_variables variable_1="hB_activating_kir3dl2_k_r46" variable_2="k_r46"/>
+        <map_variables variable_1="hB_activating_kir3dl2_k_f47" variable_2="k_f47"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="hC_mapk"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="J_hCpd12" variable_2="J_hCpd12"/>
+        <map_variables variable_1="zap70" variable_2="zap70"/>
+        <map_variables variable_1="pLck" variable_2="pLck"/>
+        <map_variables variable_1="J3" variable_2="J3"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="hE_mapk"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="J_hEpd12" variable_2="J_hEpd12"/>
+        <map_variables variable_1="zap70" variable_2="zap70"/>
+        <map_variables variable_1="pLck" variable_2="pLck"/>
+        <map_variables variable_1="J6" variable_2="J6"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="icam_mapk"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="J11" variable_2="J11"/>
+        <map_variables variable_1="J12" variable_2="J12"/>
+        <map_variables variable_1="icamitg" variable_2="icamitg"/>
+        <map_variables variable_1="zap70" variable_2="zap70"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="mapk_vav"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="J_vav" variable_2="J_vav"/>
+        <map_variables variable_1="J_pvav" variable_2="J_pvav"/>
+        <map_variables variable_1="plat" variable_2="plat"/>
+        <map_variables variable_1="J_plat" variable_2="J_plat"/>
+        <map_variables variable_1="J_plc" variable_2="J_plc"/>
+        <map_variables variable_1="J_pplc" variable_2="J_pplc"/>
+        <map_variables variable_1="plc" variable_2="plc"/>
+        <map_variables variable_1="pplc" variable_2="pplc"/>
+        <map_variables variable_1="vav" variable_2="vav"/>
+        <map_variables variable_1="lat" variable_2="lat"/>
+        <map_variables variable_1="pzap70" variable_2="pzap70"/>
+    </connection>
+    <connection>
+        <map_components component_1="RacPAK" component_2="mapk_vav"/>
+        <map_variables variable_1="RacPAK_J31" variable_2="RacPAK_J31"/>
+    </connection>
+    <connection>
+        <map_components component_1="pvav_RacPAK" component_2="RacPAK"/>
+        <map_variables variable_1="RacPAK_J31" variable_2="RacPAK_J31"/>
+        <map_variables variable_1="RacPAK_J32" variable_2="RacPAK_J32"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="pvav_RacPAK"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="RacGDP" variable_2="RacGDP"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="pi3k_vav"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="vav" variable_2="vav"/>
+        <map_variables variable_1="PI3Kstar" variable_2="PI3Kstar"/>
+    </connection>
+    <connection>
+        <map_components component_1="pi3k_vav" component_2="mapk_vav"/>
+        <map_variables variable_1="J61" variable_2="J61"/>
+        <map_variables variable_1="J62" variable_2="J62"/>
+    </connection>
+    <connection>
+        <map_components component_1="PI3K" component_2="pi3k_vav"/>
+        <map_variables variable_1="PI3K_J3" variable_2="PI3K_J3"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="PAK_MEK"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="PAKa" variable_2="PAKa"/>
+        <map_variables variable_1="J_MEK" variable_2="J_MEK"/>
+        <map_variables variable_1="J_MEKPP" variable_2="J_MEKPP"/>
+        <map_variables variable_1="PP2A" variable_2="PP2A"/>
+        <map_variables variable_1="MEK" variable_2="MEK"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="shp"/>
+        <map_variables variable_1="pshp_kir2dl" variable_2="pshp_kir2dl"/>
+        <map_variables variable_1="pshp_dl4" variable_2="pshp_dl4"/>
+        <map_variables variable_1="pshp_lil" variable_2="pshp_lil"/>
+        <map_variables variable_1="pshp_dl1" variable_2="pshp_dl1"/>
+        <map_variables variable_1="pshp_dl2" variable_2="pshp_dl2"/>
+        <map_variables variable_1="pshp_cd94" variable_2="pshp_cd94"/>
+        <map_variables variable_1="J71" variable_2="J71"/>
+        <map_variables variable_1="J72" variable_2="J72"/>
+        <map_variables variable_1="J81" variable_2="J81"/>
+        <map_variables variable_1="J82" variable_2="J82"/>
+        <map_variables variable_1="J19" variable_2="J19"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="dephospho_pzap_bySHP"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="zap70" variable_2="zap70"/>
+        <map_variables variable_1="pzap70" variable_2="pzap70"/>
+        <map_variables variable_1="J71" variable_2="J71"/>
+        <map_variables variable_1="J72" variable_2="J72"/>
+    </connection>
+    <connection>
+        <map_components component_1="dephospho_pzap_bySHP" component_2="shp"/>
+        <map_variables variable_1="pshp" variable_2="pshp"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="dephospho_pplc_bySHP"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="pshp" variable_2="pshp"/>
+        <map_variables variable_1="pplc" variable_2="pplc"/>
+        <map_variables variable_1="plc" variable_2="plc"/>
+        <map_variables variable_1="J81" variable_2="J81"/>
+        <map_variables variable_1="J82" variable_2="J82"/>
     </connection>
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">

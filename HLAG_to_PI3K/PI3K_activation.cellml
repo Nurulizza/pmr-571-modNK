@@ -37,7 +37,7 @@
         <variable name="PLCgamma" public_interface="in" units="nM"/>
         <!--fluxes-->
         <variable name="J2" units="flux"/>
-        <variable name="J3" units="flux"/>
+        <variable name="PI3K_J3" public_interface="out" units="flux"/>
         <variable name="J7" public_interface="in" units="flux"/>
         <variable name="J_PLC" public_interface="in" units="flux"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -61,7 +61,7 @@
             </apply>
             <apply>
                 <eq/>
-                <ci>J3</ci>
+                <ci>PI3K_J3</ci>
                 <apply>
                     <times/>
                     <ci>k_f3</ci>
@@ -101,7 +101,7 @@
                         <ci>J7</ci>
                         <ci>J2</ci>
                     </apply>
-                    <ci>J3</ci>
+                    <ci>PI3K_J3</ci>
                 </apply>
             </apply>
             <apply>
@@ -130,20 +130,10 @@
                 <apply>
                     <minus/>
                     <ci>J2</ci>
-                    <ci>J3</ci>
+                    <ci>PI3K_J3</ci>
                 </apply>
             </apply>
-            <apply>
-                <eq/>
-                <apply>
-                    <diff/>
-                    <bvar>
-                        <ci>time</ci>
-                    </bvar>
-                    <ci>PI3Kstar</ci>
-                </apply>
-                <ci>J3</ci>
-            </apply>
+            <!--ode(PI3Kstar, time) = PI3K_J3;-->
             <apply>
                 <eq/>
                 <apply>

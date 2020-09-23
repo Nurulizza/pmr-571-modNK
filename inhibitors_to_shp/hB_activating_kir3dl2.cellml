@@ -1,0 +1,301 @@
+<?xml version='1.0'?>
+<model name="hB_activating_kir3dl2" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <!--
+        *******************************************************
+        ***         U   N   I   T   S                       ***
+        *******************************************************
+        -->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="per_nM">
+        <unit exponent="-1" units="nM"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--
+     *********************************************************
+     ***       C   O   M   P   O   N   E   N   T   S       ***
+     *********************************************************
+     -->
+    <component name="environment">
+        <variable name="time" public_interface="out" units="s"/>
+    </component>
+    <!--*********************
+***   hB_kir3dl2  ***
+*********************-->
+    <component name="hB_activating_kir3dl2">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="J41" units="flux"/>
+        <variable name="J42" units="flux"/>
+        <variable name="J43" units="flux"/>
+        <variable name="J44" units="flux"/>
+        <variable name="J45" units="flux"/>
+        <variable name="J46" public_interface="out" units="flux"/>
+        <variable name="J47" units="flux"/>
+        <variable name="k_f41" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r41" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f42" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r42" public_interface="in" units="nM"/>
+        <variable name="k_f43" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f44" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r44" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f45" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f46" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_r46" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_f47" public_interface="in" units="flux"/>
+        <variable name="hB" public_interface="in" units="nM"/>
+        <variable name="kir3dl2" public_interface="in" units="nM"/>
+        <variable name="shp" public_interface="in" units="nM"/>
+        <variable name="plck" public_interface="in" units="nM"/>
+        <variable name="cd45" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="hBdl2" units="nM"/>
+        <variable initial_value="0" name="hBpdl2" units="nM"/>
+        <variable initial_value="0" name="hBdl2plck" units="nM"/>
+        <variable initial_value="0" name="hBpdl2cd45" units="nM"/>
+        <variable name="pshp_dl2" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="hBpdl2shp" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J41</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f41</ci>
+                        <ci>hB</ci>
+                        <ci>kir3dl2</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r41</ci>
+                        <ci>hBdl2</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J42</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f42</ci>
+                        <ci>hBdl2</ci>
+                        <ci>plck</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r42</ci>
+                        <ci>hBdl2plck</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J43</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f43</ci>
+                    <ci>hBdl2plck</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J44</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f44</ci>
+                        <ci>hBpdl2</ci>
+                        <ci>cd45</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r44</ci>
+                        <ci>hBpdl2cd45</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J45</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f45</ci>
+                    <ci>hBpdl2cd45</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J46</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f46</ci>
+                        <ci>hBpdl2</ci>
+                        <ci>shp</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r46</ci>
+                        <ci>hBpdl2shp</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J47</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f47</ci>
+                    <ci>hBpdl2shp</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hB</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J41</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>kir3dl2</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J41</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hBdl2</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <ci>J41</ci>
+                        <ci>J42</ci>
+                    </apply>
+                    <ci>J45</ci>
+                    <ci>J47</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hBdl2plck</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J42</ci>
+                    <ci>J43</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hBpdl2</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci>J43</ci>
+                        <ci>J44</ci>
+                    </apply>
+                    <ci>J46</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hBpdl2cd45</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J44</ci>
+                    <ci>J45</ci>
+                </apply>
+            </apply>
+            <!--        ode(shp, time) = -J46;-->
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hBpdl2shp</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J46</ci>
+                    <ci>J47</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>pshp_dl2</ci>
+                </apply>
+                <ci>J47</ci>
+            </apply>
+        </math>
+    </component>
+    <connection>
+        <map_components component_1="hB_activating_kir3dl2" component_2="environment"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+</model>

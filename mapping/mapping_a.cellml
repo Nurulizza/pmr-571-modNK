@@ -1,0 +1,313 @@
+<?xml version='1.0'?>
+<model name="mapping_a" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <!--
+        *******************************************************
+        ***         U   N   I   T   S                       ***
+        *******************************************************
+        -->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--*********************
+***   hC_hE_mapk  ***
+*********************-->
+    <component name="environment">
+        <variable name="time" public_interface="out" units="s"/>
+    </component>
+    <component name="hC_mapk">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="J1" units="flux"/>
+        <variable name="J2" units="flux"/>
+        <variable name="J3" public_interface="in" units="flux"/>
+        <variable name="J_hCpd12" public_interface="in" units="flux"/>
+        <variable initial_value="0.0076167" name="k_f1" units="second_order_rate_constant"/>
+        <variable initial_value="0.0007" name="k_r1" units="first_order_rate_constant"/>
+        <variable initial_value="9.5e-8" name="k_f2" units="second_order_rate_constant"/>
+        <variable initial_value="0.0006" name="k_r2" units="first_order_rate_constant"/>
+        <variable initial_value="0.0007" name="k_f3" units="first_order_rate_constant"/>
+        <variable initial_value="0.0076167" name="k_r3" units="second_order_rate_constant"/>
+        <variable name="zap70" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="hCpd12zap70" units="nM"/>
+        <variable name="pLck" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="hCpd12pzap70" units="nM"/>
+        <variable initial_value="0" name="Lck" units="nM"/>
+        <variable initial_value="0" name="hCpd12" units="nM"/>
+        <variable initial_value="0" name="pzap70C" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J1</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f1</ci>
+                        <ci>J_hCpd12</ci>
+                        <ci>zap70</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r1</ci>
+                        <ci>hCpd12zap70</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J2</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f2</ci>
+                        <ci>hCpd12zap70</ci>
+                        <ci>pLck</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r2</ci>
+                        <ci>hCpd12pzap70</ci>
+                        <ci>Lck</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J3</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f3</ci>
+                        <ci>hCpd12pzap70</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r3</ci>
+                        <ci>hCpd12</ci>
+                        <ci>pzap70C</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hCpd12</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <ci>J_hCpd12</ci>
+                    </apply>
+                    <ci>J3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hCpd12zap70</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J1</ci>
+                    <ci>J2</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hCpd12pzap70</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J2</ci>
+                    <ci>J3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>pzap70C</ci>
+                </apply>
+                <ci>J3</ci>
+            </apply>
+        </math>
+    </component>
+    <component name="hE_mapk">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="J4" units="flux"/>
+        <variable name="J5" units="flux"/>
+        <variable name="J6" public_interface="in" units="flux"/>
+        <variable name="J_hEpd12" public_interface="in" units="flux"/>
+        <variable initial_value="0.0076167" name="k_f4" units="second_order_rate_constant"/>
+        <variable initial_value="0.0007" name="k_r4" units="first_order_rate_constant"/>
+        <variable initial_value="9.5e-8" name="k_f5" units="second_order_rate_constant"/>
+        <variable initial_value="0.0006" name="k_r5" units="first_order_rate_constant"/>
+        <variable initial_value="0.0007" name="k_f6" units="first_order_rate_constant"/>
+        <variable initial_value="0.0076167" name="k_r6" units="second_order_rate_constant"/>
+        <variable initial_value="0" name="hEpd12zap70" units="nM"/>
+        <variable initial_value="0" name="hEpd12pzap70" units="nM"/>
+        <variable initial_value="0" name="hEpd12pzap70" units="nM"/>
+        <variable initial_value="0" name="hEpd12" units="nM"/>
+        <variable initial_value="0" name="pzap70E" units="nM"/>
+        <variable name="zap70" public_interface="in" units="nM"/>
+        <variable name="pLck" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="Lck" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J4</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f4</ci>
+                        <ci>J_hEpd12</ci>
+                        <ci>zap70</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r4</ci>
+                        <ci>hEpd12zap70</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J5</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f5</ci>
+                        <ci>hEpd12zap70</ci>
+                        <ci>pLck</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r5</ci>
+                        <ci>hEpd12pzap70</ci>
+                        <ci>Lck</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J6</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f6</ci>
+                        <ci>hEpd12pzap70</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r6</ci>
+                        <ci>hEpd12</ci>
+                        <ci>pzap70E</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hEpd12</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <ci>J_hEpd12</ci>
+                    </apply>
+                    <ci>J6</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hEpd12zap70</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J4</ci>
+                    <ci>J5</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hEpd12pzap70</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J5</ci>
+                    <ci>J6</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>pzap70E</ci>
+                </apply>
+                <ci>J6</ci>
+            </apply>
+        </math>
+    </component>
+    <connection>
+        <map_components component_1="environment" component_2="hC_mapk"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="environment" component_2="hE_mapk"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+</model>

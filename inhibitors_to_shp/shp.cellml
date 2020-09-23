@@ -1,4 +1,68 @@
 <?xml version='1.0'?>
 <model name="receptors_to_shp" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
-    <!-- Your code goes here-->
+    <!--
+        *******************************************************
+        ***         U   N   I   T   S                       ***
+        *******************************************************
+      -->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <component name="shp">
+        <variable name="pshp" public_interface="out" units="nM"/>
+        <variable name="pshp_kir2dl" public_interface="in" units="nM"/>
+        <variable name="pshp_dl4" public_interface="in" units="nM"/>
+        <variable name="pshp_lil" public_interface="in" units="nM"/>
+        <variable name="pshp_dl1" public_interface="in" units="nM"/>
+        <variable name="pshp_dl2" public_interface="in" units="nM"/>
+        <variable name="pshp_cd94" public_interface="in" units="nM"/>
+        <variable name="J19" public_interface="in" units="flux"/>
+        <variable name="J71" public_interface="in" units="flux"/>
+        <variable name="J72" public_interface="in" units="flux"/>
+        <variable name="J81" public_interface="in" units="flux"/>
+        <variable name="J82" public_interface="in" units="flux"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>pshp</ci>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <plus/>
+                            <apply>
+                                <minus/>
+                                <apply>
+                                    <minus/>
+                                    <apply>
+                                        <plus/>
+                                        <ci>pshp_kir2dl</ci>
+                                        <ci>pshp_dl4</ci>
+                                        <ci>pshp_lil</ci>
+                                        <ci>pshp_dl1</ci>
+                                        <ci>pshp_dl2</ci>
+                                        <ci>pshp_cd94</ci>
+                                    </apply>
+                                    <ci>J19</ci>
+                                </apply>
+                                <ci>J71</ci>
+                            </apply>
+                            <ci>J72</ci>
+                        </apply>
+                        <ci>J81</ci>
+                    </apply>
+                    <ci>J82</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
 </model>

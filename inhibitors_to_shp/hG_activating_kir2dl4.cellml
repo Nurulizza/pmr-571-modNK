@@ -1,0 +1,297 @@
+<?xml version='1.0'?>
+<model name="hg_activating_kir2dl4" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <!--
+        *******************************************************
+        ***         U   N   I   T   S                       ***
+        *******************************************************
+        -->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="per_nM">
+        <unit exponent="-1" units="nM"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--
+     *********************************************************
+     ***       C   O   M   P   O   N   E   N   T   S       ***
+     *********************************************************
+     -->
+    <component name="environment">
+        <variable name="time" public_interface="out" units="s"/>
+    </component>
+    <!--*********************
+***   hG_kir2dl4  ***
+*********************-->
+    <component name="hG_activating_kir2dl4">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="J11" units="flux"/>
+        <variable name="J12" units="flux"/>
+        <variable name="J13" units="flux"/>
+        <variable name="J14" units="flux"/>
+        <variable name="J15" units="flux"/>
+        <variable name="J16" public_interface="out" units="flux"/>
+        <variable name="J17" units="flux"/>
+        <variable name="J_hGdl4inhibition" public_interface="out" units="flux"/>
+        <variable name="k_f11" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r11" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f12" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r12" public_interface="in" units="nM"/>
+        <variable name="k_f13" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f14" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_r14" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f15" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f16" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_r16" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="k_f17" public_interface="in" units="flux"/>
+        <variable name="hG" public_interface="in" units="nM"/>
+        <variable name="kir2dl4" public_interface="in" units="nM"/>
+        <variable name="shp" public_interface="in" units="nM"/>
+        <variable name="plck" public_interface="in" units="nM"/>
+        <variable name="cd45" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="hGdl4" units="nM"/>
+        <variable initial_value="0" name="hGpdl4" units="nM"/>
+        <variable initial_value="0" name="hGdl4plck" units="nM"/>
+        <variable initial_value="0" name="hGpdl4cd45" units="nM"/>
+        <variable name="pshp_dl4" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="hGpdl4shp" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J11</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f11</ci>
+                        <ci>hG</ci>
+                        <ci>kir2dl4</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r11</ci>
+                        <ci>hGdl4</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J12</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f12</ci>
+                        <ci>hGdl4</ci>
+                        <ci>plck</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r12</ci>
+                        <ci>hGdl4plck</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J13</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f13</ci>
+                    <ci>hGdl4plck</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J14</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f14</ci>
+                        <ci>hGpdl4</ci>
+                        <ci>cd45</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r14</ci>
+                        <ci>hGpdl4cd45</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J15</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f15</ci>
+                    <ci>hGpdl4cd45</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J16</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f16</ci>
+                        <ci>hGpdl4</ci>
+                        <ci>shp</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r16</ci>
+                        <ci>hGpdl4shp</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J17</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f17</ci>
+                    <ci>hGpdl4shp</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J_hGdl4inhibition</ci>
+                <apply>
+                    <minus/>
+                    <ci>J11</ci>
+                </apply>
+            </apply>
+            <!--ode(hG, time) = -J11;-->
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>kir2dl4</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J11</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hGdl4</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <ci>J11</ci>
+                        <ci>J12</ci>
+                    </apply>
+                    <ci>J15</ci>
+                    <ci>J17</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hGdl4plck</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J12</ci>
+                    <ci>J13</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hGpdl4</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci>J13</ci>
+                        <ci>J14</ci>
+                    </apply>
+                    <ci>J16</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hGpdl4cd45</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J14</ci>
+                    <ci>J15</ci>
+                </apply>
+            </apply>
+            <!--ode(shp, time) = -J16;-->
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hGpdl4shp</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J16</ci>
+                    <ci>J17</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>pshp_dl4</ci>
+                </apply>
+                <ci>J17</ci>
+            </apply>
+        </math>
+    </component>
+    <connection>
+        <map_components component_1="hG_activating_kir2dl4" component_2="environment"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+</model>

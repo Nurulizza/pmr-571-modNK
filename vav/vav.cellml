@@ -8,32 +8,17 @@
     <units name="s">
         <unit units="second"/>
     </units>
-    <!--def unit uM as
- unit mole {pref: micro};
-  unit liter {expo: -1};
-enddef;-->
     <units name="nM">
         <unit prefix="nano" units="mole"/>
         <unit exponent="-1" units="litre"/>
     </units>
-    <!--def unit per_s as
-unit s {expo: -1};
-enddef;-->
     <units name="first_order_rate_constant">
         <unit exponent="-1" units="s"/>
     </units>
-    <!--def unit uM_per_s as
-unit uM;
-unit s {expo: -1};
-enddef;-->
     <units name="flux">
         <unit units="nM"/>
         <unit exponent="-1" units="s"/>
     </units>
-    <!--def unit per_uM_per_s as
-unit uM {expo: -1};
-unit s {expo: -1};
-enddef;-->
     <units name="second_order_rate_constant">
         <unit exponent="-1" units="nM"/>
         <unit exponent="-1" units="s"/>
@@ -81,13 +66,13 @@ enddef;-->
         <variable initial_value="0" name="lck" public_interface="out" units="nM"/>
         <variable initial_value="39180" name="cd45" public_interface="out" units="nM"/>
         <variable initial_value="0" name="mica2dpD10" units="nM"/>
-        <variable initial_value="190" name="vav" public_interface="out" units="nM"/>
+        <variable name="vav" public_interface="in" units="nM"/>
         <variable initial_value="0" name="mica2dpD10vav" units="nM"/>
         <variable name="pvav" public_interface="in" units="nM"/>
         <variable initial_value="0" name="mica2dD10pLck" units="nM"/>
         <variable initial_value="0" name="mica2dpD10cd45" units="nM"/>
-        <variable name="J_vav" public_interface="out" units="flux"/>
-        <variable name="J_pvav" public_interface="out" units="flux"/>
+        <variable name="J_vav" public_interface="in" units="flux"/>
+        <variable name="J_pvav" public_interface="in" units="flux"/>
         <!--Flux-->
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -414,7 +399,7 @@ enddef;-->
         <variable name="J15" units="flux"/>
         <variable name="J16" units="flux"/>
         <variable name="J17" units="flux"/>
-        <variable name="J19" public_interface="out" units="flux"/>
+        <variable name="J19" public_interface="in" units="flux"/>
         <variable name="J_hEinhibition" public_interface="out" units="flux"/>
         <variable initial_value="612380" name="k_f11" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="1800" name="k_r11" public_interface="out" units="first_order_rate_constant"/>
@@ -439,7 +424,7 @@ enddef;-->
         <variable initial_value="0" name="hEp2acd45" units="nM"/>
         <variable initial_value="3470" name="shp" units="nM"/>
         <variable initial_value="0" name="hEp2ashp" units="nM"/>
-        <variable initial_value="0" name="pshp_cd94" public_interface="out" units="nM"/>
+        <variable name="pshp_cd94" public_interface="in" units="nM"/>
         <variable name="pvav" public_interface="in" units="nM"/>
         <variable name="lck" public_interface="in" units="nM"/>
         <variable name="pshp" public_interface="in" units="nM"/>

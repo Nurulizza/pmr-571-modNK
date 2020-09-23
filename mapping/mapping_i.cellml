@@ -1,0 +1,155 @@
+<?xml version='1.0'?>
+<model name="mapping_i" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <!--
+        *******************************************************
+        ***         U   N   I   T   S                       ***
+        *******************************************************
+        -->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--********************************
+***   dephospho_pzap_bySHP   ***
+********************************-->
+    <component name="environment">
+        <variable name="time" public_interface="out" units="second"/>
+    </component>
+    <component name="dephospho_pzap_bySHP">
+        <variable name="time" public_interface="in" units="s"/>
+        <variable name="J71" public_interface="in" units="flux"/>
+        <variable name="J72" public_interface="in" units="flux"/>
+        <variable initial_value="0.0308558" name="k_f71" units="second_order_rate_constant"/>
+        <variable initial_value="0.01311" name="k_r71" units="first_order_rate_constant"/>
+        <variable initial_value="0.368199" name="k_f72" units="first_order_rate_constant"/>
+        <variable initial_value="0" name="pshppzap70" units="nM"/>
+        <variable name="pshp" public_interface="in" units="nM"/>
+        <variable name="pzap70" public_interface="in" units="nM"/>
+        <variable name="zap70" public_interface="in" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J71</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f71</ci>
+                        <ci>pshp</ci>
+                        <ci>pzap70</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r71</ci>
+                        <ci>pshppzap70</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J72</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f72</ci>
+                    <ci>pshppzap70</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>pshppzap70</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J71</ci>
+                    <ci>J72</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <connection>
+        <map_components component_1="dephospho_pzap_bySHP" component_2="environment"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <!--********************************
+***   dephospho_pplc_bySHP   ***
+********************************-->
+    <component name="dephospho_pplc_bySHP">
+        <variable name="time" public_interface="in" units="s"/>
+        <variable name="J81" public_interface="in" units="flux"/>
+        <variable name="J82" public_interface="in" units="flux"/>
+        <variable initial_value="0.0308558" name="k_f81" units="second_order_rate_constant"/>
+        <variable initial_value="0.01311" name="k_r81" units="first_order_rate_constant"/>
+        <variable initial_value="0.368199" name="k_f82" units="first_order_rate_constant"/>
+        <variable initial_value="0" name="pshppplc" units="nM"/>
+        <variable name="pshp" public_interface="in" units="nM"/>
+        <variable name="pplc" public_interface="in" units="nM"/>
+        <variable name="plc" public_interface="in" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J81</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f81</ci>
+                        <ci>pshp</ci>
+                        <ci>pplc</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r81</ci>
+                        <ci>pshppplc</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J82</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f82</ci>
+                    <ci>pshppplc</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>pshppplc</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J81</ci>
+                    <ci>J82</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <connection>
+        <map_components component_1="dephospho_pplc_bySHP" component_2="environment"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+</model>

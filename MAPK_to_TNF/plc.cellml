@@ -35,7 +35,7 @@
         <variable name="J25" public_interface="out" units="flux"/>
         <variable name="J26" public_interface="in" units="flux"/>
         <variable name="J27" public_interface="in" units="flux"/>
-        <variable name="J_plc" public_interface="out" units="flux"/>
+        <variable name="J_plc" public_interface="in" units="flux"/>
         <variable name="k_f23" public_interface="in" units="second_order_rate_constant"/>
         <variable name="k_r23" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f24" public_interface="in" units="first_order_rate_constant"/>
@@ -44,10 +44,10 @@
         <variable name="pzap70" public_interface="in" units="nM"/>
         <variable name="plc" public_interface="in" units="nM"/>
         <variable initial_value="0" name="pzap70plc" units="nM"/>
-        <variable initial_value="0" name="pplc" units="nM"/>
+        <variable name="pplc" public_interface="in" units="nM"/>
         <variable name="gs" public_interface="in" units="nM"/>
         <variable initial_value="0" name="pplcgs" units="nM"/>
-        <variable name="J_pplc" public_interface="out" units="flux"/>
+        <variable name="J_pplc" public_interface="in" units="flux"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
                 <eq/>

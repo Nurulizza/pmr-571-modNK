@@ -1,0 +1,48 @@
+<?xml version='1.0'?>
+<model name="mapping_e" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <!--
+        *******************************************************
+        ***         U   N   I   T   S                       ***
+        *******************************************************
+        -->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--*******************
+***   lat_plc   ***
+*******************-->
+    <component name="lat_plc">
+        <variable name="V_PLC_lat" public_interface="out" units="nM"/>
+        <variable initial_value="1" name="gamma" units="dimensionless"/>
+        <variable name="V_plc" public_interface="in" units="flux"/>
+        <variable name="plat" public_interface="in" units="nM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>V_PLC_lat</ci>
+                <apply>
+                    <times/>
+                    <ci>plat</ci>
+                    <ci>gamma</ci>
+                    <ci>V_plc</ci>
+                    <cn cellml:units="second">1</cn>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

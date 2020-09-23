@@ -1,0 +1,243 @@
+<?xml version='1.0'?>
+<model name="mapping_f" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <!--
+        *******************************************************
+        ***         U   N   I   T   S                       ***
+        *******************************************************
+        -->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nM">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nM"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <!--********************
+***   PAK_mapk   ***
+********************-->
+    <component name="environment">
+        <variable name="time" public_interface="out" units="second"/>
+    </component>
+    <component name="PAK_MEK">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="J32" units="flux"/>
+        <variable name="J33" units="flux"/>
+        <variable name="J34" units="flux"/>
+        <variable name="J35" units="flux"/>
+        <!--Estimation start-->
+        <variable initial_value="0.000469954" name="k_f32" units="first_order_rate_constant"/>
+        <variable initial_value="317" name="K_32" units="nM"/>
+        <variable initial_value="0.000469954" name="k_f33" units="first_order_rate_constant"/>
+        <variable initial_value="317" name="K_33" units="nM"/>
+        <variable initial_value="0.058" name="k_f34" units="first_order_rate_constant"/>
+        <variable initial_value="2200" name="K_34" units="nM"/>
+        <variable initial_value="0.058" name="k_f35" units="first_order_rate_constant"/>
+        <variable initial_value="60" name="K_35" units="nM"/>
+        <variable name="PAKa" public_interface="in" units="nM"/>
+        <variable name="MEK" public_interface="in" units="nM"/>
+        <variable initial_value="0" name="MEKP" units="nM"/>
+        <variable initial_value="0" name="MEKPP" units="nM"/>
+        <variable name="PP2A" public_interface="in" units="nM"/>
+        <variable name="J_MEK" public_interface="in" units="flux"/>
+        <variable name="J_MEKPP" public_interface="in" units="flux"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J32</ci>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <times/>
+                        <ci>k_f32</ci>
+                        <ci>PAKa</ci>
+                        <ci>MEK</ci>
+                    </apply>
+                    <apply>
+                        <plus/>
+                        <apply>
+                            <times/>
+                            <ci>K_32</ci>
+                            <apply>
+                                <plus/>
+                                <cn cellml:units="dimensionless">1</cn>
+                                <apply>
+                                    <divide/>
+                                    <ci>MEKP</ci>
+                                    <ci>K_33</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <ci>MEK</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J33</ci>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <times/>
+                        <ci>k_f33</ci>
+                        <ci>PAKa</ci>
+                        <ci>MEKP</ci>
+                    </apply>
+                    <apply>
+                        <plus/>
+                        <apply>
+                            <times/>
+                            <ci>K_33</ci>
+                            <apply>
+                                <plus/>
+                                <cn cellml:units="dimensionless">1</cn>
+                                <apply>
+                                    <divide/>
+                                    <ci>MEK</ci>
+                                    <ci>K_32</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <ci>MEKP</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J34</ci>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <times/>
+                        <ci>k_f34</ci>
+                        <ci>PP2A</ci>
+                        <ci>MEKP</ci>
+                    </apply>
+                    <apply>
+                        <plus/>
+                        <apply>
+                            <times/>
+                            <ci>K_34</ci>
+                            <apply>
+                                <plus/>
+                                <cn cellml:units="dimensionless">1</cn>
+                                <apply>
+                                    <divide/>
+                                    <ci>MEKPP</ci>
+                                    <ci>K_35</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <ci>MEKP</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J35</ci>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <times/>
+                        <ci>k_f35</ci>
+                        <ci>PP2A</ci>
+                        <ci>MEKPP</ci>
+                    </apply>
+                    <apply>
+                        <plus/>
+                        <apply>
+                            <times/>
+                            <ci>K_35</ci>
+                            <apply>
+                                <plus/>
+                                <cn cellml:units="dimensionless">1</cn>
+                                <apply>
+                                    <divide/>
+                                    <ci>MEKP</ci>
+                                    <ci>K_34</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <ci>MEKPP</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J_MEKPP</ci>
+                <apply>
+                    <minus/>
+                    <ci>J33</ci>
+                    <ci>J35</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>MEK</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <ci>J_MEK</ci>
+                        <ci>J32</ci>
+                    </apply>
+                    <ci>J34</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>MEKP</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <minus/>
+                            <ci>J32</ci>
+                            <ci>J33</ci>
+                        </apply>
+                        <ci>J34</ci>
+                    </apply>
+                    <ci>J35</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>MEKPP</ci>
+                </apply>
+                <ci>J_MEKPP</ci>
+            </apply>
+        </math>
+    </component>
+    <connection>
+        <map_components component_1="environment" component_2="PAK_MEK"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+</model>
