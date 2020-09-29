@@ -147,13 +147,14 @@
     <import xlink:href="../mapping/mapping_d.cellml">
         <component component_ref="PAK_MEK" name="PAK_MEK"/>
     </import>
+    <import xlink:href="../mapping/mapping_g.cellml">
+        <component component_ref="lat_plc" name="lat_plc"/>
+    </import>
     <import xlink:href="../mapping/mapping_h.cellml">
         <component component_ref="pi3k_vav" name="pi3k_vav"/>
     </import>
     <import xlink:href="../mapping/mapping_i.cellml">
         <component component_ref="dephospho_pzap_bySHP" name="dephospho_pzap_bySHP"/>
-    </import>
-    <import xlink:href="../mapping/mapping_i.cellml">
         <component component_ref="dephospho_pplc_bySHP" name="dephospho_pplc_bySHP"/>
     </import>
     <!--
@@ -292,6 +293,9 @@
         <variable initial_value="110" name="hB_activating_kir3dl2_k_f46" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.0006" name="hB_activating_kir3dl2_k_r46" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="0.0340776" name="hB_activating_kir3dl2_k_f47" public_interface="out" units="flux"/>
+        <variable initial_value="0.0147" name="k_f100" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="9e-5" name="k_f101" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0035" name="k_f102" public_interface="out" units="first_order_rate_constant"/>
     </component>
     <component name="fixed_parameters">
         <variable initial_value="7.68934e-6" name="NFATcyc_k_f1" public_interface="out" units="second_order_rate_constant"/>
@@ -518,6 +522,7 @@
         <variable initial_value="-1.8829682277978e-14" name="dl4" public_interface="out" units="nM"/>
         <variable initial_value="-5.35482440522169e-17" name="hGdl4" public_interface="out" units="nM"/>
         <variable initial_value="10.52" name="hG" public_interface="out" units="nM"/>
+        <variable initial_value="1300" name="J_PLC" public_interface="out" units="flux"/>
         <!--MAPK to TNF-->
         <variable initial_value="0" name="MEKPP" public_interface="out" units="nM"/>
         <variable initial_value="0" name="MEKP" public_interface="out" units="nM"/>
@@ -580,6 +585,7 @@
         <!-- mapping-->
         <variable initial_value="2000" name="pLck" public_interface="out" units="nM"/>
         <variable initial_value="4000" name="RacGDP" public_interface="out" units="nM"/>
+        <variable name="V_PLC_lat" public_interface="out" units="nM"/>
     </component>
     <component name="NFATcyc_interface">
         <variable name="nuclearNFATpercent" public_interface="in" units="dimensionless"/>
@@ -743,6 +749,7 @@
             <component_ref component="PAK_MEK"/>
             <component_ref component="dephospho_pzap_bySHP"/>
             <component_ref component="dephospho_pplc_bySHP"/>
+            <component_ref component="lat_plc"/>
         </component_ref>
     </group>
     <component name="geometry">
@@ -844,6 +851,9 @@
         <variable name="hB_activating_kir3dl2_k_f46" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hB_activating_kir3dl2_k_r46" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
         <variable name="hB_activating_kir3dl2_k_f47" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="k_f100" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f101" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k_f102" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <!-- ****************
  Fixed parameters
  ****************-->
@@ -1165,7 +1175,7 @@
         <variable name="J_3K" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J_5P" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J_15P" private_interface="out" public_interface="out" units="flux"/>
-        <variable name="J_PLC" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_PLC" private_interface="out" public_interface="in" units="flux"/>
         <variable name="J7" private_interface="out" public_interface="out" units="flux"/>
         <variable name="JNFAT_n_cyc" private_interface="out" public_interface="out" units="flux"/>
         <variable name="JNFAT_n_IFN" private_interface="out" public_interface="out" units="flux"/>
@@ -1207,6 +1217,7 @@
         <variable name="GMCSF_c" private_interface="out" public_interface="in" units="nM"/>
         <!--mapping-->
         <variable name="pLck" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="V_PLC_lat" private_interface="out" public_interface="in" units="nM"/>
     </component>
     <connection>
         <map_components component_1="environment" component_2="geometry"/>
@@ -1303,6 +1314,9 @@
         <map_variables variable_1="hB_activating_kir3dl2_k_f46" variable_2="hB_activating_kir3dl2_k_f46"/>
         <map_variables variable_1="hB_activating_kir3dl2_k_r46" variable_2="hB_activating_kir3dl2_k_r46"/>
         <map_variables variable_1="hB_activating_kir3dl2_k_f47" variable_2="hB_activating_kir3dl2_k_f47"/>
+        <map_variables variable_1="k_f100" variable_2="k_f100"/>
+        <map_variables variable_1="k_f101" variable_2="k_f101"/>
+        <map_variables variable_1="k_f102" variable_2="k_f102"/>
     </connection>
     <connection>
         <map_components component_1="fixed_parameters" component_2="geometry"/>
@@ -1588,6 +1602,7 @@ Dupont 1997-->
         <!--mapping-->
         <map_variables variable_1="pLck" variable_2="pLck"/>
         <map_variables variable_1="RacGDP" variable_2="RacGDP"/>
+        <map_variables variable_1="V_PLC_lat" variable_2="V_PLC_lat"/>
         <!-- cytokine-->
         <!--vars IFN_c and IFN_c;-->
         <!--vars TNF_c and TNF_c;-->
@@ -1666,6 +1681,7 @@ Dupont 1997-->
     <connection>
         <map_components component_1="geometry" component_2="IFN_release"/>
         <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="k_f101" variable_2="k_f101"/>
         <map_variables variable_1="IFN_released" variable_2="IFN_released"/>
         <map_variables variable_1="vm_vcw" variable_2="vm_vcw"/>
         <map_variables variable_1="IFN_c" variable_2="IFN_c"/>
@@ -1673,6 +1689,7 @@ Dupont 1997-->
     <connection>
         <map_components component_1="geometry" component_2="TNF_release"/>
         <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="k_f100" variable_2="k_f100"/>
         <map_variables variable_1="TNF_c" variable_2="TNF_c"/>
         <map_variables variable_1="TNF_released" variable_2="TNF_released"/>
         <map_variables variable_1="vm_vcw" variable_2="vm_vcw"/>
@@ -1680,6 +1697,7 @@ Dupont 1997-->
     <connection>
         <map_components component_1="geometry" component_2="GSMCSF_release"/>
         <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="k_f102" variable_2="k_f102"/>
         <map_variables variable_1="GMCSF_c" variable_2="GMCSF_c"/>
         <map_variables variable_1="GMCSF_released" variable_2="GMCSF_released"/>
         <map_variables variable_1="vm_vcw" variable_2="vm_vcw"/>
@@ -2484,6 +2502,12 @@ Dupont 1997-->
         <map_variables variable_1="J_MEKPP" variable_2="J_MEKPP"/>
         <map_variables variable_1="PP2A" variable_2="PP2A"/>
         <map_variables variable_1="MEK" variable_2="MEK"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="lat_plc"/>
+        <map_variables variable_1="plat" variable_2="plat"/>
+        <map_variables variable_1="J_PLC" variable_2="V_plc"/>
+        <map_variables variable_1="V_PLC_lat" variable_2="V_PLC_lat"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="shp"/>

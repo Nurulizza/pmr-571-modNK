@@ -30,6 +30,7 @@
 -->
     <component name="IFN_release">
         <variable name="time" public_interface="in" units="s"/>
+        <variable name="k_f101" public_interface="in" units="first_order_rate_constant"/>
         <variable name="IFN_c" public_interface="in" units="nM"/>
         <variable name="IFN_released" public_interface="in" units="nM"/>
         <variable name="vm_vcw" public_interface="in" units="dimensionless"/>
@@ -44,15 +45,17 @@
                     <ci>IFN_released</ci>
                 </apply>
                 <apply>
-                    <divide/>
+                    <times/>
+                    <ci>k_f101</ci>
                     <ci>IFN_c</ci>
-                    <ci>vm_vcw</ci>
                 </apply>
             </apply>
         </math>
+        <!--ode(IFN_released, time) = IFN_c/vm_vcw;-->
     </component>
     <component name="TNF_release">
         <variable name="time" public_interface="in" units="s"/>
+        <variable name="k_f100" public_interface="in" units="first_order_rate_constant"/>
         <variable name="TNF_c" public_interface="in" units="nM"/>
         <variable name="TNF_released" public_interface="in" units="nM"/>
         <variable name="vm_vcw" public_interface="in" units="dimensionless"/>
@@ -67,15 +70,17 @@
                     <ci>TNF_released</ci>
                 </apply>
                 <apply>
-                    <divide/>
+                    <times/>
+                    <ci>k_f100</ci>
                     <ci>TNF_c</ci>
-                    <ci>vm_vcw</ci>
                 </apply>
             </apply>
         </math>
+        <!--ode(TNF_released, time) = TNF_c/vm_vcw;-->
     </component>
     <component name="GSMCSF_release">
         <variable name="time" public_interface="in" units="s"/>
+        <variable name="k_f102" public_interface="in" units="first_order_rate_constant"/>
         <variable name="GMCSF_c" public_interface="in" units="nM"/>
         <variable name="GMCSF_released" public_interface="in" units="nM"/>
         <variable name="vm_vcw" public_interface="in" units="dimensionless"/>
@@ -90,11 +95,12 @@
                     <ci>GMCSF_released</ci>
                 </apply>
                 <apply>
-                    <divide/>
+                    <times/>
+                    <ci>k_f102</ci>
                     <ci>GMCSF_c</ci>
-                    <ci>vm_vcw</ci>
                 </apply>
             </apply>
         </math>
+        <!--ode(GMCSF_released, time) = GMCSF_c/vm_vcw;-->
     </component>
 </model>
