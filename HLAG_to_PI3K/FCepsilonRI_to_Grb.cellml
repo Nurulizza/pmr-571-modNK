@@ -79,7 +79,8 @@
         <variable name="J5" units="flux"/>
         <variable name="J6" units="flux"/>
         <variable name="J7" public_interface="in" units="flux"/>
-        <variable name="J_FCsource" public_interface="in" units="flux"/>
+        <variable name="J_hGdl4FC" public_interface="in" units="flux"/>
+        <variable name="hGdl4FC" public_interface="in" units="nM"/>
         <!--rate of activation of FC-->
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -184,12 +185,23 @@
                 </apply>
                 <apply>
                     <plus/>
-                    <apply>
-                        <minus/>
-                        <ci>J_FCsource</ci>
-                        <ci>J1</ci>
-                    </apply>
+                    <ci>J_hGdl4FC</ci>
                     <ci>J5</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hGdl4FC</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J_hGdl4FC</ci>
+                    <ci>J1</ci>
                 </apply>
             </apply>
             <apply>

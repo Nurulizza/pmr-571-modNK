@@ -88,7 +88,7 @@
  Variable definitions
 -->
     <component name="variables">
-        <variable initial_value="0.1" name="R_des" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.100" name="R_des" public_interface="out" units="dimensionless"/>
         <variable initial_value="100.0" name="C_cyto" public_interface="out" units="nM"/>
         <variable initial_value="100.0" name="IP3" public_interface="out" units="nM"/>
         <variable initial_value="100.0" name="IP4" public_interface="out" units="nM"/>

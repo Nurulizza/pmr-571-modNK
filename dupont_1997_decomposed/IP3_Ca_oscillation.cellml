@@ -284,12 +284,14 @@
         <variable name="V_PLC" public_interface="in" units="flux"/>
         <variable name="V_plc" public_interface="in" units="flux"/>
         <variable name="gamma" public_interface="in" units="dimensionless"/>
+        <variable name="PI3Kstar" public_interface="in" units="nM"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
                 <eq/>
                 <ci>V_PLC</ci>
                 <apply>
                     <times/>
+                    <ci>PI3Kstar</ci>
                     <ci>gamma</ci>
                     <ci>V_plc</ci>
                 </apply>

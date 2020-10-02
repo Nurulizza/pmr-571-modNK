@@ -35,7 +35,7 @@
         <variable name="J25" public_interface="out" units="flux"/>
         <variable name="J26" public_interface="in" units="flux"/>
         <variable name="J27" public_interface="in" units="flux"/>
-        <variable name="J_plc" public_interface="in" units="flux"/>
+        <variable name="J_plc_plc" public_interface="in" units="flux"/>
         <variable name="k_f23" public_interface="in" units="second_order_rate_constant"/>
         <variable name="k_r23" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f24" public_interface="in" units="first_order_rate_constant"/>
@@ -105,7 +105,7 @@
             </apply>
             <apply>
                 <eq/>
-                <ci>J_plc</ci>
+                <ci>J_plc_plc</ci>
                 <apply>
                     <minus/>
                     <ci>J23</ci>

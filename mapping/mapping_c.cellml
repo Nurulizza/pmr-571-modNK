@@ -39,7 +39,7 @@
         <variable name="J26" units="flux"/>
         <variable initial_value="0" name="J27" units="flux"/>
         <variable name="J_vav" public_interface="in" units="flux"/>
-        <variable name="J_plc" public_interface="in" units="flux"/>
+        <variable name="J_plc_plc" public_interface="in" units="flux"/>
         <variable name="J_pplc" public_interface="in" units="flux"/>
         <variable name="J_plat" public_interface="in" units="flux"/>
         <variable name="J_pvav" public_interface="in" units="flux"/>
@@ -197,7 +197,7 @@
                 </apply>
                 <apply>
                     <plus/>
-                    <ci>J_plc</ci>
+                    <ci>J_plc_plc</ci>
                     <ci>J22</ci>
                     <ci>J82</ci>
                 </apply>

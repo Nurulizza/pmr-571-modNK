@@ -40,7 +40,7 @@
         <variable name="kb5" public_interface="in" units="first_order_rate_constant"/>
         <variable name="kf6" public_interface="in" units="first_order_rate_constant"/>
         <variable name="kb6" public_interface="in" units="first_order_rate_constant"/>
-        <variable name="kf7" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="kf7" public_interface="in" units="second_order_rate_constant"/>
         <variable name="kb7" public_interface="in" units="first_order_rate_constant"/>
         <variable name="kf8" public_interface="in" units="first_order_rate_constant"/>
         <variable name="kb8" public_interface="in" units="second_order_rate_constant"/>

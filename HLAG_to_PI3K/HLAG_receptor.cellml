@@ -101,7 +101,7 @@
                     <apply>
                         <times/>
                         <ci>k_f21</ci>
-                        <ci>hGdl4</ci>
+                        <ci>J_hGdl4</ci>
                         <ci>free_FC</ci>
                     </apply>
                     <apply>
@@ -126,20 +126,8 @@
                     <ci>J_hGdl4FC</ci>
                 </apply>
             </apply>
-            <apply>
-                <eq/>
-                <apply>
-                    <diff/>
-                    <bvar>
-                        <ci>time</ci>
-                    </bvar>
-                    <ci>free_FC</ci>
-                </apply>
-                <apply>
-                    <minus/>
-                    <ci>J_hGdl4FC</ci>
-                </apply>
-            </apply>
         </math>
+        <!--ode(free_FC, time) = -J_hGdl4FC;
+ode(hGdl4FC, time) = J_hGdl4FC;-->
     </component>
 </model>
