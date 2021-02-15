@@ -181,12 +181,12 @@
                     <bvar>
                         <ci>time</ci>
                     </bvar>
-                    <ci>FC</ci>
+                    <ci>hGdl4FC</ci>
                 </apply>
                 <apply>
-                    <plus/>
+                    <minus/>
                     <ci>J_hGdl4FC</ci>
-                    <ci>J5</ci>
+                    <ci>J1</ci>
                 </apply>
             </apply>
             <apply>
@@ -196,12 +196,12 @@
                     <bvar>
                         <ci>time</ci>
                     </bvar>
-                    <ci>hGdl4FC</ci>
+                    <ci>FC</ci>
                 </apply>
                 <apply>
-                    <minus/>
+                    <plus/>
                     <ci>J_hGdl4FC</ci>
-                    <ci>J1</ci>
+                    <ci>J5</ci>
                 </apply>
             </apply>
             <apply>

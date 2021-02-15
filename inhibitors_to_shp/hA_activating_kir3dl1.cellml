@@ -44,19 +44,19 @@
         <variable name="J33" units="flux"/>
         <variable name="J34" units="flux"/>
         <variable name="J35" units="flux"/>
-        <variable name="J36" public_interface="out" units="flux"/>
+        <variable name="J36" public_interface="in" units="flux"/>
         <variable name="J37" units="flux"/>
         <variable name="k_f31" public_interface="in" units="second_order_rate_constant"/>
         <variable name="k_r31" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f32" public_interface="in" units="second_order_rate_constant"/>
-        <variable name="k_r32" public_interface="in" units="nM"/>
+        <variable name="k_r32" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f33" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f34" public_interface="in" units="second_order_rate_constant"/>
         <variable name="k_r34" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f35" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f36" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_r36" public_interface="in" units="second_order_rate_constant"/>
-        <variable name="k_f37" public_interface="in" units="flux"/>
+        <variable name="k_f37" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hA" public_interface="in" units="nM"/>
         <variable name="kir3dl1" public_interface="in" units="nM"/>
         <variable name="shp" public_interface="in" units="nM"/>
@@ -265,7 +265,7 @@
                     <ci>J35</ci>
                 </apply>
             </apply>
-            <!--        ode(shp, time) = -J36;-->
+            <!--        ode(shp, time) = -J36; #in comp shp-->
             <apply>
                 <eq/>
                 <apply>

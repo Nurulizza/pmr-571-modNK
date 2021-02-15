@@ -27,8 +27,8 @@
 ***   lat_plc   ***
 *******************-->
     <component name="lat_plc">
-        <variable name="V_PLC_lat" public_interface="in" units="nM"/>
-        <variable initial_value="1" name="gamma" units="dimensionless"/>
+        <variable name="V_PLC_lat" public_interface="in" units="flux"/>
+        <variable name="gamma" public_interface="in" units="dimensionless"/>
         <variable name="V_plc" public_interface="in" units="flux"/>
         <variable name="plat" public_interface="in" units="nM"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -40,7 +40,6 @@
                     <ci>plat</ci>
                     <ci>gamma</ci>
                     <ci>V_plc</ci>
-                    <cn cellml:units="second">1</cn>
                 </apply>
             </apply>
         </math>

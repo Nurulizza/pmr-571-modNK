@@ -9,10 +9,9 @@
         <component component_ref="V_PLC" name="V_PLC"/>
         <component component_ref="V_3K" name="V_3K"/>
         <component component_ref="V_5P" name="V_5P"/>
-        <component component_ref="V_15P" name="V_15P"/>
     </import>
-    <import xlink:href="../dupont_1997_decomposed/IP4_from_pIP3.cellml">
-        <component component_ref="IP4" name="IP4"/>
+    <import xlink:href="../cooling_2009/calcium_TomidaProtocol.cellml">
+        <component component_ref="calcium" name="calcium"/>
     </import>
     <import xlink:href="../cooling_2009/calcineurin_TomidaProtocol.cellml">
         <component component_ref="calcineurin" name="calcineurin"/>
@@ -147,6 +146,9 @@
     <import xlink:href="../mapping/mapping_d.cellml">
         <component component_ref="PAK_MEK" name="PAK_MEK"/>
     </import>
+    <import xlink:href="../mapping/mapping_f.cellml">
+        <component component_ref="dupont_NFAT" name="dupont_NFAT"/>
+    </import>
     <import xlink:href="../mapping/mapping_g.cellml">
         <component component_ref="lat_plc" name="lat_plc"/>
     </import>
@@ -209,7 +211,6 @@
         <variable initial_value="0.5" name="NFAT2cyt_k_f3" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.0004" name="ERKPP2cyt_k_f41" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="6.53e-6" name="ERKPP2cyt_k_f43" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="1871.7" name="vm_vcw" public_interface="out" units="dimensionless"/>
         <variable initial_value="0.068" name="CytRel_k_f4" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="23.1163" name="CytRel_k_f5" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.05" name="CytRel_k_f6" public_interface="out" units="first_order_rate_constant"/>
@@ -218,12 +219,11 @@
         <variable initial_value="0.00891653" name="PI3K_k_f2" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="0.00611373" name="PI3K_k_r2" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="14.6231" name="PI3K_k_f3" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="10" name="PI3K_V_PLC" public_interface="out" units="flux"/>
-        <variable initial_value="100" name="PI3K_K_PLC" public_interface="out" units="nM"/>
         <variable initial_value="1.141382e-5" name="hG_activating_dl4_k_f10" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="0.014043" name="hG_activating_dl4_k_r10" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="1.6521e-5" name="hgdl4_FC_k_f21" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="0.0517365" name="hgdl4_FC_k_r21" public_interface="out" units="first_order_rate_constant"/>
+        <!-- Activation HLA-E -->
         <variable initial_value="1.84965e-5" name="hE_activating_cd94_k_f8" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="1.8" name="hE_activating_cd94_k_r8" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.0178629" name="hE_activating_cd94_k_f9" public_interface="out" units="second_order_rate_constant"/>
@@ -231,6 +231,7 @@
         <variable initial_value="1.95e-6" name="hE_activating_cd94_k_f10" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="11.6167" name="hE_activating_cd94_k_r10" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.002" name="hE_activating_cd94_k_f11" public_interface="out" units="first_order_rate_constant"/>
+        <!-- Activation HLA-C -->
         <variable initial_value="1.84965e-5" name="hC_activating_kir2ds1_k_f1" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="0.123663" name="hC_activating_kir2ds1_k_r1" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.0178629" name="hC_activating_kir2ds1_k_f2" public_interface="out" units="second_order_rate_constant"/>
@@ -238,28 +239,31 @@
         <variable initial_value="1.95e-6" name="hC_activating_kir2ds1_k_f3" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="11.6167" name="hC_activating_kir2ds1_k_r3" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.002" name="hC_activating_kir2ds1_k_f4" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="210000000000000" name="hC_activating_kir2dl_k_f1" public_interface="out" units="second_order_rate_constant"/>
-        <variable initial_value="190000000000" name="hC_activating_kir2dl_k_r1" public_interface="out" units="first_order_rate_constant"/>
+        <!-- Inhibition HLA-C-->
+        <variable initial_value="2.1e8" name="hC_activating_kir2dl_k_f1" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="1.9e11" name="hC_activating_kir2dl_k_r1" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.0472605" name="hC_activating_kir2dl_k_f2" public_interface="out" units="second_order_rate_constant"/>
-        <variable initial_value="5.935" name="hC_activating_kir2dl_k_r2" public_interface="out" units="nM"/>
+        <variable initial_value="5.935" name="hC_activating_kir2dl_k_r2" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.00023" name="hC_activating_kir2dl_k_f3" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="3.04e-5" name="hC_activating_kir2dl_k_f4" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="0.04682" name="hC_activating_kir2dl_k_r4" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="1.33" name="hC_activating_kir2dl_k_f5" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="110" name="hC_activating_kir2dl_k_f6" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.0006" name="hC_activating_kir2dl_k_r6" public_interface="out" units="second_order_rate_constant"/>
-        <variable initial_value="34.0776" name="hC_activating_kir2dl_k_f7" public_interface="out" units="flux"/>
+        <variable initial_value="34.0776" name="hC_activating_kir2dl_k_f7" public_interface="out" units="first_order_rate_constant"/>
+        <!-- Inhibition HLA-G-->
         <variable initial_value="0.00019" name="hG_activating_kir2dl4_k_f11" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="1.1" name="hG_activating_kir2dl4_k_r11" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.0472605" name="hG_activating_kir2dl4_k_f12" public_interface="out" units="second_order_rate_constant"/>
-        <variable initial_value="0.005935" name="hG_activating_kir2dl4_k_r12" public_interface="out" units="nM"/>
+        <variable initial_value="0.005935" name="hG_activating_kir2dl4_k_r12" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.00023" name="hG_activating_kir2dl4_k_f13" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="3.04e-5" name="hG_activating_kir2dl4_k_f14" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="0.04682" name="hG_activating_kir2dl4_k_r14" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="1.33" name="hG_activating_kir2dl4_k_f15" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="110" name="hG_activating_kir2dl4_k_f16" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.0006" name="hG_activating_kir2dl4_k_r16" public_interface="out" units="second_order_rate_constant"/>
-        <variable initial_value="0.0340776" name="hG_activating_kir2dl4_k_f17" public_interface="out" units="flux"/>
+        <variable initial_value="0.0340776" name="hG_activating_kir2dl4_k_f17" public_interface="out" units="first_order_rate_constant"/>
+        <!-- Inhibition HLA-G-->
         <variable initial_value="6.7e-6" name="hG_activating_lilrb_k_f21" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="0.11" name="hG_activating_lilrb_k_r21" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.0472605" name="hG_activating_lilrb_k_f22" public_interface="out" units="second_order_rate_constant"/>
@@ -271,28 +275,31 @@
         <variable initial_value="6.4e-5" name="hG_activating_lilrb_k_f26" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="0.0067" name="hG_activating_lilrb_k_r26" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.0340776" name="hG_activating_lilrb_k_f27" public_interface="out" units="first_order_rate_constant"/>
+        <!-- Inhibition HLA-A-->
         <variable initial_value="0.00019" name="hA_activating_kir3dl1_k_f31" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="1.1" name="hA_activating_kir3dl1_k_r31" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.0472605" name="hA_activating_kir3dl1_k_f32" public_interface="out" units="second_order_rate_constant"/>
-        <variable initial_value="0.005935" name="hA_activating_kir3dl1_k_r32" public_interface="out" units="nM"/>
+        <variable initial_value="0.005935" name="hA_activating_kir3dl1_k_r32" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.00023" name="hA_activating_kir3dl1_k_f33" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="3.04e-5" name="hA_activating_kir3dl1_k_f34" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="0.04682" name="hA_activating_kir3dl1_k_r34" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="1.33" name="hA_activating_kir3dl1_k_f35" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="110" name="hA_activating_kir3dl1_k_f36" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.0006" name="hA_activating_kir3dl1_k_r36" public_interface="out" units="second_order_rate_constant"/>
-        <variable initial_value="0.0340776" name="hA_activating_kir3dl1_k_f37" public_interface="out" units="flux"/>
+        <variable initial_value="0.0340776" name="hA_activating_kir3dl1_k_f37" public_interface="out" units="first_order_rate_constant"/>
+        <!-- Inhibition HLA-B-->
         <variable initial_value="0.00019" name="hB_activating_kir3dl2_k_f41" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="1.1" name="hB_activating_kir3dl2_k_r41" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.0001" name="hB_activating_kir3dl2_k_f42" public_interface="out" units="second_order_rate_constant"/>
-        <variable initial_value="0.005935" name="hB_activating_kir3dl2_k_r42" public_interface="out" units="nM"/>
+        <variable initial_value="0.005935" name="hB_activating_kir3dl2_k_r42" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.00023" name="hB_activating_kir3dl2_k_f43" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.0001" name="hB_activating_kir3dl2_k_f44" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="0.04682" name="hB_activating_kir3dl2_k_r44" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="1.33" name="hB_activating_kir3dl2_k_f45" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="110" name="hB_activating_kir3dl2_k_f46" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.0006" name="hB_activating_kir3dl2_k_r46" public_interface="out" units="second_order_rate_constant"/>
-        <variable initial_value="0.0340776" name="hB_activating_kir3dl2_k_f47" public_interface="out" units="flux"/>
+        <variable initial_value="0.0340776" name="hB_activating_kir3dl2_k_f47" public_interface="out" units="first_order_rate_constant"/>
+        <!-- Cytokine secretion-->
         <variable initial_value="0.0147" name="k_f100" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="9e-5" name="k_f101" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0.0035" name="k_f102" public_interface="out" units="first_order_rate_constant"/>
@@ -451,130 +458,134 @@
     </component>
     <component name="variables">
         <!-- activation receptors -->
-        <variable initial_value="7.9794556439088" name="nkg2c" public_interface="out" units="nM"/>
-        <variable initial_value="599.986498428836" name="d12" public_interface="out" units="nM"/>
+        <variable initial_value="8" name="nkg2c" public_interface="out" units="nM"/>
+        <variable initial_value="600" name="d12" public_interface="out" units="nM"/>
         <variable initial_value="516" name="hE" public_interface="out" units="nM"/>
         <variable initial_value="0" name="hEpd12" public_interface="out" units="nM"/>
-        <variable initial_value="1.5190559386505e-5" name="hEd12plck" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="hEd12plck" public_interface="out" units="nM"/>
         <variable initial_value="0" name="hEpd12cd45" public_interface="out" units="nM"/>
-        <variable initial_value="7.99999285165471" name="kir2ds1" public_interface="out" units="nM"/>
+        <variable initial_value="8" name="kir2ds1" public_interface="out" units="nM"/>
         <variable initial_value="0.16" name="hC" public_interface="out" units="nM"/>
         <variable initial_value="2006.15" name="hC_plck" public_interface="out" units="nM"/>
         <variable initial_value="0" name="hCpd12" public_interface="out" units="nM"/>
         <variable initial_value="0" name="hCpd12cd45" public_interface="out" units="nM"/>
         <!-- inhibition receptors-->
-        <variable initial_value="0.630519647225635" name="kir2dl" public_interface="out" units="nM"/>
+        <variable initial_value="1000" name="kir2dl" public_interface="out" units="nM"/>
         <variable initial_value="1000000" name="inhibition_shp" public_interface="out" units="nM"/>
         <variable initial_value="1000" name="inhibition_plck" public_interface="out" units="nM"/>
         <variable initial_value="1000" name="cd45" public_interface="out" units="nM"/>
-        <variable initial_value="0.052350865212577" name="pshp_kir2dl" public_interface="out" units="nM"/>
-        <variable initial_value="17853.3120362821" name="inhibition_kir2dl4" public_interface="out" units="nM"/>
-        <variable initial_value="1.02949080580009e-5" name="pshp_dl4" public_interface="out" units="nM"/>
-        <variable initial_value="17956.1536468868" name="lilrb" public_interface="out" units="nM"/>
-        <variable initial_value="3.14277847018573e-7" name="pshp_lil" public_interface="out" units="nM"/>
-        <variable initial_value="3.79257572342098" name="hA" public_interface="out" units="nM"/>
-        <variable initial_value="17953.2725757036" name="kir3dl1" public_interface="out" units="nM"/>
-        <variable initial_value="8.28099336814879e-7" name="pshp_dl1" public_interface="out" units="nM"/>
-        <variable initial_value="4.5683928066523" name="hB" public_interface="out" units="nM"/>
-        <variable initial_value="17954.0083927884" name="kir3dl2" public_interface="out" units="nM"/>
-        <variable initial_value="7.47104203471171e-9" name="pshp_dl2" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pshp_kir2dl" public_interface="out" units="nM"/>
+        <variable initial_value="17960" name="inhibition_kir2dl4" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pshp_dl4" public_interface="out" units="nM"/>
+        <variable initial_value="17956" name="lilrb" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pshp_lil" public_interface="out" units="nM"/>
+        <variable initial_value="10.52" name="hA" public_interface="out" units="nM"/>
+        <variable initial_value="17950" name="kir3dl1" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pshp_dl1" public_interface="out" units="nM"/>
+        <variable initial_value="10.56" name="hB" public_interface="out" units="nM"/>
+        <variable initial_value="17960" name="kir3dl2" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pshp_dl2" public_interface="out" units="nM"/>
+        <!-- Cooling 2009 -->
+        <variable initial_value="1800" name="stimEnd" public_interface="out" units="s"/>
         <!-- cytokine-->
-        <variable initial_value="0.00100455291867355" name="NFATN_c" public_interface="out" units="nM"/>
-        <variable initial_value="3.90781568126772e-5" name="NFATN_n" public_interface="out" units="nM"/>
-        <variable initial_value="455.778994603679" name="NFATp_c" public_interface="out" units="nM"/>
-        <variable initial_value="1.12002313060212e-8" name="NFATp_n" public_interface="out" units="nM"/>
-        <variable initial_value="5.50715468923578e-8" name="NFAT_IFN_c" public_interface="out" units="nM"/>
-        <variable initial_value="4.19658391247916e-8" name="NFAT_TNF_c" public_interface="out" units="nM"/>
-        <variable initial_value="2.84364363344672e-6" name="NFAT_GSMCSF_c" public_interface="out" units="nM"/>
-        <variable initial_value="0.00846069637370278" name="ERKPP_IFN_c" public_interface="out" units="nM"/>
-        <variable initial_value="0.000126393830623261" name="ERKPP_GMCSF_c" public_interface="out" units="nM"/>
-        <variable initial_value="1.15262718606398e-7" name="IFN_released" public_interface="out" units="nM"/>
-        <variable initial_value="3.09103526610465e-6" name="TNF_released" public_interface="out" units="nM"/>
-        <variable initial_value="6.99649043419379e-8" name="GMCSF_released" public_interface="out" units="nM"/>
+        <variable initial_value="00" name="NFATN_c" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="NFATN_n" public_interface="out" units="nM"/>
+        <variable initial_value="455.78" name="NFATp_c" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="NFATp_n" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="NFAT_IFN_c" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="NFAT_TNF_c" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="NFAT_GSMCSF_c" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="ERKPP_IFN_c" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="ERKPP_GMCSF_c" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="IFN_released" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="TNF_released" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="GMCSF_released" public_interface="out" units="nM"/>
         <variable name="nuclearNFATpercent" public_interface="out" units="dimensionless"/>
         <variable name="nuclearNFAT" public_interface="out" units="nM"/>
         <variable name="NFATN_c_percent" public_interface="out" units="dimensionless"/>
         <variable name="act_N" public_interface="out" units="dimensionless"/>
         <!-- Dupont 1997-->
-        <variable initial_value="85.8180528836809" name="R_des" public_interface="out" units="dimensionless"/>
-        <variable initial_value="24.6569117460765" name="Ca_cyto" public_interface="out" units="nM"/>
-        <variable initial_value="86.5924882655383" name="IP3" public_interface="out" units="nM"/>
-        <variable initial_value="97.1633303582742" name="IP4" public_interface="out" units="nM"/>
-        <variable name="I_ra" public_interface="out" units="dimensionless"/>
-        <variable name="I_rable" public_interface="out" units="dimensionless"/>
-        <variable initial_value="9.99999990936398" name="PI3K" public_interface="out" units="nM"/>
-        <variable initial_value="2.71625507185113e-8" name="PI3Kstar" public_interface="out" units="nM"/>
-        <variable initial_value="5.70781937023914e-8" name="pGrb2PI3K" public_interface="out" units="nM"/>
-        <variable initial_value="2.27609759360583e-5" name="pGrb2" public_interface="out" units="nM"/>
-        <variable initial_value="1.36114773258934" name="Lyn" public_interface="out" units="nM"/>
-        <variable initial_value="1.41478711923249" name="phGdl4FC" public_interface="out" units="nM"/>
-        <variable initial_value="4.99250830552026" name="Syk" public_interface="out" units="nM"/>
-        <variable initial_value="0.000373172299315875" name="pSyk" public_interface="out" units="nM"/>
-        <variable initial_value="1117.57075559025" name="pFCLyn" public_interface="out" units="nM"/>
-        <variable initial_value="0.00708137082669374" name="pFCSyk" public_interface="out" units="nM"/>
-        <variable initial_value="3.71513543759544e-5" name="pSykGrb2" public_interface="out" units="nM"/>
+        <variable initial_value="100" name="R_des" public_interface="out" units="nM"/>
+        <variable initial_value="100" name="Ca_cyto" public_interface="out" units="nM"/>
+        <variable initial_value="100" name="IP3" public_interface="out" units="nM"/>
+        <variable initial_value="100" name="IP4" public_interface="out" units="nM"/>
+        <variable name="I_ra" public_interface="out" units="nM"/>
+        <variable name="I_rable" public_interface="out" units="nM"/>
+        <!-- HLA-G to cytokine-->
+        <variable initial_value="10" name="PI3K" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="PI3Kstar" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pGrb2PI3K" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pGrb2" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="Lyn" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pFC" public_interface="out" units="nM"/>
+        <variable initial_value="5" name="Syk" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pSyk" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pFCLyn" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pFCSyk" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pSykGrb2" public_interface="out" units="nM"/>
         <variable initial_value="402.7" name="Pi" public_interface="out" units="nM"/>
-        <variable initial_value="6469.9999400311" name="Grb2" public_interface="out" units="nM"/>
-        <variable initial_value="5381.06809667719" name="pLyn" public_interface="out" units="nM"/>
-        <variable initial_value="-1110.03487764948" name="hGdl4FC" public_interface="out" units="nM"/>
-        <variable initial_value="1008.95861271422" name="FC" public_interface="out" units="nM"/>
-        <variable initial_value="97.9515013167807" name="dl4" public_interface="out" units="nM"/>
-        <variable initial_value="-8.9096808892734" name="hGdl4" public_interface="out" units="nM"/>
-        <variable initial_value="105.151501316781" name="hG" public_interface="out" units="nM"/>
-        <variable initial_value="1300" name="J_PLC" public_interface="out" units="flux"/>
+        <variable initial_value="6470" name="Grb2" public_interface="out" units="nM"/>
+        <variable initial_value="6500" name="pLyn" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="hGdl4FC" public_interface="out" units="nM"/>
+        <variable initial_value="1000" name="FC" public_interface="out" units="nM"/>
+        <variable initial_value="98" name="dl4" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="hGdl4" public_interface="out" units="nM"/>
+        <variable initial_value="105.2" name="hG" public_interface="out" units="nM"/>
+        <variable initial_value="1300" name="V_plc" public_interface="out" units="flux"/>
+        <variable initial_value="0" name="Ca" public_interface="out" units="nM"/>
         <!--MAPK to TNF-->
-        <variable initial_value="6.25518980131536e-19" name="MEKPP" public_interface="out" units="nM"/>
-        <variable initial_value="3.72146649882813e-9" name="MEKP" public_interface="out" units="nM"/>
-        <variable initial_value="8.999999996284" name="MEK" public_interface="out" units="nM"/>
-        <variable initial_value="894.999997770744" name="P" public_interface="out" units="nM"/>
-        <variable initial_value="1.19189967148773e-7" name="PIP3" public_interface="out" units="nM"/>
-        <variable initial_value="8.67999788976188" name="Akt" public_interface="out" units="nM"/>
-        <variable initial_value="2.08731436690988e-6" name="Akt_PIP3" public_interface="out" units="nM"/>
-        <variable initial_value="2.27164202497477e-8" name="Akt_PIP" public_interface="out" units="nM"/>
-        <variable initial_value="2.08609761414065e-10" name="Akt_PIPP" public_interface="out" units="nM"/>
-        <variable initial_value="0.3" name="ERK" public_interface="out" units="nM"/>
-        <variable initial_value="2.33067130436217e-25" name="ERKP" public_interface="out" units="nM"/>
-        <variable initial_value="1.49099460472861e-49" name="ERKPP" public_interface="out" units="nM"/>
-        <variable initial_value="70.6687791813421" name="R" public_interface="out" units="nM"/>
-        <variable initial_value="321.068779181318" name="HRG" public_interface="out" units="nM"/>
-        <variable initial_value="8.77060795584066" name="R_HRG" public_interface="out" units="nM"/>
-        <variable initial_value="0.0746068742209307" name="R_HRG2" public_interface="out" units="nM"/>
-        <variable initial_value="-0.00182995479128373" name="RP" public_interface="out" units="nM"/>
-        <variable initial_value="7.84048348650564e-8" name="Internalisation" public_interface="out" units="nM"/>
-        <variable initial_value="0.00353388889232144" name="R_Shc" public_interface="out" units="nM"/>
-        <variable initial_value="1059.99192343358" name="Shc" public_interface="out" units="nM"/>
-        <variable initial_value="0.003886199242294" name="R_ShP" public_interface="out" units="nM"/>
-        <variable initial_value="10.5019497717451" name="GS" public_interface="out" units="nM"/>
-        <variable initial_value="0.0026062504834435" name="ShP" public_interface="out" units="nM"/>
-        <variable initial_value="6.68107534377972e-5" name="R_ShGS" public_interface="out" units="nM"/>
-        <variable initial_value="-0.00201658340091842" name="ShGS" public_interface="out" units="nM"/>
-        <variable initial_value="3.63398058712836e-5" name="R_PI3K" public_interface="out" units="nM"/>
-        <variable initial_value="8.15994123856386" name="PI3K_hatakeyama" public_interface="out" units="nM"/>
-        <variable initial_value="6.19487914888096e-6" name="R_PI3Kstar" public_interface="out" units="nM"/>
-        <variable initial_value="1.62267534731184e-5" name="PI3Kstar_hatakeyama" public_interface="out" units="nM"/>
-        <variable initial_value="1.09557876437466e-5" name="RasGTP" public_interface="out" units="nM"/>
-        <variable initial_value="119.999989044222" name="RasGDP" public_interface="out" units="nM"/>
-        <variable initial_value="96.0999991367212" name="RAF" public_interface="out" units="nM"/>
-        <variable initial_value="8.63292684605482e-7" name="RAFstar" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="MEKPP" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="MEKP" public_interface="out" units="nM"/>
+        <variable initial_value="119" name="MEK" public_interface="out" units="nM"/>
+        <variable initial_value="895" name="P" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="PIP3" public_interface="out" units="nM"/>
+        <variable initial_value="8.68" name="Akt" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="Akt_PIP3" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="Akt_PIP" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="Akt_PIPP" public_interface="out" units="nM"/>
+        <variable initial_value="1010" name="ERK" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="ERKP" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="ERKPP" public_interface="out" units="nM"/>
+        <variable initial_value="79.6" name="R" public_interface="out" units="nM"/>
+        <variable initial_value="330" name="HRG" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="R_HRG" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="R_HRG2" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="RP" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="Internalisation" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="R_Shc" public_interface="out" units="nM"/>
+        <variable initial_value="1060" name="Shc" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="R_ShP" public_interface="out" units="nM"/>
+        <variable initial_value="10.50" name="GS" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="ShP" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="R_ShGS" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="ShGS" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="R_PI3K" public_interface="out" units="nM"/>
+        <variable initial_value="8.16" name="PI3K_hatakeyama" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="R_PI3Kstar" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="PI3Kstar_hatakeyama" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="RasGTP" public_interface="out" units="nM"/>
+        <variable initial_value="120" name="RasGDP" public_interface="out" units="nM"/>
+        <variable initial_value="96.1" name="RAF" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="RAFstar" public_interface="out" units="nM"/>
         <variable initial_value="10006.15" name="plck" public_interface="out" units="nM"/>
         <variable initial_value="0" name="lck" public_interface="out" units="nM"/>
         <variable initial_value="1000" name="zap70" public_interface="out" units="nM"/>
-        <variable initial_value="515.97720417191" name="tpa" public_interface="out" units="nM"/>
-        <variable initial_value="7.97720417197803" name="tcr" public_interface="out" units="nM"/>
-        <variable initial_value="999.999999994872" name="plc" public_interface="out" units="nM"/>
+        <variable initial_value="516" name="tpa" public_interface="out" units="nM"/>
+        <variable initial_value="8" name="tcr" public_interface="out" units="nM"/>
+        <variable initial_value="1000" name="plc" public_interface="out" units="nM"/>
         <variable initial_value="1000" name="lat" public_interface="out" units="nM"/>
-        <variable initial_value="0.00139288551715243" name="ERKPP_TNF_c" public_interface="out" units="nM"/>
-        <variable initial_value="1.63918187750989e-11" name="plat" public_interface="out" units="nM"/>
-        <variable initial_value="2.92210045788144e-11" name="pplc" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="ERKPP_TNF_c" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="plat" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pplc" public_interface="out" units="nM"/>
         <!-- vav-->
-        <variable initial_value="182.852760020971" name="vav" public_interface="out" units="nM"/>
-        <variable initial_value="3469.55394615173" name="pshp_cd94" public_interface="out" units="nM"/>
+        <variable initial_value="190" name="vav" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pshp_cd94" public_interface="out" units="nM"/>
         <!-- pZAP70-->
-        <variable initial_value="8.73735394964579e-8" name="pzap70" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="pzap70" public_interface="out" units="nM"/>
         <!-- ITG-->
-        <variable initial_value="515.977004969535" name="icam" public_interface="out" units="nM"/>
-        <variable initial_value="7.97700496958466" name="itg" public_interface="out" units="nM"/>
-        <variable initial_value="0.00893740728946189" name="icamitg" public_interface="out" units="nM"/>
+        <variable initial_value="516" name="icam" public_interface="out" units="nM"/>
+        <variable initial_value="8" name="itg" public_interface="out" units="nM"/>
+        <variable initial_value="0" name="icamitg" public_interface="out" units="nM"/>
         <!-- cytokine-->
         <variable initial_value="0" name="IFN_c" public_interface="out" units="nM"/>
         <variable initial_value="0" name="TNF_c" public_interface="out" units="nM"/>
@@ -584,7 +595,6 @@
         <!-- mapping-->
         <variable initial_value="2000" name="pLck" public_interface="out" units="nM"/>
         <variable initial_value="4000" name="RacGDP" public_interface="out" units="nM"/>
-        <variable name="V_PLC_lat" public_interface="out" units="nM"/>
     </component>
     <component name="NFATcyc_interface">
         <variable name="nuclearNFATpercent" public_interface="in" units="dimensionless"/>
@@ -693,8 +703,9 @@
             <component_ref component="IFN_c"/>
             <component_ref component="TNF_c"/>
             <component_ref component="GMCSF_c"/>
-            <!--Dupont 1997-->
-            <component_ref component="IP4"/>
+            <!-- Cooling 2009-->
+            <component_ref component="calcium"/>
+            <!-- Dupont 1997-->
             <component_ref component="R_des"/>
             <component_ref component="C_cyto"/>
             <component_ref component="I_ra"/>
@@ -703,7 +714,6 @@
             <component_ref component="V_PLC"/>
             <component_ref component="V_3K"/>
             <component_ref component="V_5P"/>
-            <component_ref component="V_15P"/>
             <!--receptor to PI3K-->
             <component_ref component="FCepsilonRI"/>
             <component_ref component="PI3K"/>
@@ -744,6 +754,7 @@
             <component_ref component="icam_mapk"/>
             <component_ref component="mapk_vav"/>
             <component_ref component="pvav_RacPAK"/>
+            <component_ref component="dupont_NFAT"/>
             <component_ref component="pi3k_vav"/>
             <component_ref component="PAK_MEK"/>
             <component_ref component="dephospho_pzap_bySHP"/>
@@ -763,7 +774,6 @@
         <variable name="NFAT2cyt_k_f3" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="ERKPP2cyt_k_f41" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="ERKPP2cyt_k_f43" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
-        <variable name="vm_vcw" private_interface="out" public_interface="in" units="dimensionless"/>
         <variable name="CytRel_k_f4" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="CytRel_k_f5" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="CytRel_k_f6" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
@@ -772,8 +782,6 @@
         <variable name="PI3K_k_f2" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
         <variable name="PI3K_k_r2" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="PI3K_k_f3" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
-        <variable name="PI3K_V_PLC" private_interface="out" public_interface="in" units="flux"/>
-        <variable name="PI3K_K_PLC" private_interface="out" public_interface="in" units="nM"/>
         <variable name="hG_activating_dl4_k_f10" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
         <variable name="hG_activating_dl4_k_r10" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hgdl4_FC_k_f21" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
@@ -798,25 +806,25 @@
         <variable name="hC_activating_kir2dl_k_f1" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
         <variable name="hC_activating_kir2dl_k_r1" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hC_activating_kir2dl_k_f2" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
-        <variable name="hC_activating_kir2dl_k_r2" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hC_activating_kir2dl_k_r2" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hC_activating_kir2dl_k_f3" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hC_activating_kir2dl_k_f4" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
         <variable name="hC_activating_kir2dl_k_r4" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hC_activating_kir2dl_k_f5" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hC_activating_kir2dl_k_f6" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hC_activating_kir2dl_k_r6" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
-        <variable name="hC_activating_kir2dl_k_f7" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="hC_activating_kir2dl_k_f7" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hG_activating_kir2dl4_k_f11" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
         <variable name="hG_activating_kir2dl4_k_r11" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hG_activating_kir2dl4_k_f12" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
-        <variable name="hG_activating_kir2dl4_k_r12" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hG_activating_kir2dl4_k_r12" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hG_activating_kir2dl4_k_f13" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hG_activating_kir2dl4_k_f14" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
         <variable name="hG_activating_kir2dl4_k_r14" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hG_activating_kir2dl4_k_f15" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hG_activating_kir2dl4_k_f16" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hG_activating_kir2dl4_k_r16" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
-        <variable name="hG_activating_kir2dl4_k_f17" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="hG_activating_kir2dl4_k_f17" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hG_activating_lilrb_k_f21" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
         <variable name="hG_activating_lilrb_k_r21" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hG_activating_lilrb_k_f22" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
@@ -831,25 +839,25 @@
         <variable name="hA_activating_kir3dl1_k_f31" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
         <variable name="hA_activating_kir3dl1_k_r31" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hA_activating_kir3dl1_k_f32" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
-        <variable name="hA_activating_kir3dl1_k_r32" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hA_activating_kir3dl1_k_r32" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hA_activating_kir3dl1_k_f33" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hA_activating_kir3dl1_k_f34" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
         <variable name="hA_activating_kir3dl1_k_r34" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hA_activating_kir3dl1_k_f35" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hA_activating_kir3dl1_k_f36" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hA_activating_kir3dl1_k_r36" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
-        <variable name="hA_activating_kir3dl1_k_f37" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="hA_activating_kir3dl1_k_f37" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hB_activating_kir3dl2_k_f41" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
         <variable name="hB_activating_kir3dl2_k_r41" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hB_activating_kir3dl2_k_f42" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
-        <variable name="hB_activating_kir3dl2_k_r42" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="hB_activating_kir3dl2_k_r42" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hB_activating_kir3dl2_k_f43" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hB_activating_kir3dl2_k_f44" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
         <variable name="hB_activating_kir3dl2_k_r44" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hB_activating_kir3dl2_k_f45" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hB_activating_kir3dl2_k_f46" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hB_activating_kir3dl2_k_r46" private_interface="out" public_interface="in" units="second_order_rate_constant"/>
-        <variable name="hB_activating_kir3dl2_k_f47" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="hB_activating_kir3dl2_k_f47" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f100" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f101" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f102" private_interface="out" public_interface="in" units="first_order_rate_constant"/>
@@ -975,10 +983,10 @@
         <variable name="TNF_released" private_interface="out" public_interface="in" units="nM"/>
         <variable name="GMCSF_released" private_interface="out" public_interface="in" units="nM"/>
         <!--Dupont 1997-->
-        <variable name="R_des" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="R_des" private_interface="out" public_interface="in" units="nM"/>
         <variable name="Ca_cyto" private_interface="out" public_interface="in" units="nM"/>
-        <variable name="I_ra" private_interface="out" public_interface="in" units="dimensionless"/>
-        <variable name="I_rable" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="I_ra" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="I_rable" private_interface="out" public_interface="in" units="nM"/>
         <variable name="IP3" private_interface="out" public_interface="in" units="nM"/>
         <variable name="IP4" private_interface="out" public_interface="in" units="nM"/>
         <variable name="PI3K" private_interface="out" public_interface="in" units="nM"/>
@@ -986,7 +994,7 @@
         <variable name="pGrb2PI3K" private_interface="out" public_interface="in" units="nM"/>
         <variable name="pGrb2" private_interface="out" public_interface="in" units="nM"/>
         <variable name="Lyn" private_interface="out" public_interface="in" units="nM"/>
-        <variable name="phGdl4FC" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="pFC" private_interface="out" public_interface="in" units="nM"/>
         <variable name="Syk" private_interface="out" public_interface="in" units="nM"/>
         <variable name="pSyk" private_interface="out" public_interface="in" units="nM"/>
         <variable name="pFCLyn" private_interface="out" public_interface="in" units="nM"/>
@@ -1000,6 +1008,9 @@
         <variable name="dl4" private_interface="out" public_interface="in" units="nM"/>
         <variable name="hGdl4" private_interface="out" public_interface="in" units="nM"/>
         <variable name="hG" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="Ca" private_interface="out" public_interface="in" units="nM"/>
+        <!-- Cooling 2009-->
+        <variable name="stimEnd" private_interface="out" public_interface="in" units="s"/>
         <!--vav-->
         <variable name="vav_K19" private_interface="in" units="flux"/>
         <variable initial_value="0" name="vav_pvav" private_interface="out" units="nM"/>
@@ -1169,11 +1180,9 @@
         <!--other-->
         <variable name="J_hGdl4" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J_hGdl4FC" private_interface="out" public_interface="out" units="flux"/>
-        <variable name="J_PLCIP3" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J_3K" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J_5P" private_interface="out" public_interface="out" units="flux"/>
-        <variable name="J_15P" private_interface="out" public_interface="out" units="flux"/>
-        <variable name="J_PLC" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="V_plc" private_interface="out" public_interface="in" units="flux"/>
         <variable name="J7" private_interface="out" public_interface="out" units="flux"/>
         <variable name="JNFAT_n_cyc" private_interface="out" public_interface="out" units="flux"/>
         <variable name="JNFAT_n_IFN" private_interface="out" public_interface="out" units="flux"/>
@@ -1190,11 +1199,11 @@
         <variable name="J_hEactivation" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J9" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J_hCactivation" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_hEinhibition" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J_hCpd12" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J3" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J6" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J11" private_interface="out" public_interface="out" units="flux"/>
-        <!--        var J1: flux {pub: out, priv: out};-->
         <variable name="J12" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J_vav" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J_pvav" private_interface="out" public_interface="out" units="flux"/>
@@ -1209,13 +1218,19 @@
         <variable name="J81" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J82" private_interface="out" public_interface="out" units="flux"/>
         <variable name="J19" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="J_IP3" private_interface="out" public_interface="out" units="nM"/>
+        <variable name="inhibition_J6" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="inhibition_J16" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="inhibition_J26" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="inhibition_J36" private_interface="out" public_interface="out" units="flux"/>
+        <variable name="inhibition_J46" private_interface="out" public_interface="out" units="flux"/>
         <!-- cytokines-->
         <variable name="IFN_c" private_interface="out" public_interface="in" units="nM"/>
         <variable name="TNF_c" private_interface="out" public_interface="in" units="nM"/>
         <variable name="GMCSF_c" private_interface="out" public_interface="in" units="nM"/>
         <!--mapping-->
         <variable name="pLck" private_interface="out" public_interface="in" units="nM"/>
-        <variable name="V_PLC_lat" private_interface="out" public_interface="in" units="nM"/>
+        <variable name="V_PLC_lat" private_interface="out" public_interface="out" units="flux"/>
     </component>
     <connection>
         <map_components component_1="environment" component_2="geometry"/>
@@ -1228,7 +1243,6 @@
         <map_variables variable_1="NFAT2cyt_k_f3" variable_2="NFAT2cyt_k_f3"/>
         <map_variables variable_1="ERKPP2cyt_k_f41" variable_2="ERKPP2cyt_k_f41"/>
         <map_variables variable_1="ERKPP2cyt_k_f43" variable_2="ERKPP2cyt_k_f43"/>
-        <map_variables variable_1="vm_vcw" variable_2="vm_vcw"/>
         <map_variables variable_1="CytRel_k_f4" variable_2="CytRel_k_f4"/>
         <map_variables variable_1="CytRel_k_f5" variable_2="CytRel_k_f5"/>
         <map_variables variable_1="CytRel_k_f6" variable_2="CytRel_k_f6"/>
@@ -1237,8 +1251,6 @@
         <map_variables variable_1="PI3K_k_f2" variable_2="PI3K_k_f2"/>
         <map_variables variable_1="PI3K_k_r2" variable_2="PI3K_k_r2"/>
         <map_variables variable_1="PI3K_k_f3" variable_2="PI3K_k_f3"/>
-        <map_variables variable_1="PI3K_V_PLC" variable_2="PI3K_V_PLC"/>
-        <map_variables variable_1="PI3K_K_PLC" variable_2="PI3K_K_PLC"/>
         <map_variables variable_1="hG_activating_dl4_k_f10" variable_2="hG_activating_dl4_k_f10"/>
         <map_variables variable_1="hG_activating_dl4_k_r10" variable_2="hG_activating_dl4_k_r10"/>
         <map_variables variable_1="hgdl4_FC_k_f21" variable_2="hgdl4_FC_k_f21"/>
@@ -1502,7 +1514,6 @@ Dupont 1997-->
         <map_variables variable_1="NFATN_n" variable_2="NFATN_n"/>
         <map_variables variable_1="NFATp_c" variable_2="NFATp_c"/>
         <map_variables variable_1="NFATp_n" variable_2="NFATp_n"/>
-        <!--vars Ca and Ca;-->
         <map_variables variable_1="nuclearNFATpercent" variable_2="nuclearNFATpercent"/>
         <map_variables variable_1="nuclearNFAT" variable_2="nuclearNFAT"/>
         <map_variables variable_1="NFATN_c_percent" variable_2="NFATN_c_percent"/>
@@ -1527,7 +1538,7 @@ Dupont 1997-->
         <map_variables variable_1="pGrb2PI3K" variable_2="pGrb2PI3K"/>
         <map_variables variable_1="pGrb2" variable_2="pGrb2"/>
         <map_variables variable_1="Lyn" variable_2="Lyn"/>
-        <map_variables variable_1="phGdl4FC" variable_2="phGdl4FC"/>
+        <map_variables variable_1="pFC" variable_2="pFC"/>
         <map_variables variable_1="Syk" variable_2="Syk"/>
         <map_variables variable_1="pSyk" variable_2="pSyk"/>
         <map_variables variable_1="pFCLyn" variable_2="pFCLyn"/>
@@ -1541,6 +1552,7 @@ Dupont 1997-->
         <map_variables variable_1="dl4" variable_2="dl4"/>
         <map_variables variable_1="hGdl4" variable_2="hGdl4"/>
         <map_variables variable_1="hG" variable_2="hG"/>
+        <map_variables variable_1="Ca" variable_2="Ca"/>
         <!--MAPK to TNF-->
         <map_variables variable_1="MEKPP" variable_2="MEKPP"/>
         <map_variables variable_1="MEKP" variable_2="MEKP"/>
@@ -1599,7 +1611,6 @@ Dupont 1997-->
         <!--mapping-->
         <map_variables variable_1="pLck" variable_2="pLck"/>
         <map_variables variable_1="RacGDP" variable_2="RacGDP"/>
-        <map_variables variable_1="V_PLC_lat" variable_2="V_PLC_lat"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="calcineurin"/>
@@ -1609,7 +1620,7 @@ Dupont 1997-->
         <map_variables variable_1="K_mN" variable_2="K_mN"/>
         <map_variables variable_1="n" variable_2="n"/>
         <map_variables variable_1="K_dN" variable_2="K_dN"/>
-        <map_variables variable_1="Ca_cyto" variable_2="Ca"/>
+        <map_variables variable_1="J_IP3" variable_2="Ca"/>
         <map_variables variable_1="act_N" variable_2="act_N"/>
     </connection>
     <connection>
@@ -1761,15 +1772,17 @@ Dupont 1997-->
         <map_components component_1="IP3" component_2="geometry"/>
         <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="IP3" variable_2="IP3"/>
-        <map_variables variable_1="V_PLC" variable_2="J_PLCIP3"/>
         <map_variables variable_1="V_3K" variable_2="J_3K"/>
         <map_variables variable_1="V_5P" variable_2="J_5P"/>
     </connection>
     <connection>
+        <map_components component_1="V_PLC" component_2="IP3"/>
+        <map_variables variable_1="V_PLC_pi3k" variable_2="V_PLC_pi3k"/>
+    </connection>
+    <connection>
         <map_components component_1="V_PLC" component_2="geometry"/>
         <map_variables variable_1="gamma" variable_2="gamma"/>
-        <map_variables variable_1="V_plc" variable_2="J_PLC"/>
-        <map_variables variable_1="V_PLC" variable_2="J_PLCIP3"/>
+        <map_variables variable_1="V_plc" variable_2="V_plc"/>
         <map_variables variable_1="PI3Kstar" variable_2="PI3Kstar"/>
     </connection>
     <connection>
@@ -1786,28 +1799,9 @@ Dupont 1997-->
         <map_components component_1="V_5P" component_2="geometry"/>
         <map_variables variable_1="V_5P" variable_2="J_5P"/>
         <map_variables variable_1="IP3" variable_2="IP3"/>
-        <map_variables variable_1="IP4" variable_2="IP4"/>
         <map_variables variable_1="V_p1" variable_2="V_p1"/>
         <map_variables variable_1="K_p1" variable_2="K_p1"/>
         <map_variables variable_1="K_p2" variable_2="K_p2"/>
-    </connection>
-    <connection>
-        <map_components component_1="V_15P" component_2="geometry"/>
-        <map_variables variable_1="time" variable_2="time"/>
-        <map_variables variable_1="V_15P" variable_2="J_15P"/>
-        <map_variables variable_1="IP3" variable_2="IP3"/>
-        <map_variables variable_1="IP4" variable_2="IP4"/>
-        <map_variables variable_1="V_p2" variable_2="V_p2"/>
-        <map_variables variable_1="K_p2" variable_2="K_p2"/>
-        <map_variables variable_1="K_p1" variable_2="K_p1"/>
-    </connection>
-    <connection>
-        <map_components component_1="IP4" component_2="geometry"/>
-        <map_variables variable_1="time" variable_2="time"/>
-        <map_variables variable_1="k" variable_2="k"/>
-        <map_variables variable_1="V_3K" variable_2="J_3K"/>
-        <map_variables variable_1="IP4" variable_2="IP4"/>
-        <map_variables variable_1="V_15P" variable_2="J_15P"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="PI3K"/>
@@ -1817,9 +1811,7 @@ Dupont 1997-->
         <map_variables variable_1="PI3K_k_f3" variable_2="k_f3"/>
         <map_variables variable_1="pGrb2" variable_2="pGrb2"/>
         <map_variables variable_1="PI3K" variable_2="PI3K"/>
-        <map_variables variable_1="J_PLC" variable_2="V_plc"/>
         <map_variables variable_1="pGrb2PI3K" variable_2="pGrb2PI3K"/>
-        <map_variables variable_1="J_PLC" variable_2="J_PLC"/>
         <map_variables variable_1="J7" variable_2="J7"/>
     </connection>
     <connection>
@@ -1836,9 +1828,9 @@ Dupont 1997-->
         <map_variables variable_1="FCepsilonRI_k_r6" variable_2="k_r6"/>
         <map_variables variable_1="FCepsilonRI_k_f7" variable_2="k_f7"/>
         <map_variables variable_1="Lyn" variable_2="Lyn"/>
-        <map_variables variable_1="FC" variable_2="FC"/>
         <map_variables variable_1="hGdl4FC" variable_2="hGdl4FC"/>
-        <map_variables variable_1="phGdl4FC" variable_2="pFC"/>
+        <map_variables variable_1="FC" variable_2="FC"/>
+        <map_variables variable_1="pFC" variable_2="pFC"/>
         <map_variables variable_1="Syk" variable_2="Syk"/>
         <map_variables variable_1="pSyk" variable_2="pSyk"/>
         <map_variables variable_1="pGrb2" variable_2="pGrb2"/>
@@ -1918,6 +1910,7 @@ Dupont 1997-->
         <map_variables variable_1="pshp" variable_2="pshp"/>
         <map_variables variable_1="pshp_cd94" variable_2="pshp_cd94"/>
         <map_variables variable_1="J19" variable_2="J19"/>
+        <map_variables variable_1="J_hEinhibition" variable_2="J_hEinhibition"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="RacPAK"/>
@@ -2187,6 +2180,10 @@ Dupont 1997-->
         <map_variables variable_1="J25" variable_2="J25"/>
     </connection>
     <connection>
+        <map_components component_1="plc" component_2="pzap70"/>
+        <map_variables variable_1="J25" variable_2="J25"/>
+    </connection>
+    <connection>
         <map_components component_1="shc" component_2="PI3K_hatakeyama"/>
         <map_variables variable_1="J26" variable_2="J26"/>
     </connection>
@@ -2289,6 +2286,7 @@ Dupont 1997-->
         <map_variables variable_1="hEpd12" variable_2="hEpd12"/>
         <map_variables variable_1="hEd12plck" variable_2="hEd12plck"/>
         <map_variables variable_1="hEpd12cd45" variable_2="hEpd12cd45"/>
+        <map_variables variable_1="J_hEinhibition" variable_2="J_hEinhibition"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="hC_activating_kir2ds1"/>
@@ -2330,6 +2328,8 @@ Dupont 1997-->
         <map_variables variable_1="hC_activating_kir2dl_k_f6" variable_2="k_f6"/>
         <map_variables variable_1="hC_activating_kir2dl_k_r6" variable_2="k_r6"/>
         <map_variables variable_1="hC_activating_kir2dl_k_f7" variable_2="k_f7"/>
+        <map_variables variable_1="inhibition_J6" variable_2="J6"/>
+        <map_variables variable_1="J_hCactivation" variable_2="J_hCactivation"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="hG_activating_kir2dl4"/>
@@ -2351,6 +2351,7 @@ Dupont 1997-->
         <map_variables variable_1="hG_activating_kir2dl4_k_f16" variable_2="k_f16"/>
         <map_variables variable_1="hG_activating_kir2dl4_k_r16" variable_2="k_r16"/>
         <map_variables variable_1="hG_activating_kir2dl4_k_f17" variable_2="k_f17"/>
+        <map_variables variable_1="inhibition_J16" variable_2="J16"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="hG_activating_lilrb"/>
@@ -2372,6 +2373,7 @@ Dupont 1997-->
         <map_variables variable_1="hG_activating_lilrb_k_f26" variable_2="k_f26"/>
         <map_variables variable_1="hG_activating_lilrb_k_r26" variable_2="k_r26"/>
         <map_variables variable_1="hG_activating_lilrb_k_f27" variable_2="k_f27"/>
+        <map_variables variable_1="inhibition_J26" variable_2="J26"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="hA_activating_kir3dl1"/>
@@ -2393,6 +2395,7 @@ Dupont 1997-->
         <map_variables variable_1="hA_activating_kir3dl1_k_f36" variable_2="k_f36"/>
         <map_variables variable_1="hA_activating_kir3dl1_k_r36" variable_2="k_r36"/>
         <map_variables variable_1="hA_activating_kir3dl1_k_f37" variable_2="k_f37"/>
+        <map_variables variable_1="inhibition_J36" variable_2="J36"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="hB_activating_kir3dl2"/>
@@ -2414,6 +2417,7 @@ Dupont 1997-->
         <map_variables variable_1="hB_activating_kir3dl2_k_f46" variable_2="k_f46"/>
         <map_variables variable_1="hB_activating_kir3dl2_k_r46" variable_2="k_r46"/>
         <map_variables variable_1="hB_activating_kir3dl2_k_f47" variable_2="k_f47"/>
+        <map_variables variable_1="inhibition_J46" variable_2="J46"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="hC_mapk"/>
@@ -2469,6 +2473,12 @@ Dupont 1997-->
         <map_variables variable_1="RacGDP" variable_2="RacGDP"/>
     </connection>
     <connection>
+        <map_components component_1="geometry" component_2="dupont_NFAT"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="IP3" variable_2="IP3"/>
+        <map_variables variable_1="J_IP3" variable_2="J_IP3"/>
+    </connection>
+    <connection>
         <map_components component_1="geometry" component_2="pi3k_vav"/>
         <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="vav" variable_2="vav"/>
@@ -2496,11 +2506,14 @@ Dupont 1997-->
     <connection>
         <map_components component_1="geometry" component_2="lat_plc"/>
         <map_variables variable_1="plat" variable_2="plat"/>
-        <map_variables variable_1="J_PLC" variable_2="V_plc"/>
+        <map_variables variable_1="V_plc" variable_2="V_plc"/>
         <map_variables variable_1="V_PLC_lat" variable_2="V_PLC_lat"/>
+        <map_variables variable_1="gamma" variable_2="gamma"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="shp"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="inhibition_shp" variable_2="shp"/>
         <map_variables variable_1="pshp_kir2dl" variable_2="pshp_kir2dl"/>
         <map_variables variable_1="pshp_dl4" variable_2="pshp_dl4"/>
         <map_variables variable_1="pshp_lil" variable_2="pshp_lil"/>
@@ -2512,6 +2525,11 @@ Dupont 1997-->
         <map_variables variable_1="J81" variable_2="J81"/>
         <map_variables variable_1="J82" variable_2="J82"/>
         <map_variables variable_1="J19" variable_2="J19"/>
+        <map_variables variable_1="inhibition_J6" variable_2="J6"/>
+        <map_variables variable_1="inhibition_J16" variable_2="J16"/>
+        <map_variables variable_1="inhibition_J26" variable_2="J26"/>
+        <map_variables variable_1="inhibition_J36" variable_2="J36"/>
+        <map_variables variable_1="inhibition_J46" variable_2="J46"/>
     </connection>
     <connection>
         <map_components component_1="geometry" component_2="dephospho_pzap_bySHP"/>
@@ -2533,6 +2551,24 @@ Dupont 1997-->
         <map_variables variable_1="plc" variable_2="plc"/>
         <map_variables variable_1="J81" variable_2="J81"/>
         <map_variables variable_1="J82" variable_2="J82"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="calcium"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="stimEnd" variable_2="stimEnd"/>
+        <map_variables variable_1="Ca" variable_2="Ca"/>
+    </connection>
+    <connection>
+        <map_components component_1="hG_activating_dl4" component_2="hG_activating_kir2dl4"/>
+        <map_variables variable_1="J_hGdl4inhibition" variable_2="J_hGdl4inhibition"/>
+    </connection>
+    <connection>
+        <map_components component_1="hG_activating_dl4" component_2="hG_activating_lilrb"/>
+        <map_variables variable_1="J_hGinhibitionlil" variable_2="J_hGinhibitionlil"/>
+    </connection>
+    <connection>
+        <map_components component_1="hgdl4_FC" component_2="FCepsilonRI"/>
+        <map_variables variable_1="J_hGdl4FC" variable_2="J_hGdl4FC"/>
     </connection>
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">

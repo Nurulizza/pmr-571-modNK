@@ -67,7 +67,7 @@
                     <ci>icamitgzap70</ci>
                 </apply>
             </apply>
-            <!--ode(icamitg, time) = J1-J11;-->
+            <!--ode(icamitg, time) = J1-J11; //in comp itg_receptor-->
             <apply>
                 <eq/>
                 <apply>
@@ -84,7 +84,7 @@
                 </apply>
             </apply>
         </math>
-        <!--ode(pzap70, t) = J12;-->
+        <!--ode(pzap70, t) = J12; //in comp pzap70-->
     </component>
     <connection>
         <map_components component_1="environment" component_2="icam_mapk"/>

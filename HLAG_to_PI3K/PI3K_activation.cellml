@@ -32,12 +32,10 @@
         <variable name="pGrb2" public_interface="in" units="nM"/>
         <variable name="PI3K" public_interface="in" units="nM"/>
         <variable name="pGrb2PI3K" public_interface="in" units="nM"/>
-        <variable name="V_plc" public_interface="in" units="flux"/>
         <!--fluxes-->
         <variable name="J2" units="flux"/>
-        <variable name="PI3K_J3" public_interface="out" units="flux"/>
         <variable name="J7" public_interface="in" units="flux"/>
-        <variable name="J_PLC" public_interface="in" units="flux"/>
+        <variable name="PI3K_J3" public_interface="out" units="flux"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
                 <eq/>
@@ -65,12 +63,6 @@
                     <ci>k_f3</ci>
                     <ci>pGrb2PI3K</ci>
                 </apply>
-            </apply>
-            <!--J_PLC = V_PLC*PI3Kstar/(K_PLC+PI3Kstar);-->
-            <apply>
-                <eq/>
-                <ci>J_PLC</ci>
-                <ci>V_plc</ci>
             </apply>
             <apply>
                 <eq/>

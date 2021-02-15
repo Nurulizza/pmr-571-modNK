@@ -44,7 +44,7 @@
         <variable name="J23" units="flux"/>
         <variable name="J24" units="flux"/>
         <variable name="J25" units="flux"/>
-        <variable name="J26" public_interface="out" units="flux"/>
+        <variable name="J26" public_interface="in" units="flux"/>
         <variable name="J27" units="flux"/>
         <variable name="J_hGinhibitionlil" public_interface="out" units="flux"/>
         <variable name="k_f21" public_interface="in" units="second_order_rate_constant"/>
@@ -177,7 +177,7 @@
                     <ci>J21</ci>
                 </apply>
             </apply>
-            <!--ode(hG, time) = -J21;-->
+            <!--ode(hG, time) = -J21; #in comp HLAG_receptor-->
             <apply>
                 <eq/>
                 <apply>
@@ -261,7 +261,7 @@
                     <ci>J25</ci>
                 </apply>
             </apply>
-            <!--        ode(shp, time) = -J26;-->
+            <!--        ode(shp, time) = -J26; #in comp shp-->
             <apply>
                 <eq/>
                 <apply>

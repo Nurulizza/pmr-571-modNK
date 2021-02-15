@@ -31,6 +31,7 @@
         <variable name="J11" units="flux"/>
         <variable name="J_hEpd12" public_interface="in" units="flux"/>
         <variable name="J_hEactivation" public_interface="in" units="flux"/>
+        <variable name="J_hEinhibition" public_interface="in" units="flux"/>
         <variable name="k_f8" public_interface="in" units="second_order_rate_constant"/>
         <variable name="k_r8" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f9" public_interface="in" units="second_order_rate_constant"/>
@@ -124,7 +125,21 @@
                     <ci>J8</ci>
                 </apply>
             </apply>
-            <!--ode(hE, t) = -J8;-->
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hE</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <ci>J_hEactivation</ci>
+                    <ci>J_hEinhibition</ci>
+                </apply>
+            </apply>
             <apply>
                 <eq/>
                 <apply>
@@ -185,6 +200,6 @@
                 </apply>
             </apply>
         </math>
-        <!--ode(hEpd12, t) = J11;-->
+        <!--ode(hEpd12, t) = J11; #in mapping_a-->
     </component>
 </model>

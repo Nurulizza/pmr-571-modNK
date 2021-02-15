@@ -14,8 +14,7 @@
         <component component_ref="V_5P" name="V_5P"/>
         <component component_ref="V_15P" name="V_15P"/>
     </import>
-    <!--
- nM units-->
+    <!-- nM units-->
     <units name="s">
         <unit units="second"/>
     </units>
@@ -94,7 +93,7 @@
         <variable initial_value="100.0" name="IP4" public_interface="out" units="nM"/>
         <variable name="I_ra" public_interface="out" units="dimensionless"/>
         <variable name="I_rable" public_interface="out" units="dimensionless"/>
-        <variable name="V_PLC" public_interface="out" units="flux"/>
+        <variable name="V_PLC_pi3k" public_interface="out" units="flux"/>
         <variable name="V_3K" public_interface="out" units="flux"/>
         <variable name="V_5P" public_interface="out" units="flux"/>
         <variable name="V_15P" public_interface="out" units="flux"/>
@@ -147,7 +146,7 @@
         <variable name="I_rable" private_interface="out" public_interface="in" units="dimensionless"/>
         <variable name="IP3" private_interface="out" public_interface="in" units="nM"/>
         <variable name="IP4" private_interface="out" public_interface="in" units="nM"/>
-        <variable name="V_PLC" private_interface="out" public_interface="in" units="flux"/>
+        <variable name="V_PLC_pi3k" private_interface="out" public_interface="in" units="flux"/>
         <variable name="V_3K" private_interface="out" public_interface="in" units="flux"/>
         <variable name="V_5P" private_interface="out" public_interface="in" units="flux"/>
         <variable name="V_15P" private_interface="out" public_interface="in" units="flux"/>
@@ -189,7 +188,7 @@
         <map_variables variable_1="I_rable" variable_2="I_rable"/>
         <map_variables variable_1="IP3" variable_2="IP3"/>
         <map_variables variable_1="IP4" variable_2="IP4"/>
-        <map_variables variable_1="V_PLC" variable_2="V_PLC"/>
+        <map_variables variable_1="V_PLC_pi3k" variable_2="V_PLC_pi3k"/>
         <map_variables variable_1="V_3K" variable_2="V_3K"/>
         <map_variables variable_1="V_5P" variable_2="V_5P"/>
         <map_variables variable_1="V_15P" variable_2="V_15P"/>
@@ -239,7 +238,7 @@
         <map_components component_1="IP3" component_2="geometry"/>
         <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="IP3" variable_2="IP3"/>
-        <map_variables variable_1="V_PLC" variable_2="V_PLC"/>
+        <map_variables variable_1="V_PLC_pi3k" variable_2="V_PLC_pi3k"/>
         <map_variables variable_1="V_3K" variable_2="V_3K"/>
         <map_variables variable_1="V_5P" variable_2="V_5P"/>
     </connection>
@@ -247,7 +246,7 @@
         <map_components component_1="V_PLC" component_2="geometry"/>
         <map_variables variable_1="gamma" variable_2="gamma"/>
         <map_variables variable_1="V_plc" variable_2="V_plc"/>
-        <map_variables variable_1="V_PLC" variable_2="V_PLC"/>
+        <map_variables variable_1="V_PLC_pi3k" variable_2="V_PLC_pi3k"/>
     </connection>
     <connection>
         <map_components component_1="V_3K" component_2="geometry"/>

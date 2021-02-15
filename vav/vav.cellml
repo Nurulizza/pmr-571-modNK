@@ -400,7 +400,7 @@
         <variable name="J16" units="flux"/>
         <variable name="J17" units="flux"/>
         <variable name="J19" public_interface="in" units="flux"/>
-        <variable name="J_hEinhibition" public_interface="out" units="flux"/>
+        <variable name="J_hEinhibition" public_interface="in" units="flux"/>
         <variable initial_value="612380" name="k_f11" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="1800" name="k_r11" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="47260.5" name="k_f12" public_interface="out" units="second_order_rate_constant"/>

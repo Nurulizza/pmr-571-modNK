@@ -25,6 +25,8 @@
     </units>
     <component name="hG_activating_dl4">
         <variable name="time" public_interface="in" units="second"/>
+        <variable name="J_hGdl4inhibition" public_interface="in" units="flux"/>
+        <variable name="J_hGinhibitionlil" public_interface="in" units="flux"/>
         <variable name="k_f10" public_interface="in" units="second_order_rate_constant"/>
         <variable name="k_r10" public_interface="in" units="first_order_rate_constant"/>
         <variable name="dl4" public_interface="in" units="nM"/>
@@ -60,8 +62,13 @@
                     <ci>hG</ci>
                 </apply>
                 <apply>
-                    <minus/>
-                    <ci>J_hGdl4</ci>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <ci>J_hGdl4</ci>
+                    </apply>
+                    <ci>J_hGdl4inhibition</ci>
+                    <ci>J_hGinhibitionlil</ci>
                 </apply>
             </apply>
             <apply>
@@ -127,7 +134,5 @@
                 </apply>
             </apply>
         </math>
-        <!--ode(free_FC, time) = -J_hGdl4FC;
-ode(hGdl4FC, time) = J_hGdl4FC;-->
     </component>
 </model>

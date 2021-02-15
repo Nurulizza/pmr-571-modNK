@@ -44,20 +44,20 @@
         <variable name="J13" units="flux"/>
         <variable name="J14" units="flux"/>
         <variable name="J15" units="flux"/>
-        <variable name="J16" public_interface="out" units="flux"/>
+        <variable name="J16" public_interface="in" units="flux"/>
         <variable name="J17" units="flux"/>
         <variable name="J_hGdl4inhibition" public_interface="out" units="flux"/>
         <variable name="k_f11" public_interface="in" units="second_order_rate_constant"/>
         <variable name="k_r11" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f12" public_interface="in" units="second_order_rate_constant"/>
-        <variable name="k_r12" public_interface="in" units="nM"/>
+        <variable name="k_r12" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f13" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f14" public_interface="in" units="second_order_rate_constant"/>
         <variable name="k_r14" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f15" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f16" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_r16" public_interface="in" units="second_order_rate_constant"/>
-        <variable name="k_f17" public_interface="in" units="flux"/>
+        <variable name="k_f17" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hG" public_interface="in" units="nM"/>
         <variable name="kir2dl4" public_interface="in" units="nM"/>
         <variable name="shp" public_interface="in" units="nM"/>
@@ -177,7 +177,7 @@
                     <ci>J11</ci>
                 </apply>
             </apply>
-            <!--ode(hG, time) = -J11;-->
+            <!--ode(hG, time) = -J11; #in HLAG_receptor-->
             <apply>
                 <eq/>
                 <apply>
@@ -261,7 +261,7 @@
                     <ci>J15</ci>
                 </apply>
             </apply>
-            <!--ode(shp, time) = -J16;-->
+            <!--ode(shp, time) = -J16; #in comp shp-->
             <apply>
                 <eq/>
                 <apply>

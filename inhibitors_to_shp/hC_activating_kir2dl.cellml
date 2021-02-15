@@ -41,20 +41,21 @@
         <variable name="J3" units="flux"/>
         <variable name="J4" units="flux"/>
         <variable name="J5" units="flux"/>
-        <variable name="J6" public_interface="out" units="flux"/>
+        <variable name="J6" public_interface="in" units="flux"/>
         <variable name="J7" units="flux"/>
         <variable name="J_hCinhibition" public_interface="out" units="flux"/>
+        <variable name="J_hCactivation" public_interface="in" units="flux"/>
         <variable name="k_f1" public_interface="in" units="second_order_rate_constant"/>
         <variable name="k_r1" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f2" public_interface="in" units="second_order_rate_constant"/>
-        <variable name="k_r2" public_interface="in" units="nM"/>
+        <variable name="k_r2" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f3" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f4" public_interface="in" units="second_order_rate_constant"/>
         <variable name="k_r4" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f5" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f6" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_r6" public_interface="in" units="second_order_rate_constant"/>
-        <variable name="k_f7" public_interface="in" units="flux"/>
+        <variable name="k_f7" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hC" public_interface="in" units="nM"/>
         <variable name="kir2dl" public_interface="in" units="nM"/>
         <variable name="shp" public_interface="in" units="nM"/>
@@ -174,7 +175,21 @@
                     <ci>J1</ci>
                 </apply>
             </apply>
-            <!--de(hC, time) = -J1;-->
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>hC</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <ci>J_hCinhibition</ci>
+                    <ci>J_hCactivation</ci>
+                </apply>
+            </apply>
             <apply>
                 <eq/>
                 <apply>

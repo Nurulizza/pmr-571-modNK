@@ -34,10 +34,12 @@
         <variable name="J6" public_interface="in" units="flux"/>
         <variable name="J12" public_interface="in" units="flux"/>
         <variable name="J23" public_interface="in" units="flux"/>
+        <variable name="J25" public_interface="in" units="flux"/>
         <variable name="J26" public_interface="in" units="flux"/>
         <variable name="J27" public_interface="in" units="flux"/>
         <variable name="J71" public_interface="in" units="flux"/>
         <variable name="pzap70" public_interface="in" units="nM"/>
+        <!--ode(pzap70, time) = J3+J6+J12-J23-J26-J27-J71;-->
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
                 <eq/>
@@ -57,21 +59,24 @@
                             <apply>
                                 <minus/>
                                 <apply>
-                                    <plus/>
-                                    <ci>J3</ci>
-                                    <ci>J6</ci>
-                                    <ci>J12</ci>
+                                    <minus/>
+                                    <apply>
+                                        <plus/>
+                                        <ci>J3</ci>
+                                        <ci>J6</ci>
+                                        <ci>J12</ci>
+                                    </apply>
+                                    <ci>J23</ci>
                                 </apply>
-                                <ci>J23</ci>
+                                <ci>J26</ci>
                             </apply>
-                            <ci>J26</ci>
+                            <ci>J27</ci>
                         </apply>
-                        <ci>J27</ci>
+                        <ci>J25</ci>
                     </apply>
                     <ci>J71</ci>
                 </apply>
             </apply>
         </math>
-        <!--ode(pzap70, t) = J3+J6+J4+J12-J23-J26-J27-J25-J71;-->
     </component>
 </model>

@@ -44,19 +44,19 @@
         <variable name="J43" units="flux"/>
         <variable name="J44" units="flux"/>
         <variable name="J45" units="flux"/>
-        <variable name="J46" public_interface="out" units="flux"/>
+        <variable name="J46" public_interface="in" units="flux"/>
         <variable name="J47" units="flux"/>
         <variable name="k_f41" public_interface="in" units="second_order_rate_constant"/>
         <variable name="k_r41" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f42" public_interface="in" units="second_order_rate_constant"/>
-        <variable name="k_r42" public_interface="in" units="nM"/>
+        <variable name="k_r42" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f43" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f44" public_interface="in" units="second_order_rate_constant"/>
         <variable name="k_r44" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f45" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_f46" public_interface="in" units="first_order_rate_constant"/>
         <variable name="k_r46" public_interface="in" units="second_order_rate_constant"/>
-        <variable name="k_f47" public_interface="in" units="flux"/>
+        <variable name="k_f47" public_interface="in" units="first_order_rate_constant"/>
         <variable name="hB" public_interface="in" units="nM"/>
         <variable name="kir3dl2" public_interface="in" units="nM"/>
         <variable name="shp" public_interface="in" units="nM"/>

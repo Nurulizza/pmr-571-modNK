@@ -840,6 +840,10 @@ vars J_PLC and J_PLC;-->
         <map_variables variable_1="hgdl4_FC_k_f21" variable_2="k_f21"/>
         <map_variables variable_1="hgdl4_FC_k_r21" variable_2="k_r21"/>
     </connection>
+    <connection>
+        <map_components component_1="hgdl4_FC" component_2="FCepsilonRI"/>
+        <map_variables variable_1="J_hGdl4FC" variable_2="J_hGdl4FC"/>
+    </connection>
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">
             <creator xmlns="http://purl.org/dc/elements/1.1/">

@@ -17,6 +17,8 @@
         <unit exponent="-1" units="s"/>
     </units>
     <component name="shp">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="shp" public_interface="in" units="nM"/>
         <variable name="pshp" public_interface="out" units="nM"/>
         <variable name="pshp_kir2dl" public_interface="in" units="nM"/>
         <variable name="pshp_dl4" public_interface="in" units="nM"/>
@@ -29,7 +31,42 @@
         <variable name="J72" public_interface="in" units="flux"/>
         <variable name="J81" public_interface="in" units="flux"/>
         <variable name="J82" public_interface="in" units="flux"/>
+        <variable name="J6" public_interface="in" units="flux"/>
+        <variable name="J16" public_interface="in" units="flux"/>
+        <variable name="J26" public_interface="in" units="flux"/>
+        <variable name="J36" public_interface="in" units="flux"/>
+        <variable name="J46" public_interface="in" units="flux"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>shp</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <minus/>
+                            <apply>
+                                <minus/>
+                                <apply>
+                                    <minus/>
+                                    <ci>J6</ci>
+                                </apply>
+                                <ci>J16</ci>
+                            </apply>
+                            <ci>J26</ci>
+                        </apply>
+                        <ci>J36</ci>
+                    </apply>
+                    <ci>J46</ci>
+                </apply>
+            </apply>
             <apply>
                 <eq/>
                 <ci>pshp</ci>
